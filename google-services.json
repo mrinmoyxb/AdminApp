@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "484608572642",
+    "project_id": "alsalamadminapp",
+    "storage_bucket": "alsalamadminapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484608572642:android:3e47d6f38179eb3d3672bb",
+        "android_client_info": {
+          "package_name": "com.alsalam.alsalamadminapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHCWyVGZYgLm9RjKW8PhvcVACfHTG-Niw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
