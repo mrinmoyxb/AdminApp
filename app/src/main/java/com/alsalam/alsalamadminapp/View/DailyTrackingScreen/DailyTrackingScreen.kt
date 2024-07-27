@@ -141,6 +141,8 @@ fun DailyTrackingScreen(navController: NavHostController, balanceViewModel: Bala
             GradeCard(heading = "", grade = "Tuition Fees", onClick = {navController.navigate("todayTuitionFeeCollected")})
             Spacer(modifier = Modifier.height(5.dp))
             GradeCard(heading = "", grade = "Expenditures", onClick = {navController.navigate("todayExpenditure")})
+            Spacer(modifier = Modifier.height(5.dp))
+            GradeCard(heading = "", grade = "Other Fee", onClick = {navController.navigate("todayExpenditure")})
         }
     }
 }

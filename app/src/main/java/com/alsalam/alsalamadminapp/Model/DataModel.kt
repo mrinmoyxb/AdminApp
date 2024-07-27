@@ -77,8 +77,11 @@ data class Teacher(
     val teacherName: String,
     val subject: Subjects,
     val salary: Double,
+    val dateOfAppointment: String,
+    val qualification: String,
+    val bioData: String
 ){
-    constructor(): this("", Subjects.NULL, 0.0)
+    constructor(): this("", Subjects.NULL, 0.0, "", "", "")
 }
 
 

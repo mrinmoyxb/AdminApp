@@ -33,7 +33,7 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
         @SuppressLint("SimpleDateFormat")
         val formatter = SimpleDateFormat("dd_MM_yyyy")
         private val newDate: String = formatter.format(Date(currentDate.time))
-        val gradeSelected: MutableStateFlow<Int> = MutableStateFlow<Int>(0)
+        val gradeSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
         val currentStudentName: MutableStateFlow<String> = MutableStateFlow<String>("")
         val currentActiveRollNo: MutableStateFlow<String> = MutableStateFlow<String>("")
 

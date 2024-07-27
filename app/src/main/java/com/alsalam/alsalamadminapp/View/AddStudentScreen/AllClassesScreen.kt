@@ -30,22 +30,24 @@ fun AllClassesScreen(navController: NavHostController, viewModel: AddStudentView
     Scaffold(
         floatingActionButton = { FloatingButton(navController, route = "addStudent")}
     ) {
-
-       Box(modifier = Modifier.fillMaxWidth().height(45.dp)){}
+        val grades: List<String> = listOf("Ankur", "PP", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI(Arts)", "XI(Science)", "XII(Arts)", "XII(Science)")
+        Box(modifier = Modifier.fillMaxWidth().height(45.dp)){}
         LazyColumn(modifier = Modifier
             .fillMaxWidth()
             .background(colorResource(id = R.color.secondary_gray))
             .padding(horizontal = 10.dp, vertical = 40.dp))
         {
-            items(12){item ->
-                Spacer(modifier = Modifier.height(8.dp))
-                GradeCard(grade = (item+1).toString()) {
-                    viewModel.onGradeSelected(item + 1)
-                    navController.navigate("displayStudentGradeWise")
-                    viewModel.loadStudents()
+            item {
+                grades.forEach { grade ->
+                    Spacer(modifier = Modifier.height(8.dp))
+                    GradeCard(grade = grade) {
+                        viewModel.onGradeSelected(grade)
+                        navController.navigate("displayStudentGradeWise")
+                        viewModel.loadStudents()
+                    }
                 }
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
-
     }
 }

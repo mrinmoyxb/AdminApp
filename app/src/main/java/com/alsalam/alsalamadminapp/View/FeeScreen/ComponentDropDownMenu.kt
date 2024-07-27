@@ -48,6 +48,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alsalam.alsalamadminapp.R
+import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 
 // drop down menu
@@ -123,82 +124,6 @@ fun CustomDropDownMenuFeesPaid(viewModel: PaymentViewModel) {
         }
     }
 }
-
-
-// drop down menu - service
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("StateFlowValueCalledInComposition")
-@Composable
-fun CustomDropDownMenuService(viewModel: PaymentViewModel) {
-    var isExpanded by remember { mutableStateOf(false) }
-    val options: List<String> = listOf("Tuition", "Hostel")
-    var category by remember { mutableStateOf(options[0]) }
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val myTextInputService: TextInputService? = null
-
-    when(category){
-        "Tuition" -> viewModel.serviceSelected.value = 1
-        "Hostel" -> viewModel.serviceSelected.value = 2
-    }
-
-    CompositionLocalProvider(
-        LocalTextInputService provides myTextInputService
-    ) {
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .fillMaxWidth()
-                .height(65.dp)
-                .clickable { keyboardController?.hide() }
-                .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
-        ) {
-            ExposedDropdownMenuBox(expanded = isExpanded,
-                onExpandedChange = { isExpanded = !isExpanded }) {
-                TextField(
-                    value = category, onValueChange = {},
-                    modifier = Modifier
-                        .menuAnchor()
-                        .fillMaxSize(),
-                    textStyle = TextStyle(
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Medium, color = Color.White
-                    ),
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
-                    readOnly = true,
-                    colors = TextFieldDefaults.textFieldColors(
-                        containerColor = colorResource(id = R.color.secondary_blue),
-                        cursorColor = Color.Black,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent
-                    ),
-                    keyboardOptions = KeyboardOptions(
-                        imeAction = ImeAction.None,
-                    )
-                )
-                ExposedDropdownMenu(
-                    expanded = isExpanded,
-                    onDismissRequest = { isExpanded = false }) {
-                    options.forEach { label ->
-                        DropdownMenuItem(text = {
-                            Text(
-                                label,
-                                fontSize = 15.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color.Black
-                            )
-                        }, onClick = {
-                            category = label
-                            isExpanded = false
-                        },
-                            colors = MenuDefaults.itemColors(colorResource(id = R.color.secondary_blue))
-                        )
-                    }
-                }
-            }
-        }
-    }
-}
-
 
 // horizontal grade
 @Composable
@@ -295,3 +220,90 @@ fun FeesPaidStudentCard(name: String, roll: String, amount: String, paid: Boolea
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun CustomDropDownMenuGrade(viewModel: AddStudentViewModel) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val options: List<String> = listOf("Ankur", "PP", "Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII",
+        "Class IX", "Class X", "Class XI(Arts)", "Class XI(Science)", "Class XII(Arts)", "Class XII(Science)")
+    var category by remember { mutableStateOf(options[0]) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val myTextInputService: TextInputService? = null
+
+    when(category){
+        "Ankur" -> viewModel.className.value = "Ankur"
+        "PP" -> viewModel.className.value = "PP"
+        "Class I" -> viewModel.className.value = "I"
+        "Class II" -> viewModel.className.value = "II"
+        "Class III" -> viewModel.className.value = "III"
+        "Class IV" -> viewModel.className.value = "IV"
+        "Class V" -> viewModel.className.value = "V"
+        "Class VI" -> viewModel.className.value = "VI"
+        "Class VII" -> viewModel.className.value = "VII"
+        "Class VIII" -> viewModel.className.value = "VIII"
+        "Class IX" -> viewModel.className.value = "IX"
+        "Class X" -> viewModel.className.value = "X"
+        "Class XI(Arts)" -> viewModel.className.value = "XI(Arts)"
+        "Class XI(Science)" -> viewModel.className.value = "XI(Science)"
+        "Class XII(Arts)" -> viewModel.className.value = "XII(Arts)"
+        "Class XII(Science)" -> viewModel.className.value = "XII(Science)"
+    }
+
+    CompositionLocalProvider(
+        LocalTextInputService provides myTextInputService
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(65.dp)
+                .clickable { keyboardController?.hide() }
+                .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
+        ) {
+            ExposedDropdownMenuBox(expanded = isExpanded,
+                onExpandedChange = { isExpanded = !isExpanded }) {
+                TextField(
+                    value = category, onValueChange = {},
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxSize(),
+                    textStyle = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium, color = Color.White
+                    ),
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                    readOnly = true,
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_blue),
+                        cursorColor = Color.Black,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.None,
+                    )
+                )
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }) {
+                    options.forEach { label ->
+                        DropdownMenuItem(text = {
+                            Text(
+                                label,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        }, onClick = {
+                            category = label
+                            isExpanded = false
+                        },
+                            colors = MenuDefaults.itemColors(colorResource(id = R.color.secondary_blue))
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

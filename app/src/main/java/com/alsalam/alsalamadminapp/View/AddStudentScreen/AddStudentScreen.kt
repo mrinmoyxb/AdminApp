@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.UploadCard
+import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuGrade
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -48,6 +49,7 @@ fun AddStudentScreen(){
     val studentRollNo by addStudentViewModel.studentRollNo.collectAsState("")
     val studentDateOfBirth by addStudentViewModel.studentDateOfBirth.collectAsState("")
     val className by addStudentViewModel.className.collectAsState("")
+    val studentId by addStudentViewModel.studentId.collectAsState("")
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         addStudentViewModel.handleImageUri(uri)
@@ -104,13 +106,16 @@ fun AddStudentScreen(){
 
         // grade:
         Spacer(modifier = Modifier.height(8.dp))
-        OutlinedTextField(value = className,
-            onValueChange = {addStudentViewModel.className.value= it},
-            label = { Text("Enter grade", fontSize = 15.sp) },
-            placeholder = { Text("e.g: Enter 1 for class 1") },
+        CustomDropDownMenuGrade(viewModel = addStudentViewModel)
+
+        // student id
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter student id", fontSize = 15.sp) },
+            placeholder = { Text("name_rollno_grade") },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = colorResource(id = R.color.secondary_gray1)
             )
@@ -123,11 +128,13 @@ fun AddStudentScreen(){
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.secondary_blue)),
             onClick = {
-                if(studentName.isEmpty() && studentRollNo.isEmpty() && studentDateOfBirth.isEmpty() && className.isEmpty()){
+                if(studentName.isEmpty() || studentRollNo.isEmpty() || studentDateOfBirth.isEmpty() || className.isEmpty() || studentId.isEmpty()){
                     Toast.makeText(context, "Enter all the details", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    addStudentViewModel.addStudentByRollNo()
+                    addStudentViewModel.addStudentByStudentID()
+                    addStudentViewModel.addStudentFireStore()
+                    addStudentViewModel.addAllStudent()
                     Toast.makeText(context, "Successfully Added", Toast.LENGTH_SHORT).show()
                 }
             })

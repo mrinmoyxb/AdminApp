@@ -55,6 +55,9 @@ fun AddTeachingStaff(){
     val teacherName by teacherViewModel.teacherName.collectAsState("")
     val teacherSalary by teacherViewModel.salary.collectAsState("")
     val subjects by teacherViewModel.subject.collectAsState("")
+    val dateOfAppointment by teacherViewModel.dateOfAppointemnt.collectAsState("")
+    val qualification by teacherViewModel.qualification.collectAsState("")
+    val bioData by teacherViewModel.bioData.collectAsState("")
 
     Scaffold(topBar = { CustomTopBar(text = "Add Staff")})
     {
@@ -123,6 +126,48 @@ fun AddTeachingStaff(){
                 })
             }
             Spacer(modifier = Modifier.height(30.dp))
+
+            // date of appointment:
+            OutlinedTextField(
+                value = teacherSalary,
+                onValueChange = { teacherViewModel.dateOfAppointemnt.value = it.toString() },
+                label = { Text("Enter date of appointment", fontSize = 15.sp) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = colorResource(id = R.color.secondary_gray1)
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // qualification:
+            OutlinedTextField(
+                value = teacherSalary,
+                onValueChange = { teacherViewModel.qualification.value = it.toString() },
+                label = { Text("Enter qualification", fontSize = 15.sp) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = colorResource(id = R.color.secondary_gray1)
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // bio data:
+            OutlinedTextField(
+                value = teacherSalary,
+                onValueChange = { teacherViewModel.bioData.value = it.toString() },
+                label = { Text("Enter bio data", fontSize = 15.sp) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = colorResource(id = R.color.secondary_gray1)
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
 
             // salary:
             OutlinedTextField(

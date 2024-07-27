@@ -25,7 +25,7 @@ class AdmissionFeeViewModel: ViewModel() {
     var othersFee: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     var totalFee: MutableStateFlow<Double> = MutableStateFlow<Double>(0.0)
-    var gradeSelected: MutableStateFlow<Int> = MutableStateFlow<Int>(-1)
+    var gradeSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentActiveRollNo: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     private val currentDate = Date()

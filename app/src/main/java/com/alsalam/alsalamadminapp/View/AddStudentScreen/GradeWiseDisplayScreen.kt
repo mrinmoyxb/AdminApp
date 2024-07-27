@@ -34,10 +34,10 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                            dailyExpenseViewModel: DailyCollectionViewModel)
 {
     val students by viewModel.students.observeAsState(emptyList())
-    val gradeSelected by viewModel._gradeSelected.collectAsState()
+    val gradeSelected by viewModel._gradeSelected.collectAsState("")
     val context = LocalContext.current
 
-    Scaffold(topBar = { CustomTopBar(text = "Students of grade $gradeSelected")})
+    Scaffold(topBar = { CustomTopBar(text = "Students of class $gradeSelected")})
     {
             LazyColumn(
                 modifier = Modifier

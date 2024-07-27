@@ -8,11 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
-import com.alsalam.alsalamadminapp.Model.PaymentTypes
-import com.alsalam.alsalamadminapp.Model.StudentFee
 import com.alsalam.alsalamadminapp.Model.StudentInfo
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -26,14 +22,16 @@ class AddStudentViewModel: ViewModel() {
     var studentRollNo: MutableStateFlow<String> = MutableStateFlow<String>("")
     var studentDateOfBirth: MutableStateFlow<String> = MutableStateFlow<String>("")
     var className: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var studentId: MutableStateFlow<String> = MutableStateFlow<String>("") // <name_roll_grade>
 
     // section 2 -> image section
     var studentImage: MutableLiveData<Uri?> = MutableLiveData()
     var uploadProgress: MutableLiveData<Int> = MutableLiveData(0)
 
     // Students fetched from database
-    var gradeSelected: MutableStateFlow<Int> = MutableStateFlow(0)
-    var _gradeSelected: StateFlow<Int> = gradeSelected
+    var gradeSelected: MutableStateFlow<String> = MutableStateFlow("")
+    var _gradeSelected: StateFlow<String> = gradeSelected
+
     private val _students = MutableLiveData<List<StudentInfo>>()
     val students: LiveData<List<StudentInfo>> = _students
 
@@ -45,11 +43,11 @@ class AddStudentViewModel: ViewModel() {
 
 
     // ADD STUDENT INFO:
-    // Primary Key = Roll.No
-    fun addStudentByRollNo() {
+    // Primary Key = Student id
+    fun addStudentByStudentID() {
         val student: StudentInfo = StudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value)
         val classRef = FirebaseDatabaseManager.classRef.child(className.value)
-        val studentRef = classRef.child(studentRollNo.value)
+        val studentRef = classRef.child(studentId.value)
 
         studentRef.setValue(student)
             .addOnSuccessListener {
@@ -65,6 +63,43 @@ class AddStudentViewModel: ViewModel() {
             .addOnFailureListener { exception ->
                 Log.e("StudentAddError", "Error adding student: $exception")
             }
+    }
+
+    fun addAllStudent() {
+        val student: StudentInfo = StudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value)
+        val studentRef = FirebaseDatabaseManager.allStudentRef.child(studentId.value)
+        studentRef.setValue(student)
+            .addOnSuccessListener {
+                if (studentImage.value != null) {
+                    uploadStudentImage(studentRollNo.value) { imageUrl ->
+                        student.imageUrl = imageUrl
+                        studentRef.updateChildren(mapOf("imageUrl" to imageUrl))
+                    }
+                }
+                reset()
+                Log.d("StudentAdd", "Student added successfully with roll number: $studentRollNo")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StudentAddError", "Error adding student: $exception")
+            }
+    }
+
+    fun addStudentFireStore() {
+        viewModelScope.launch {
+            val student: StudentInfo = StudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value)
+            FirebaseDatabaseManager.firestoreRef
+                .collection("StudentsAdmin")
+                .document("Students")
+                .collection("${studentId.value}")
+                .add(student)
+                .addOnSuccessListener {
+                    reset()
+                    Log.d("Firebase FireStore Success", "record updated successfully!")
+                }
+                .addOnFailureListener {
+                    Log.d("Firebase FireStore Failed", "record updated successfully!")
+                }
+        }
     }
 
 
@@ -95,15 +130,14 @@ class AddStudentViewModel: ViewModel() {
 
 
     // grade selected
-    fun onGradeSelected(grade: Int) {
+    fun onGradeSelected(grade: String) {
         gradeSelected.value = grade
     }
-
 
     // Fetch students from database based on class
     fun loadStudents() {
         viewModelScope.launch {
-            val classRef = FirebaseDatabaseManager.classRef.child(gradeSelected.value.toString())
+            val classRef = FirebaseDatabaseManager.classRef.child(gradeSelected.value)
             classRef.get().addOnSuccessListener { dataSnapshot ->
                 val studentsList = mutableListOf<StudentInfo>()
                 dataSnapshot.children.forEach { child ->
@@ -124,6 +158,7 @@ class AddStudentViewModel: ViewModel() {
         studentRollNo.value = ""
         studentDateOfBirth.value = ""
         className.value = ""
+        studentId.value = ""
     }
 }
 

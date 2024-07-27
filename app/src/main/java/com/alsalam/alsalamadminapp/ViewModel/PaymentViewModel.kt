@@ -20,7 +20,7 @@ class PaymentViewModel: ViewModel() {
     var currentPaymentAmount: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentIsFeePaid: MutableStateFlow<Boolean> = MutableStateFlow<Boolean>(false)
     var serviceSelected: MutableStateFlow<Int> = MutableStateFlow<Int>(-1)
-    var gradeSelected: MutableStateFlow<Int> = MutableStateFlow<Int>(0)
+    var gradeSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     // fetched data
     val studentsPaymentFetched = MutableStateFlow<List<StudentFee>>(emptyList())
@@ -75,7 +75,7 @@ class PaymentViewModel: ViewModel() {
     }
 
     // SELECT GRADE
-    fun selectGrade(grade: Int) {
+    fun selectGrade(grade: String) {
         gradeSelected.value = grade
     }
 

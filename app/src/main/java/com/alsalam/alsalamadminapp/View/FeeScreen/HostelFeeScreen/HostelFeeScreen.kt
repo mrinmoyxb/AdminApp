@@ -62,7 +62,7 @@ fun HostelFeeScreen(navController: NavHostController) {
                 ) {
                     items(12) { item ->
                         CustomHorizontalCard(grade = (item + 1).toString(), onClick = {
-                            viewModel.selectGrade(item + 1)
+                            viewModel.selectGrade((item + 1).toString())
                             //viewModel.fetchHostelFeesPerStudent()
                         })
                         Spacer(modifier = Modifier.width(5.dp))

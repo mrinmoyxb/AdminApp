@@ -12,6 +12,7 @@ object FirebaseDatabaseManager {
     // database reference
     val database = Firebase.database
     val classRef = database.getReference("Students")
+    val allStudentRef = database.getReference("AllStudents")
     val teacherRef = database.getReference("Teachers")
     val dailyCollection = database.getReference("DailyCollection")
     val dailyExpenditure = database.getReference("DailyExpenditure")

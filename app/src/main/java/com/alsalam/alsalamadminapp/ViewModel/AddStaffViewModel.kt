@@ -22,6 +22,9 @@ class AddStaffViewModel: ViewModel(){
     var teacherName: MutableStateFlow<String> = MutableStateFlow<String>("")
     var subject: MutableStateFlow<Subjects> = MutableStateFlow<Subjects>(Subjects.NULL)
     var salary: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var dateOfAppointemnt: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var qualification: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var bioData: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     // section 2 -> image section
     var teacherImage: MutableLiveData<Uri?> = MutableLiveData()
@@ -35,17 +38,10 @@ class AddStaffViewModel: ViewModel(){
     // teacher fetched
     val teacher: MutableStateFlow<List<Teacher>> = MutableStateFlow<List<Teacher>>(emptyList())
 
-    // Students fetched from database
-//    var gradeSelected: MutableStateFlow<Int> = MutableStateFlow(0)
-//    var _gradeSelected: StateFlow<Int> = gradeSelected
-//    private val _students = MutableLiveData<List<StudentInfo>>()
-//    val students: LiveData<List<StudentInfo>> = _students
-
-
     // ADD TEACHER INFO:
     fun addTeacherBySubject() {
         viewModelScope.launch {
-            val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble())
+            val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble(), dateOfAppointemnt.value, qualification.value, bioData.value)
             val randomId = randomStringGenerator()
             FirebaseDatabaseManager.firestoreRef
                 .collection("Teachers")
@@ -63,7 +59,7 @@ class AddStaffViewModel: ViewModel(){
     }
 
     fun addTeacher() {
-        val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble())
+        val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble(), dateOfAppointemnt.value, qualification.value, bioData.value)
         val teacherRef = FirebaseDatabaseManager.teacherRef.child(subject.value.toString())
         val studentRef = teacherRef.child("${subject.value}_${teacherName.value}")
 
@@ -123,5 +119,8 @@ class AddStaffViewModel: ViewModel(){
         teacherName.value = ""
         subject.value = Subjects.NULL
         salary.value = ""
+        dateOfAppointemnt.value = ""
+        qualification.value = ""
+        bioData.value = ""
     }
 }

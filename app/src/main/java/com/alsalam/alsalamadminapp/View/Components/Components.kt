@@ -72,7 +72,7 @@ fun FloatingButton(navController: NavHostController, route: String){
 
 // Class Grades
 @Composable
-fun GradeCard(heading: String = "Grade", grade: String, onClick: () -> Unit){
+fun GradeCard(heading: String = "Class", grade: String, onClick: () -> Unit){
 
     val context = LocalContext.current
 
