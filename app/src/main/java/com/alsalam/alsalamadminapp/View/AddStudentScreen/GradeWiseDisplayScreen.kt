@@ -22,7 +22,7 @@ import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
-import com.alsalam.alsalamadminapp.ViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 
@@ -31,7 +31,8 @@ import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 @Composable
 fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHostController, paymentViewModel: PaymentViewModel,
                            admissionVViewModel: AdmissionFeeViewModel, pdfUpload: PdfUploadAndRetrieveViewModel,
-                           dailyExpenseViewModel: DailyCollectionViewModel)
+                           dailyExpenseViewModel: DailyCollectionViewModel
+)
 {
     val students by viewModel.students.observeAsState(emptyList())
     val gradeSelected by viewModel._gradeSelected.collectAsState("")

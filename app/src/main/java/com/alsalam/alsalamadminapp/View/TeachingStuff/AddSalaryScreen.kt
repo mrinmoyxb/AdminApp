@@ -1,7 +1,8 @@
-package com.alsalam.alsalamadminapp.View.FeeScreen
+package com.alsalam.alsalamadminapp.View.TeachingStuff
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,20 +19,26 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
-import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
-import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
-import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
+import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuFeesPaid
+import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuMonth
+import com.alsalam.alsalamadminapp.View.FeeScreen.FeesPaidStudentCard
+import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -40,27 +47,25 @@ import java.util.Date
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewModel: DailyCollectionViewModel, balanceViewModel: BalanceViewModel) {
-    val amount by paymentViewModel.currentPaymentAmount.collectAsState("")
-    val serviceSelected by paymentViewModel.serviceSelected.collectAsState(-1)
+fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel) {
+
     val context = LocalContext.current
-    val students by paymentViewModel.studentsPaymentFetched.collectAsState(emptyList())
+    val amount by teacherSalaryViewModel.currentTeacherSalary.collectAsState("")
 
-    val formatter = SimpleDateFormat("dd/MM/yyyy")
-
-    Scaffold(topBar = { CustomTopBar(text = "Other Fees") })
+    Scaffold(topBar = { CustomTopBar(text = "Pay Salary") })
     {
         LazyColumn(modifier = Modifier
             .fillMaxSize()
-            .padding(10.dp))
+            .padding(10.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally)
         {
             item {
-                Spacer(modifier = Modifier.height(95.dp))
                 // amount
                 OutlinedTextField(
                     value = amount,
-                    onValueChange = { paymentViewModel.currentPaymentAmount.value = it },
-                    label = { Text("Enter Amount", fontSize = 15.sp) },
+                    onValueChange = { teacherSalaryViewModel.currentTeacherSalary.value = it },
+                    label = { Text("Enter amoount", fontSize = 15.sp) },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     shape = RoundedCornerShape(10.dp),
@@ -68,48 +73,28 @@ fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMod
                         containerColor = colorResource(id = R.color.secondary_gray1)
                     )
                 )
-
-                // paid : true or false
                 Spacer(modifier = Modifier.height(10.dp))
-                Text("Paid", fontSize = 15.sp, fontWeight = FontWeight.Normal)
-                Spacer(modifier = Modifier.height(5.dp))
-                CustomDropDownMenuFeesPaid(viewModel = paymentViewModel)
-                Spacer(modifier = Modifier.height(20.dp))
+                CustomDropDownMenuMonth(viewModel = teacherSalaryViewModel)
 
                 // save button and DAILY EXPENSE
-                SaveUploadButton(title = "Save", onClick = {
+                Spacer(modifier = Modifier.height(80.dp))
+                SaveUploadButton(title = "Mark as paid", onClick = {
                     if (amount == "") {
                         Toast.makeText(context, "Please fill up the details", Toast.LENGTH_SHORT).show()
                     } else {
-                        paymentViewModel.addOtherFees()
-                        dailyCollectionViewModel.amount.value = amount.toDouble()
-                        dailyCollectionViewModel.paymentTypes.value = PaymentTypes.OtherFees
-                        dailyCollectionViewModel.storePayment()
-                        balanceViewModel.addMoney(amount.toDouble())
+                          teacherSalaryViewModel.addTeacherSalary()
+//                        dailyCollectionViewModel.amount.value = amount.toDouble()
+//                        dailyCollectionViewModel.paymentTypes.value = PaymentTypes.HostelFees
+//                        dailyCollectionViewModel.storePayment()
+//                        balanceViewModel.addMoney(amount.toDouble())
                         Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
                     }
                 })
 
-                Spacer(modifier = Modifier.height(10.dp))
-                SaveUploadButton(title = "Load Previous Payments") {
-                    paymentViewModel.fetchStudentFees()
-                }
-
                 Spacer(modifier = Modifier.height(20.dp))
-                students.forEach { student ->
-                    if (student.studentPaymentFor == PaymentTypes.OtherFees) {
-                        FeesPaidStudentCard(
-                            name = student.studentName,
-                            roll = student.studentRollNo,
-                            amount = student.studentPaymentAmount.toString(),
-                            paid = student.studentFeesPaid,
-                            date = formatter.format(Date(student.date))
-                        )
-                        Spacer(modifier = Modifier.height(7.dp))
-                    }
+
                 }
 
             }
         }
     }
-}

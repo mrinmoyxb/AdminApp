@@ -35,7 +35,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomCard
@@ -161,7 +160,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                     textHeight = 13,
                     onClick = { navHostController.navigate("addOtherFees") })
 
-                Spacer(modifier = Modifier.width(15.dp))
+                Spacer(modifier = Modifier.width(17.dp))
                 // Late Fee
                 CustomCard(
                     image = painterResource(id = R.drawable.late),

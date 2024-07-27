@@ -26,9 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
-import com.alsalam.alsalamadminapp.ViewModel.ExpenditureViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.ExpenditureViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -38,7 +39,7 @@ fun TodayExpenditure(){
     val expenditureViewModel: ExpenditureViewModel = viewModel()
     val todayCollection by expenditureViewModel.expenseList.collectAsState(emptyList())
 
-    Scaffold(topBar = { CustomTopBar(text = "Today's Expenditures") })
+    Scaffold(topBar = { CustomTopBar(text = "Expenditures") })
     {
         LaunchedEffect(Unit) {
             launch {

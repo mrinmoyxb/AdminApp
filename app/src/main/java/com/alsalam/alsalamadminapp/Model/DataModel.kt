@@ -89,6 +89,16 @@ data class Teacher(
 }
 
 
+data class TeacherSalary(
+    val teacherName: String,
+    val subject: Subjects,
+    val salary: Double,
+    val qualification: String,
+    val month: String
+){
+    constructor(): this("", Subjects.NULL, 0.0, "", "")
+}
+
 
 // DAILY EXPENSE------------------------------------------------------------------------------------//
 data class DailyExpense(

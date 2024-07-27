@@ -1,4 +1,4 @@
-package com.alsalam.alsalamadminapp.ViewModel
+package com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -42,6 +42,7 @@ class DailyCollectionViewModel: ViewModel() {
             }
     }
 
+    // fetching collections
     fun loadDailyCollection() {
         viewModelScope.launch {
             val payRef = FirebaseDatabaseManager.dailyCollection.child("Date_$newDate")
@@ -58,6 +59,7 @@ class DailyCollectionViewModel: ViewModel() {
         }
     }
 
+    // Total Collection of the day
     fun loadTotalDailyCollection() {
         viewModelScope.launch {
             val payRef = FirebaseDatabaseManager.dailyCollection.child("Date_$newDate")

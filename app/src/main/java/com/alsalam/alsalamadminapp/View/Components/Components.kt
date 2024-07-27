@@ -75,7 +75,7 @@ fun FloatingButton(navController: NavHostController, route: String){
 
 // Class Grades
 @Composable
-fun GradeCard(heading: String = "Class", grade: String, onClick: () -> Unit){
+fun GradeCard(heading: String = "Class", grade: String, fontSize: Int = 23, onClick: () -> Unit){
 
     val context = LocalContext.current
 
@@ -95,7 +95,7 @@ fun GradeCard(heading: String = "Class", grade: String, onClick: () -> Unit){
             contentAlignment = Alignment.Center)
         {
             Text("$heading $grade",
-                fontSize=23.sp,
+                fontSize=fontSize.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White
             )
@@ -278,10 +278,13 @@ fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15,
 }
 
 @Composable
-fun TeacherDisplayCard(name: String, qualification: String, address: String, dateOfAppointment: String, amount: String){
+fun TeacherDisplayCard(name: String, qualification: String, address: String, dateOfAppointment: String, amount: String, onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(180.dp),
+        .height(180.dp)
+        .clickable{
+            onClick()
+        },
         shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))

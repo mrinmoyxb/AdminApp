@@ -2,7 +2,6 @@ package com.alsalam.alsalamadminapp.View.DailyTrackingScreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,7 +29,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
-import com.alsalam.alsalamadminapp.ViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import kotlinx.coroutines.launch
 
 @Preview
@@ -41,7 +40,7 @@ fun TodayAdmission() {
     val dailCollectionViewModel: DailyCollectionViewModel = viewModel()
     val todayCollection by dailCollectionViewModel.paymentList.collectAsState(emptyList())
 
-    Scaffold(topBar = { CustomTopBar(text = "Today's Admission Fees") })
+    Scaffold(topBar = { CustomTopBar(text = "Admission Fees") })
     {
         LaunchedEffect(Unit) {
             launch {
@@ -83,8 +82,9 @@ fun TodayCollectionCard(name: String, amount: String, grade: String){
             .padding(all = 10.dp)){
             Spacer(modifier = Modifier.height(50.dp))
             Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-            Text("Class: $grade", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 22.sp)
-            Text("Amount: ₹ $amount", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("Class: $grade", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 20.sp)
+            Text("Amount: ₹ $amount", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 20.sp)
 
         }
 

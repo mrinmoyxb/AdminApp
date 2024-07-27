@@ -2,10 +2,8 @@ package com.alsalam.alsalamadminapp.View.DailyTrackingScreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
-import com.alsalam.alsalamadminapp.ViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import kotlinx.coroutines.launch
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -31,7 +29,7 @@ fun TodayTuitionFee(){
     val dailCollectionViewModel: DailyCollectionViewModel = viewModel()
     val todayCollection by dailCollectionViewModel.paymentList.collectAsState(emptyList())
 
-    Scaffold(topBar = { CustomTopBar(text = "Today's Tuition Fee") })
+    Scaffold(topBar = { CustomTopBar(text = "Tuition Fee") })
     {
         LaunchedEffect(Unit) {
             launch {

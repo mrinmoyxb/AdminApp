@@ -50,6 +50,7 @@ import androidx.compose.ui.unit.sp
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
+import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
 
 // drop down menu
 @OptIn(ExperimentalMaterial3Api::class)
@@ -153,10 +154,10 @@ fun CustomHorizontalCard(grade: String, onClick:()-> Unit){
 
 // grade display button
 @Composable
-fun GradeSelectedButton(grade: String, onClick: () -> Unit){
+fun GradeSelectedButton(grade: String, width: Int = 90, onClick: () -> Unit){
     Card(
         modifier = Modifier
-            .width(90.dp)
+            .width(width.dp)
             .height(30.dp)
             .background(Color.Transparent)
             .clickable{
@@ -288,6 +289,91 @@ fun CustomDropDownMenuGrade(viewModel: AddStudentViewModel) {
                     expanded = isExpanded,
                     onDismissRequest = { isExpanded = false }) {
                     options.forEach { label ->
+                        DropdownMenuItem(text = {
+                            Text(
+                                label,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        }, onClick = {
+                            category = label
+                            isExpanded = false
+                        },
+                            colors = MenuDefaults.itemColors(colorResource(id = R.color.secondary_blue))
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun CustomDropDownMenuMonth(viewModel: TeacherSalaryViewModel) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val months: List<String> = listOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec")
+    var category by remember { mutableStateOf(months[0]) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val myTextInputService: TextInputService? = null
+
+    when(category){
+        "Jan" -> viewModel.currentMonth.value = "Jan"
+        "Feb" -> viewModel.currentMonth.value = "Fev"
+        "Mar" -> viewModel.currentMonth.value = "Mar"
+        "Apr" -> viewModel.currentMonth.value = "Apr"
+        "May" -> viewModel.currentMonth.value = "May"
+        "Jun" -> viewModel.currentMonth.value = "Jun"
+        "Jul" -> viewModel.currentMonth.value = "Jul"
+        "Aug" -> viewModel.currentMonth.value = "Aug"
+        "Sept" -> viewModel.currentMonth.value = "Sept"
+        "Oct" -> viewModel.currentMonth.value = "Oct"
+        "Nov" -> viewModel.currentMonth.value = "Nov"
+        "Dec" -> viewModel.currentMonth.value = "Dec"
+    }
+
+    CompositionLocalProvider(
+        LocalTextInputService provides myTextInputService
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(65.dp)
+                .clickable { keyboardController?.hide() }
+                .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
+        ) {
+            ExposedDropdownMenuBox(expanded = isExpanded,
+                onExpandedChange = { isExpanded = !isExpanded }) {
+                TextField(
+                    value = category, onValueChange = {},
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxSize(),
+                    textStyle = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium, color = Color.White
+                    ),
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                    readOnly = true,
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_blue),
+                        cursorColor = Color.Black,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.None,
+                    )
+                )
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }) {
+                    months.forEach { label ->
                         DropdownMenuItem(text = {
                             Text(
                                 label,

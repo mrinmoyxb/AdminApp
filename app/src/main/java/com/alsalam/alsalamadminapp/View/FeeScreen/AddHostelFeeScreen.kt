@@ -29,8 +29,8 @@ import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
-import com.alsalam.alsalamadminapp.ViewModel.BalanceViewModel
-import com.alsalam.alsalamadminapp.ViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import java.text.SimpleDateFormat
 import java.util.Date

@@ -1,4 +1,4 @@
-package com.alsalam.alsalamadminapp.ViewModel
+package com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel
 
 import android.annotation.SuppressLint
 import android.util.Log

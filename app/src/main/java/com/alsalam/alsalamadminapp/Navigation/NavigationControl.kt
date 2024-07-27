@@ -1,11 +1,7 @@
 package com.alsalam.alsalamadminapp.Navigation
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,6 +15,8 @@ import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.DailyTrackingScreen
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayAdmission
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayExpenditure
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayHostelFees
+import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayLateFee
+import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayOtherFee
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayTuitionFee
 import com.alsalam.alsalamadminapp.View.FeeScreen.AddHostelFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.AddLateFeeScreen
@@ -33,16 +31,19 @@ import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
 import com.alsalam.alsalamadminapp.View.ResultScreen.ResultScreen
+import com.alsalam.alsalamadminapp.View.TeachingStuff.AddSalaryScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddTeachingStaff
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AllSubjectsScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.SubjectWiseTeacher
+import com.alsalam.alsalamadminapp.View.TeachingStuff.TeacherDetailSalary
 import com.alsalam.alsalamadminapp.ViewModel.AddStaffViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
-import com.alsalam.alsalamadminapp.ViewModel.BalanceViewModel
-import com.alsalam.alsalamadminapp.ViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
+import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
 
 @Preview
 @Composable
@@ -60,6 +61,8 @@ fun MainScreen(){
     val dailyCollectionViewModel: DailyCollectionViewModel = viewModel()
 
     val balanceViewModel: BalanceViewModel = viewModel()
+
+    val teacherSalaryViewModel: TeacherSalaryViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = "homeScreen"){
 
@@ -152,7 +155,15 @@ fun MainScreen(){
         }
 
         composable(route = "subjectWiseTeacher"){
-            SubjectWiseTeacher(teacherViewModel)
+            SubjectWiseTeacher(navController,teacherViewModel, teacherSalaryViewModel)
+        }
+
+        composable(route = "teacherDetailSalary"){
+           TeacherDetailSalary(navController, teacherSalaryViewModel)
+        }
+
+        composable(route = "AddSalaryScreen"){
+           AddSalaryScreen(teacherSalaryViewModel)
         }
 
         // Daily Tracking
@@ -170,6 +181,12 @@ fun MainScreen(){
         }
         composable(route = "todayExpenditure"){
             TodayExpenditure()
+        }
+        composable(route = "todayOtherFeeCollected"){
+            TodayOtherFee()
+        }
+        composable(route = "todayLateFeeCollected"){
+            TodayLateFee()
         }
 
     }
