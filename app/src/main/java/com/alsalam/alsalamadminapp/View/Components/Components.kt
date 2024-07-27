@@ -211,7 +211,7 @@ fun CustomTopBar(text: String) {
 
 // Each student Card
 @Composable
-fun StudentDisplayCard(name: String, roll: String, dob: String, onClick: () -> Unit){
+fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: String,  onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(180.dp)
@@ -226,11 +226,14 @@ fun StudentDisplayCard(name: String, roll: String, dob: String, onClick: () -> U
         Row(modifier = Modifier
             .fillMaxSize()
             .padding(12.dp)){
-            Column(modifier = Modifier.width(250.dp)){
-                Spacer(modifier = Modifier.height(50.dp))
+            Column(modifier = Modifier.width(250.dp), verticalArrangement = Arrangement.Top){
+                Spacer(modifier = Modifier.height(30.dp))
                 Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-                Text(roll, color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
-                Text(dob, color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+
+                Spacer(modifier = Modifier.height(12.dp))
+                Text("Student ID: $studentId", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                Text("DOB: $dob", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
             }
             Column(
                 modifier = Modifier.fillMaxHeight(),
@@ -250,6 +253,7 @@ fun StudentDisplayCard(name: String, roll: String, dob: String, onClick: () -> U
         }
     }
 }
+
 
 // select card
 @Composable

@@ -81,7 +81,7 @@ fun AddLateFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMode
                     if (amount == "") {
                         Toast.makeText(context, "Please fill up the details", Toast.LENGTH_SHORT).show()
                     } else {
-                        paymentViewModel.addHostelFees()
+                        paymentViewModel.addLateFees()
                         dailyCollectionViewModel.amount.value = amount.toDouble()
                         dailyCollectionViewModel.paymentTypes.value = PaymentTypes.LateFees
                         dailyCollectionViewModel.storePayment()

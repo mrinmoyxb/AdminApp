@@ -80,9 +80,9 @@ fun HostelFeeScreen(navController: NavHostController) {
 
             // student list
             item {
-                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
-                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
-                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
+//                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
+//                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
+//                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
             }
         }
     }

@@ -40,8 +40,8 @@ class PaymentViewModel: ViewModel() {
 
             FirebaseDatabaseManager.firestoreRef
                 .collection("Payments")
-                .document(gradeSelected.value)
-                .collection(currentStudentId.value)
+                .document("${gradeSelected.value}")
+                .collection("${currentStudentId.value}")
                 .add(hostelFeeOfStudent)
                 .addOnSuccessListener {
                     currentPaymentAmount.value = ""

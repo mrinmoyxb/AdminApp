@@ -50,6 +50,7 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                     Spacer(modifier = Modifier.height(85.dp))
                     students.forEach { student ->
                         StudentDisplayCard(name = student.studentName,
+                            studentId = student.studentId,
                             roll = student.rollNo,
                             dob = student.dateOfBirth,
                             onClick = {
@@ -60,7 +61,7 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                                 paymentViewModel.currentActiveRollNo.value = student.rollNo
                                 paymentViewModel.currentActiveDob.value = student.dateOfBirth
                                 paymentViewModel.gradeSelected.value = gradeSelected
-                                paymentViewModel.studentId.value = student.studentId
+                                paymentViewModel.currentStudentId.value = student.studentId
 
                                 // admission
                                 admissionVViewModel.gradeSelected.value = gradeSelected

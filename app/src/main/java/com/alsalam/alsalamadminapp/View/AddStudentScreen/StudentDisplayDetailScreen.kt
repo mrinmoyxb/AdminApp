@@ -78,25 +78,13 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                         .padding(12.dp)
                 ) {
                     Column(modifier = Modifier.width(250.dp)) {
-                        Spacer(modifier = Modifier.height(50.dp))
-                        Text(
-                            paymentViewModel.currentActiveName.value,
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 25.sp
-                        )
-                        Text(
-                            paymentViewModel.currentActiveRollNo.value,
-                            color = Color.White,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 20.sp
-                        )
-                        Text(
-                            paymentViewModel.currentActiveDob.value,
-                            color = Color.White,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 20.sp
-                        )
+                        Spacer(modifier = Modifier.height(30.dp))
+                        Text(paymentViewModel.currentActiveName.value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                        Text("Student ID: ${paymentViewModel.currentStudentId.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                        Text("Roll.No: ${paymentViewModel.currentActiveRollNo.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                        Text("DOB: ${paymentViewModel.currentActiveDob.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
                     }
                     Column(
                         modifier = Modifier.fillMaxHeight(),
@@ -161,7 +149,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
             Spacer(modifier = Modifier.height(10.dp))
 
 
-            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            Row(modifier = Modifier.fillMaxWidth()) {
                 // Other Fee
                 CustomCard(
                     image = painterResource(id = R.drawable.other),
@@ -171,8 +159,9 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                     imageHeight = 33,
                     imageWidth = 33,
                     textHeight = 13,
-                    onClick = { navHostController.navigate("admissionFeeScreen") })
+                    onClick = { navHostController.navigate("addOtherFees") })
 
+                Spacer(modifier = Modifier.width(15.dp))
                 // Late Fee
                 CustomCard(
                     image = painterResource(id = R.drawable.late),
@@ -182,7 +171,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                     imageHeight = 33,
                     imageWidth = 33,
                     textHeight = 13,
-                    onClick = { navHostController.navigate("addTuitionFees") })
+                    onClick = { navHostController.navigate("addLateFees") })
 
             }
             Spacer(modifier = Modifier.height(20.dp))
