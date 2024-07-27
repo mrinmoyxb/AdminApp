@@ -38,7 +38,8 @@ fun SubjectWiseTeacher(viewModel: AddStaffViewModel) {
             item {
                 Spacer(modifier = Modifier.height(85.dp))
                 teachers.forEach { teacher ->
-                    TeacherDisplayCard(name = teacher.teacherName, amount = teacher.salary.toString(), subject = teacher.subject.toString())
+                    TeacherDisplayCard(name = teacher.teacherName, qualification = teacher.qualification, address = teacher.addressOfTeacher,
+                        dateOfAppointment = teacher.dateOfAppointment, amount = teacher.salary.toString())
                     Spacer(modifier = Modifier.height(8.dp))
                 }
             }

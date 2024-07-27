@@ -54,8 +54,8 @@ fun AddTeachingStaff(){
 
     val teacherName by teacherViewModel.teacherName.collectAsState("")
     val teacherSalary by teacherViewModel.salary.collectAsState("")
-    val subjects by teacherViewModel.subject.collectAsState("")
-    val dateOfAppointment by teacherViewModel.dateOfAppointemnt.collectAsState("")
+    val address by teacherViewModel.addressOfTeacher.collectAsState("")
+    val dateOfAppointment by teacherViewModel.dateOfAppointment.collectAsState("")
     val qualification by teacherViewModel.qualification.collectAsState("")
     val bioData by teacherViewModel.bioData.collectAsState("")
 
@@ -129,9 +129,10 @@ fun AddTeachingStaff(){
 
             // date of appointment:
             OutlinedTextField(
-                value = teacherSalary,
-                onValueChange = { teacherViewModel.dateOfAppointemnt.value = it.toString() },
+                value = dateOfAppointment,
+                onValueChange = { teacherViewModel.dateOfAppointment.value = it.toString() },
                 label = { Text("Enter date of appointment", fontSize = 15.sp) },
+                placeholder = { Text("DD/MM/YYYY", fontSize = 15.sp) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -143,12 +144,24 @@ fun AddTeachingStaff(){
 
             // qualification:
             OutlinedTextField(
-                value = teacherSalary,
+                value = qualification,
                 onValueChange = { teacherViewModel.qualification.value = it.toString() },
                 label = { Text("Enter qualification", fontSize = 15.sp) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                colors = TextFieldDefaults.textFieldColors(
+                    containerColor = colorResource(id = R.color.secondary_gray1)
+                )
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+
+            // address:
+            OutlinedTextField(
+                value = address,
+                onValueChange = { teacherViewModel.addressOfTeacher.value = it.toString() },
+                label = { Text("Enter address", fontSize = 15.sp) },
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)
                 )
@@ -157,12 +170,11 @@ fun AddTeachingStaff(){
 
             // bio data:
             OutlinedTextField(
-                value = teacherSalary,
+                value = bioData,
                 onValueChange = { teacherViewModel.bioData.value = it.toString() },
                 label = { Text("Enter bio data", fontSize = 15.sp) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)
                 )
@@ -184,8 +196,8 @@ fun AddTeachingStaff(){
             Spacer(modifier = Modifier.height(8.dp))
 
             // button
-            SaveUploadButton(title = "Add Staff") {
-                teacherViewModel.addTeacher()
+            SaveUploadButton(title = "Add Teacher") {
+                teacherViewModel.addTeacherBySubject()
                 Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             }
         }

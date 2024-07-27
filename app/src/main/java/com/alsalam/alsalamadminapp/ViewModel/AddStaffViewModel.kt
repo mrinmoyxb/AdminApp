@@ -22,7 +22,8 @@ class AddStaffViewModel: ViewModel(){
     var teacherName: MutableStateFlow<String> = MutableStateFlow<String>("")
     var subject: MutableStateFlow<Subjects> = MutableStateFlow<Subjects>(Subjects.NULL)
     var salary: MutableStateFlow<String> = MutableStateFlow<String>("")
-    var dateOfAppointemnt: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var addressOfTeacher: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var dateOfAppointment: MutableStateFlow<String> = MutableStateFlow<String>("")
     var qualification: MutableStateFlow<String> = MutableStateFlow<String>("")
     var bioData: MutableStateFlow<String> = MutableStateFlow<String>("")
 
@@ -36,30 +37,11 @@ class AddStaffViewModel: ViewModel(){
     val currentDate = Date()
 
     // teacher fetched
-    val teacher: MutableStateFlow<List<Teacher>> = MutableStateFlow<List<Teacher>>(emptyList())
+    val teacher: MutableStateFlow<List<Teacher>> = MutableStateFlow(emptyList())
 
-    // ADD TEACHER INFO:
+
     fun addTeacherBySubject() {
-        viewModelScope.launch {
-            val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble(), dateOfAppointemnt.value, qualification.value, bioData.value)
-            val randomId = randomStringGenerator()
-            FirebaseDatabaseManager.firestoreRef
-                .collection("Teachers")
-                .document("SUBJECT_${subject.value}")
-                .collection("${subject.value}_$randomId")
-                .add(teacher)
-                .addOnSuccessListener {
-                    reset()
-                    Log.d("FireStore Success", "Completed")
-                }
-                .addOnFailureListener {
-                    Log.d("Firebase FireStore Failed", "record updated successfully!")
-                }
-        }
-    }
-
-    fun addTeacher() {
-        val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble(), dateOfAppointemnt.value, qualification.value, bioData.value)
+        val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble(), addressOfTeacher.value, dateOfAppointment.value, qualification.value, bioData.value)
         val teacherRef = FirebaseDatabaseManager.teacherRef.child(subject.value.toString())
         val studentRef = teacherRef.child("${subject.value}_${teacherName.value}")
 
@@ -95,31 +77,13 @@ class AddStaffViewModel: ViewModel(){
         teacherImage.value = uri
     }
 
-    // Fetch teachers from database based on subjects
-//    fun loadTeachersBySubject() {
-//        viewModelScope.launch {
-//            FirebaseDatabaseManager.firestoreRef
-//                .collection("Teachers")
-//                .document("SUBJECT_${subject.value}")
-//
-//                .get()
-//                .addOnSuccessListener { result ->
-//                    val fetchedData = result.toObjects(StudentFee::class.java)
-//                    studentsPaymentFetched.value = fetchedData
-//                }
-//                .addOnFailureListener { e ->
-//                    Log.w("FireStore ERROR", "Error fetching documents", e)
-//                }
-//        }
-//    }
-
-
     // Reset all the values
     fun reset() {
         teacherName.value = ""
         subject.value = Subjects.NULL
         salary.value = ""
-        dateOfAppointemnt.value = ""
+        addressOfTeacher.value = ""
+        dateOfAppointment.value = ""
         qualification.value = ""
         bioData.value = ""
     }

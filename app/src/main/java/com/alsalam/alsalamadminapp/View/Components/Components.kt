@@ -40,13 +40,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.alsalam.alsalamadminapp.Model.Teacher
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
+import kotlin.math.max
 
 
 // Floating Button
@@ -212,7 +215,7 @@ fun StudentDisplayCard(name: String, roll: String, dob: String, onClick: () -> U
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(180.dp)
-        .clickable{
+        .clickable {
             onClick()
         },
         shape = RoundedCornerShape(15.dp),
@@ -254,7 +257,7 @@ fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15,
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(height.dp)
-        .clickable{
+        .clickable {
             onClick()
         },
         shape = RoundedCornerShape(roundedCornerShape.dp),
@@ -271,20 +274,29 @@ fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15,
 }
 
 @Composable
-fun TeacherDisplayCard(name: String, amount: String, subject: String){
+fun TeacherDisplayCard(name: String, qualification: String, address: String, dateOfAppointment: String, amount: String){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(160.dp),
+        .height(180.dp),
         shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
     )
     {
-        Column(modifier = Modifier.fillMaxSize().padding(all=10.dp)){
-        Spacer(modifier = Modifier.height(50.dp))
-        Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-        Text(subject, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 22.sp)
-        Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(all = 10.dp),
+            verticalArrangement = Arrangement.Top)
+        {
+        Spacer(modifier = Modifier.height(10.dp))
+            Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
+            Text(qualification, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 25.sp)
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+            Text("Appointment: $dateOfAppointment", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
+            Text("Address: $address", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp, overflow = TextOverflow.Clip)
+            Text("Salary: ₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
 
     }
 
