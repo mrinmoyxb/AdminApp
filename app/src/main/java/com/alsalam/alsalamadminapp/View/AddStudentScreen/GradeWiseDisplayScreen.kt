@@ -60,6 +60,7 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                                 paymentViewModel.currentActiveRollNo.value = student.rollNo
                                 paymentViewModel.currentActiveDob.value = student.dateOfBirth
                                 paymentViewModel.gradeSelected.value = gradeSelected
+                                paymentViewModel.studentId.value = student.studentId
 
                                 // admission
                                 admissionVViewModel.gradeSelected.value = gradeSelected

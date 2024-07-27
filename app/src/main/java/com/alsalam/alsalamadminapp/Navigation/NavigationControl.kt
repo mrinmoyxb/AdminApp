@@ -21,6 +21,8 @@ import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayExpenditure
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayHostelFees
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayTuitionFee
 import com.alsalam.alsalamadminapp.View.FeeScreen.AddHostelFeeScreen
+import com.alsalam.alsalamadminapp.View.FeeScreen.AddLateFeeScreen
+import com.alsalam.alsalamadminapp.View.FeeScreen.AddOtherFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.AddTuitionFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.AdmissionFee.AdmissionFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.ExpenditureScreen
@@ -114,6 +116,16 @@ fun MainScreen(){
         // add tuition fee
         composable(route = "addTuitionFees"){
             AddTuitionFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
+        }
+
+        // add other fee
+        composable(route = "addOtherFees"){
+            AddOtherFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
+        }
+
+        // add late fee
+        composable(route = "addLateFees"){
+            AddLateFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
         }
         
         composable(route="hostelFees"){

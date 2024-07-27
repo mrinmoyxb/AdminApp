@@ -45,7 +45,7 @@ class AddStudentViewModel: ViewModel() {
     // ADD STUDENT INFO:
     // Primary Key = Student id
     fun addStudentByStudentID() {
-        val student: StudentInfo = StudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value)
+        val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value)
         val classRef = FirebaseDatabaseManager.classRef.child(className.value)
         val studentRef = classRef.child(studentId.value)
 
@@ -66,7 +66,7 @@ class AddStudentViewModel: ViewModel() {
     }
 
     fun addAllStudent() {
-        val student: StudentInfo = StudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value)
+        val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value)
         val studentRef = FirebaseDatabaseManager.allStudentRef.child(studentId.value)
         studentRef.setValue(student)
             .addOnSuccessListener {
@@ -86,7 +86,7 @@ class AddStudentViewModel: ViewModel() {
 
     fun addStudentFireStore() {
         viewModelScope.launch {
-            val student: StudentInfo = StudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value)
+            val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value)
             FirebaseDatabaseManager.firestoreRef
                 .collection("StudentsAdmin")
                 .document("Students")

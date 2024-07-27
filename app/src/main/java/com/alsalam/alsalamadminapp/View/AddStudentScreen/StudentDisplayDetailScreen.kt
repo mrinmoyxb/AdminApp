@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -52,133 +53,191 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
     }
     val context = LocalContext.current
 
-    Column(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .background(colorResource(id = R.color.secondary_gray1))
             .padding(10.dp)
-    ){
+    ) {
+        item {
+            Spacer(modifier = Modifier.height(45.dp))
 
-        Spacer(modifier = Modifier.height(45.dp))
-
-        // student card
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .height(180.dp),
-            shape = RoundedCornerShape(15.dp),
-            elevation = CardDefaults.cardElevation(10.dp),
-            colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
-        )
-        {
-            Row(modifier = Modifier
-                .fillMaxSize()
-                .padding(12.dp)){
-                Column(modifier = Modifier.width(250.dp)){
-                    Spacer(modifier = Modifier.height(50.dp))
-                    Text(paymentViewModel.currentActiveName.value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-                    Text(paymentViewModel.currentActiveRollNo.value, color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
-                    Text(paymentViewModel.currentActiveDob.value, color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
-                }
-                Column(
-                    modifier = Modifier.fillMaxHeight(),
-                    verticalArrangement = Arrangement.Center
-                ){
-                    Box(
-                        modifier = Modifier
-                            .height(85.dp)
-                            .width(85.dp)
-                            .clip(CircleShape)
-                            .background(Color.White),
-                        contentAlignment = Alignment.Center
-                    ){
-                        Text("Pic")
+            // student card
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(180.dp),
+                shape = RoundedCornerShape(15.dp),
+                elevation = CardDefaults.cardElevation(10.dp),
+                colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
+            )
+            {
+                Row(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(12.dp)
+                ) {
+                    Column(modifier = Modifier.width(250.dp)) {
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Text(
+                            paymentViewModel.currentActiveName.value,
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 25.sp
+                        )
+                        Text(
+                            paymentViewModel.currentActiveRollNo.value,
+                            color = Color.White,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 20.sp
+                        )
+                        Text(
+                            paymentViewModel.currentActiveDob.value,
+                            color = Color.White,
+                            fontWeight = FontWeight.Normal,
+                            fontSize = 20.sp
+                        )
+                    }
+                    Column(
+                        modifier = Modifier.fillMaxHeight(),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .height(85.dp)
+                                .width(85.dp)
+                                .clip(CircleShape)
+                                .background(Color.White),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text("Pic")
+                        }
                     }
                 }
             }
-        }
-        Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
-        GradeSelectedButton(grade = "Fees", onClick = {})
-        Spacer(modifier = Modifier.height(10.dp))
-
-        // Admission Fee
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            CustomCard(
-                image = painterResource(id = R.drawable.admission),
-                heading = "Admission Fee",
-                height = 120,
-                width = 120,
-                imageHeight = 33,
-                imageWidth = 33,
-                textHeight = 13,
-                onClick = {navHostController.navigate("admissionFeeScreen")})
-
-            // Tuition Fee
-            CustomCard(
-                image = painterResource(id = R.drawable.tuition),
-                heading = "Tuition Fee",
-                height = 120,
-                width = 120,
-                imageHeight = 33,
-                imageWidth = 33,
-                textHeight = 13,
-                onClick = {navHostController.navigate("addTuitionFees")})
-
-            // Hostel Fee
-            CustomCard(
-                image = painterResource(id = R.drawable.hostel),
-                heading = "Hostel Fee",
-                height = 120,
-                width = 120,
-                imageHeight = 33,
-                imageWidth = 33,
-                textHeight = 13,
-                onClick = {navHostController.navigate("addHostelFees")})
-        }
-        Spacer(modifier = Modifier.height(10.dp))
-
-        GradeSelectedButton(grade = "Others", onClick = {})
-        Spacer(modifier = Modifier.height(15.dp))
+            GradeSelectedButton(grade = "Fees", onClick = {})
+            Spacer(modifier = Modifier.height(10.dp))
 
 
-        // others
-        Card(modifier = Modifier
-            .fillMaxWidth()
-            .height(120.dp)
-            .clickable{ launcher.launch("application/pdf") },
-            elevation = CardDefaults.cardElevation(12.dp),
-            colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
-        ){
-            Box(modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center)
-            {
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .padding(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.result), contentDescription = "",
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Admission Fee
+                CustomCard(
+                    image = painterResource(id = R.drawable.admission),
+                    heading = "Admission Fee",
+                    height = 120,
+                    width = 120,
+                    imageHeight = 33,
+                    imageWidth = 33,
+                    textHeight = 13,
+                    onClick = { navHostController.navigate("admissionFeeScreen") })
+
+                // Tuition Fee
+                CustomCard(
+                    image = painterResource(id = R.drawable.tuition),
+                    heading = "Tuition Fee",
+                    height = 120,
+                    width = 120,
+                    imageHeight = 33,
+                    imageWidth = 33,
+                    textHeight = 13,
+                    onClick = { navHostController.navigate("addTuitionFees") })
+
+                // Hostel Fee
+                CustomCard(
+                    image = painterResource(id = R.drawable.hostel),
+                    heading = "Hostel Fee",
+                    height = 120,
+                    width = 120,
+                    imageHeight = 33,
+                    imageWidth = 33,
+                    textHeight = 13,
+                    onClick = { navHostController.navigate("addHostelFees") })
+            }
+            Spacer(modifier = Modifier.height(10.dp))
+
+
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                // Other Fee
+                CustomCard(
+                    image = painterResource(id = R.drawable.other),
+                    heading = "Other Fee",
+                    height = 120,
+                    width = 120,
+                    imageHeight = 33,
+                    imageWidth = 33,
+                    textHeight = 13,
+                    onClick = { navHostController.navigate("admissionFeeScreen") })
+
+                // Late Fee
+                CustomCard(
+                    image = painterResource(id = R.drawable.late),
+                    heading = "Late Fee",
+                    height = 120,
+                    width = 120,
+                    imageHeight = 33,
+                    imageWidth = 33,
+                    textHeight = 13,
+                    onClick = { navHostController.navigate("addTuitionFees") })
+
+            }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            GradeSelectedButton(grade = "Others", onClick = {})
+            Spacer(modifier = Modifier.height(15.dp))
+
+
+            // others
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(120.dp)
+                    .clickable { launcher.launch("application/pdf") },
+                elevation = CardDefaults.cardElevation(12.dp),
+                colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
+            ) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                )
+                {
+                    Column(
                         modifier = Modifier
-                            .width(33.dp)
-                            .height(33.dp),
-                        tint = Color.White
-                    )
+                            .fillMaxSize()
+                            .padding(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.result),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .width(33.dp)
+                                .height(33.dp),
+                            tint = Color.White
+                        )
 
-                    Spacer(modifier = Modifier.height(5.dp))
+                        Spacer(modifier = Modifier.height(5.dp))
 
-                    Text("Select Result PDF",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color.White)
+                        Text(
+                            "Select Result PDF",
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = Color.White
+                        )
+                    }
                 }
             }
-        }
 
-        Spacer(modifier = Modifier.height(5.dp))
-        SaveUploadButton(title = "Upload Result") {
-            uploadResultViewModel.selectPdfAndUpload()
-            Toast.makeText(context, "Result Uploaded", Toast.LENGTH_SHORT).show()
+            Spacer(modifier = Modifier.height(5.dp))
+            SaveUploadButton(title = "Upload Result") {
+                uploadResultViewModel.selectPdfAndUpload()
+                Toast.makeText(context, "Result Uploaded", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

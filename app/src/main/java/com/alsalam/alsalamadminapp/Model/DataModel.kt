@@ -3,11 +3,12 @@ package com.alsalam.alsalamadminapp.Model
 // STUDENT----------------------------------------------------------------------------------------//
 data class StudentInfo(
     val studentName: String,
+    val studentId: String,
     val rollNo: String,
     val dateOfBirth: String,
     var imageUrl: String? = null
 ){
-    constructor() : this("", "", "","")
+    constructor() : this("", "", "","", "")
 }
 
 
@@ -17,6 +18,8 @@ enum class PaymentTypes{
     AdmissionFees,
     TuitionFees,
     HostelFees,
+    OtherFees,
+    LateFees,
     DefaultFees
 }
 
