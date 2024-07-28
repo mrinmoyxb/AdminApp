@@ -130,8 +130,8 @@ fun CustomDropDownMenuFeesPaid(viewModel: PaymentViewModel) {
 @Composable
 fun CustomHorizontalCard(grade: String, onClick:()-> Unit){
     Card(modifier = Modifier
-        .height(100.dp)
-        .width(100.dp)
+        .height(125.dp)
+        .width(125.dp)
         .padding(5.dp)
         .clickable {
             onClick()
@@ -146,8 +146,8 @@ fun CustomHorizontalCard(grade: String, onClick:()-> Unit){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            Text(grade, fontSize = 23.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
-            Text("Grade", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = Color.White)
+            Text(grade, fontSize = 18.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
+            Text("Class", fontSize = 18.sp, fontWeight = FontWeight.Medium, color = Color.White)
         }
     }
 }

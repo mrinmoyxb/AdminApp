@@ -40,10 +40,12 @@ import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: DailyCollectionViewModel, balanceViewModel: BalanceViewModel){
+fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: DailyCollectionViewModel,
+                       balanceViewModel: BalanceViewModel, monthlyPaymentViewModel: MonthlyPaymentViewModel){
 
     val admissionFee by viewModel.admissionFee.collectAsState("")
     val examFee by viewModel.examFee.collectAsState("")
@@ -142,6 +144,10 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
                         dailyExpenseViewModel.paymentTypes.value = PaymentTypes.AdmissionFees
                         dailyExpenseViewModel.storePayment()
                         balanceViewModel.addMoney(total)
+
+                        monthlyPaymentViewModel.currentPaymentAmount.value = total.toString()
+                        monthlyPaymentViewModel.currentIsFeePaid.value = true
+                        monthlyPaymentViewModel.addMonthlyAdmissionPayment()
                         Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                     }
                 })

@@ -30,10 +30,10 @@ fun FeeScreen(navController: NavHostController){
         SelectCard(heading = "Daily Tracking", onClick = {navController.navigate("dailyTrackingScreen")})
         Spacer(modifier = Modifier.height(10.dp))
 
-        SelectCard(heading = "Admission Fees", onClick = {})
+        SelectCard(heading = "Admission Fees", onClick = {navController.navigate("admissionFees")})
         Spacer(modifier = Modifier.height(10.dp))
 
-        SelectCard(heading = "Tuition Fees", onClick = {})
+        SelectCard(heading = "Tuition Fees", onClick = {navController.navigate("tuitionFees")})
         Spacer(modifier = Modifier.height(10.dp))
 
         SelectCard(heading = "Hostel Fees", onClick = {navController.navigate("hostelFees")})

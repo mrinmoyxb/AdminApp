@@ -23,6 +23,7 @@ import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 
@@ -31,7 +32,7 @@ import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 @Composable
 fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHostController, paymentViewModel: PaymentViewModel,
                            admissionVViewModel: AdmissionFeeViewModel, pdfUpload: PdfUploadAndRetrieveViewModel,
-                           dailyExpenseViewModel: DailyCollectionViewModel
+                           dailyExpenseViewModel: DailyCollectionViewModel, monthlyPayment: MonthlyPaymentViewModel
 )
 {
     val students by viewModel.students.observeAsState(emptyList())
@@ -76,6 +77,12 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                                 // daily expense
                                 dailyExpenseViewModel.studentName.value =  student.studentName
                                 dailyExpenseViewModel.grade.value = gradeSelected.toString()
+
+                                // monthly payment
+                                monthlyPayment.currentActiveName.value = student.studentName
+                                monthlyPayment.currentActiveRollNo.value = student.rollNo
+                                monthlyPayment.gradeSelected.value = gradeSelected
+                                monthlyPayment.studentId.value = student.studentId
                             })
 
                         Spacer(modifier = Modifier.height(8.dp))

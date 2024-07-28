@@ -25,8 +25,9 @@ import com.alsalam.alsalamadminapp.View.FeeScreen.AddTuitionFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.AdmissionFee.AdmissionFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.ExpenditureScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.FeeScreen
-import com.alsalam.alsalamadminapp.View.FeeScreen.HostelFeeScreen.HostelFeeScreen
-import com.alsalam.alsalamadminapp.View.FeeScreen.TuitionFeeScreen.TuitionFeeScreen
+import com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen.AdmissionFeeDisplayScreen
+import com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen.HostelFeeScreen
+import com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen.TuitionFeeScreen
 import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
@@ -41,6 +42,7 @@ import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
@@ -64,6 +66,8 @@ fun MainScreen(){
 
     val teacherSalaryViewModel: TeacherSalaryViewModel = viewModel()
 
+    val monthlyPaymentViewModel: MonthlyPaymentViewModel = viewModel()
+
     NavHost(navController = navController, startDestination = "homeScreen"){
 
         composable(route = "homeScreen"){
@@ -75,7 +79,8 @@ fun MainScreen(){
         }
 
         composable(route = "displayStudentGradeWise"){
-            GradeWiseDisplayScreen(viewModel, navController, paymentViewModel, admissionViewModel, pdfViewModel, dailyCollectionViewModel)
+            GradeWiseDisplayScreen(viewModel, navController, paymentViewModel, admissionViewModel, pdfViewModel,
+                dailyCollectionViewModel, monthlyPaymentViewModel)
         }
 
         composable(route = "displayStudentDetail"){
@@ -106,24 +111,19 @@ fun MainScreen(){
             FeeScreen(navController)
         }
 
-        // tuition screens
-        composable(route = "tuitionFees"){
-            TuitionFeeScreen(navController)
-        }
-
         // add hostel fee
         composable(route = "addHostelFees"){
-            AddHostelFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
+            AddHostelFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel, monthlyPaymentViewModel)
         }
 
         // add tuition fee
         composable(route = "addTuitionFees"){
-            AddTuitionFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
+            AddTuitionFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel, monthlyPaymentViewModel)
         }
 
         // add other fee
         composable(route = "addOtherFees"){
-            AddOtherFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
+            AddOtherFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel, monthlyPaymentViewModel)
         }
 
         // add late fee
@@ -135,13 +135,21 @@ fun MainScreen(){
             HostelFeeScreen(navController = navController)
         }
 
+        composable(route="admissionFees"){
+            AdmissionFeeDisplayScreen(navController = navController)
+        }
+
+        composable(route="tuitionFees"){
+            TuitionFeeScreen(navController = navController)
+        }
+
         composable(route = "expenditureScreen"){
             ExpenditureScreen(balanceViewModel)
         }
 
         // add admission fee
         composable(route = "admissionFeeScreen"){
-            AdmissionFeeScreen(admissionViewModel, dailyCollectionViewModel, balanceViewModel)
+            AdmissionFeeScreen(admissionViewModel, dailyCollectionViewModel, balanceViewModel, monthlyPaymentViewModel)
         }
 
 
@@ -163,8 +171,10 @@ fun MainScreen(){
         }
 
         composable(route = "AddSalaryScreen"){
-           AddSalaryScreen(teacherSalaryViewModel)
+           AddSalaryScreen(teacherSalaryViewModel, balanceViewModel)
         }
+
+
 
         // Daily Tracking
         composable(route="dailyTrackingScreen"){

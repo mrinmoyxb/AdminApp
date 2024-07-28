@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
+import com.alsalam.alsalamadminapp.Model.StudentFee
 import com.alsalam.alsalamadminapp.Model.Subjects
 import com.alsalam.alsalamadminapp.Model.TeacherSalary
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,7 @@ class TeacherSalaryViewModel: ViewModel() {
     var currentTeacherSalary: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentTeacherQualification: MutableStateFlow<String> = MutableStateFlow<String>("")
 
-    //var currentTeacherName = subject_teacherName
+   var salaryList: MutableStateFlow<List<TeacherSalary>> = MutableStateFlow<List<TeacherSalary>>(emptyList())
 
     fun addTeacherSalary() {
         viewModelScope.launch {
@@ -34,6 +35,23 @@ class TeacherSalaryViewModel: ViewModel() {
                 }
                 .addOnFailureListener {
                     Log.d("Firebase FireStore Failed", "record updated successfully!")
+                }
+        }
+    }
+
+    fun fetchTeacherSalary() {
+        viewModelScope.launch {
+            FirebaseDatabaseManager.firestoreRef
+                .collection("TeachersSalary")
+                .document("${currentTeacherSubject.value}")
+                .collection("${currentTeacherSubject.value}_${currentTeacherName.value}")
+                .get()
+                .addOnSuccessListener { result ->
+                    val fetchedData = result.toObjects(TeacherSalary::class.java)
+                    salaryList.value = fetchedData
+                }
+                .addOnFailureListener { e ->
+                    Log.w("FireStore ERROR", "Error fetching documents", e)
                 }
         }
     }

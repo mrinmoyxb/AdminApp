@@ -31,6 +31,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
@@ -38,6 +39,8 @@ import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuFeesPaid
 import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuMonth
 import com.alsalam.alsalamadminapp.View.FeeScreen.FeesPaidStudentCard
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
+import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.ExpenditureViewModel
 import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -47,10 +50,11 @@ import java.util.Date
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel) {
+fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel, balanceViewModel: BalanceViewModel) {
 
     val context = LocalContext.current
     val amount by teacherSalaryViewModel.currentTeacherSalary.collectAsState("")
+    val expenditureViewModel: ExpenditureViewModel = viewModel()
 
     Scaffold(topBar = { CustomTopBar(text = "Pay Salary") })
     {
@@ -83,10 +87,10 @@ fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel) {
                         Toast.makeText(context, "Please fill up the details", Toast.LENGTH_SHORT).show()
                     } else {
                           teacherSalaryViewModel.addTeacherSalary()
-//                        dailyCollectionViewModel.amount.value = amount.toDouble()
-//                        dailyCollectionViewModel.paymentTypes.value = PaymentTypes.HostelFees
-//                        dailyCollectionViewModel.storePayment()
-//                        balanceViewModel.addMoney(amount.toDouble())
+                          expenditureViewModel.amount.value = amount
+                          expenditureViewModel.category.value = "TeacherSalary"
+                          expenditureViewModel.addExpense()
+                          balanceViewModel.deductMoney(amount.toDouble())
                         Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show()
                     }
                 })

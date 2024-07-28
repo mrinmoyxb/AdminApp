@@ -31,6 +31,7 @@ import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -40,7 +41,7 @@ import java.util.Date
 )
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewModel: DailyCollectionViewModel, balanceViewModel: BalanceViewModel) {
+fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewModel: DailyCollectionViewModel, balanceViewModel: BalanceViewModel, monthlyPaymentViewModel: MonthlyPaymentViewModel) {
     val amount by paymentViewModel.currentPaymentAmount.collectAsState("")
     val serviceSelected by paymentViewModel.serviceSelected.collectAsState(-1)
     val context = LocalContext.current

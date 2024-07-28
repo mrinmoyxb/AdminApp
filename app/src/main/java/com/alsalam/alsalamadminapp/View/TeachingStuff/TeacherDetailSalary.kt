@@ -22,6 +22,9 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,13 +38,23 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.FloatingButton
+import com.alsalam.alsalamadminapp.View.Components.GradeCard
+import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.View.FeeScreen.GradeSelectedButton
 import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @Composable
 fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel: TeacherSalaryViewModel){
+
+    val salaryList by teacherSalaryViewModel.salaryList.collectAsState(emptyList())
+
     Scaffold(floatingActionButton = { FloatingButton(navController = navController, route = "AddSalaryScreen")}) {
+
+        LaunchedEffect(Unit) {
+            teacherSalaryViewModel.fetchTeacherSalary()
+        }
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -78,11 +91,14 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
                 Spacer(modifier = Modifier.height(30.dp))
 
                 // Salary
-                GradeSelectedButton(grade = "Salary", onClick = {})
+                GradeCard(grade = "Salary", onClick = {})
                 Spacer(modifier = Modifier.height(10.dp))
 
                 // Months
-
+                salaryList.forEach { s ->
+                    MonthCard(month = s.month, amount = s.salary.toString())
+                    Spacer(modifier = Modifier.height(5.dp))
+                }
 
             }
         }
@@ -90,31 +106,24 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
 }
 
 @Composable
-fun MonthCard(grade: String, onClick: () -> Unit){
+fun MonthCard(month: String, amount: String){
 
     val context = LocalContext.current
 
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(100.dp)
-        .background(Color.Transparent)
-        .clickable {
-            onClick()
-        },
+        .height(120.dp)
+        .background(Color.Transparent),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue)))
     {
-        Box(modifier = Modifier
-            .fillMaxSize(),
-            contentAlignment = Alignment.Center)
-        {
-            Text(
-                grade,
-                fontSize=20.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Color.White
-            )
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp),
+            verticalArrangement = Arrangement.Center){
+            Text(month.toString(), fontSize = 25.sp, color = Color.White, fontWeight = FontWeight.Bold)
+            Text("₹ ${amount.toString()}", fontSize = 25.sp, color = Color.White, fontWeight = FontWeight.Medium)
         }
     }
 }

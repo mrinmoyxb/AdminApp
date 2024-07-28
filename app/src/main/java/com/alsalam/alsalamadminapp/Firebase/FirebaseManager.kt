@@ -17,6 +17,10 @@ object FirebaseDatabaseManager {
     val dailyCollection = database.getReference("DailyCollection")
     val dailyExpenditure = database.getReference("DailyExpenditure")
 
+    val monthlyHostelPayment = database.getReference("MonthlyHostelPayment")
+    val monthlyAdmissionPayment = database.getReference("MonthlyAdmissionPayment")
+    val monthlyTuitionPayment = database.getReference("MonthlyTuitionPayment")
+
     val balanceRef = database.getReference("Balance")
 
     // storage reference

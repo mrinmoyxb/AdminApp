@@ -1,4 +1,4 @@
-package com.alsalam.alsalamadminapp.View.FeeScreen.HostelFeeScreen
+package com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -29,23 +29,22 @@ import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.StudentDisplayCard
 import com.alsalam.alsalamadminapp.View.FeeScreen.CustomHorizontalCard
 import com.alsalam.alsalamadminapp.View.FeeScreen.GradeSelectedButton
+import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun HostelFeeScreen(navController: NavHostController) {
-    val viewModel: PaymentViewModel = viewModel()
-    val gradeSelectedByAdmin by viewModel.gradeSelected.collectAsState(0)
-    val studentPaymentList by viewModel.studentsPaymentFetched.collectAsState(emptyList())
-
-    var choice by remember { mutableIntStateOf(-1) }
-    val context = LocalContext.current
-    val formatter = SimpleDateFormat("dd/MM/yy")
+    val viewModel: MonthlyPaymentViewModel = viewModel()
+    val gradeSelectedByAdmin by viewModel.fetchGradeSelected.collectAsState(0)
+    val output by viewModel.students.collectAsState(emptyList())
 
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = { CustomTopBar(text = "Hostel Fee") })
     {
+        val grades: List<String> = listOf("Ankur", "PP", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI(Arts)", "XI(Science)", "XII(Arts)", "XII(Science)")
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -60,29 +59,40 @@ fun HostelFeeScreen(navController: NavHostController) {
                     modifier = Modifier
                         .fillMaxWidth()
                 ) {
-                    items(12) { item ->
-                        CustomHorizontalCard(grade = (item + 1).toString(), onClick = {
-                            viewModel.selectGrade((item + 1).toString())
-                            //viewModel.fetchHostelFeesPerStudent()
-                        })
-                        Spacer(modifier = Modifier.width(5.dp))
+                    item {
+                        grades.forEach { grade ->
+                            CustomHorizontalCard(
+                                grade = grade,
+                                onClick = {
+                                    viewModel.fetchGradeSelected.value = grade
+                                    viewModel.loadMonthlyHostelPayment()
+                                })
+                        }
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
 
                 // grade selected button
+                Spacer(modifier = Modifier.height(15.dp))
                 Row(modifier = Modifier.fillMaxWidth()) {
                     GradeSelectedButton(grade = "Grade $gradeSelectedByAdmin", onClick = {})
                     Spacer(modifier = Modifier.width(7.dp))
                 }
                 Spacer(modifier = Modifier.height(10.dp))
-            }
 
-            // student list
-            item {
-//                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
-//                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
-//                StudentDisplayCard(name = "Student1", roll = "1", dob = "20/10/2002", onClick = {})
+
+                // student list
+                output.forEach { student ->
+                    if (student.studentGrade == gradeSelectedByAdmin) {
+                        StudentDisplayCard(
+                            name = student.studentName,
+                            studentId = "",
+                            roll = student.studentRollNo,
+                            dob = "",
+                            onClick = {})
+                    }
+                    Spacer(modifier = Modifier.height(5.dp))
+
+                }
             }
         }
     }

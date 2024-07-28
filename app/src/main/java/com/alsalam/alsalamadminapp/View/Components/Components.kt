@@ -226,7 +226,7 @@ fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: Strin
         Row(modifier = Modifier
             .fillMaxSize()
             .padding(12.dp)){
-            Column(modifier = Modifier.width(250.dp), verticalArrangement = Arrangement.Top){
+            Column(modifier = Modifier.width(270.dp), verticalArrangement = Arrangement.Top){
                 Spacer(modifier = Modifier.height(30.dp))
                 Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
 

@@ -119,3 +119,18 @@ data class Balance(
 ){
     constructor(): this(0.0)
 }
+
+
+
+// MONTHLY PAYMENT ---------------------------------------------------------------------------------//
+data class MonthlyPayment(
+    val studentName: String,
+    val studentGrade: String,
+    val studentRollNo: String,
+    val studentPaymentFor: PaymentTypes,
+    val studentPaymentAmount: Double,
+    val date: Long,
+    val studentFeesPaid: Boolean
+){
+    constructor(): this("","", "", PaymentTypes.DefaultFees, 0.0, 0, false)
+}
