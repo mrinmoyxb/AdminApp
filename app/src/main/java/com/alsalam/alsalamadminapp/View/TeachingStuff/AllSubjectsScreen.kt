@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -28,13 +29,13 @@ fun AllSubjectsScreen(navController: NavHostController, viewModel: AddStaffViewM
     Scaffold(
         floatingActionButton = {
             FloatingButton(navController = navController, route = "addTeachingStaff")
-        }
+        },
     ) {
         Box(modifier = Modifier
             .fillMaxWidth()
             .height(45.dp)){}
         LazyColumn(modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .background(colorResource(id = R.color.secondary_gray1))
             .padding(horizontal = 10.dp, vertical = 40.dp))
         {
@@ -47,6 +48,7 @@ fun AllSubjectsScreen(navController: NavHostController, viewModel: AddStaffViewM
                         navController.navigate("subjectWiseTeacher")
                     })
                 }
+                Spacer(modifier = Modifier.height(5.dp))
             }
         }
 

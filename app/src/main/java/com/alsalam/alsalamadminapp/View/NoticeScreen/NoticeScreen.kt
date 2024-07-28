@@ -55,8 +55,6 @@ fun NoticeScreen(){
         topBar = { CustomTopBar(text = "Notice") }
     ) {
 
-        Spacer(modifier = Modifier.height(30.dp))
-
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -66,7 +64,7 @@ fun NoticeScreen(){
 
             item {
                 // pdf picker
-                Spacer(modifier = Modifier.height(70.dp))
+                Spacer(modifier = Modifier.height(85.dp))
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()

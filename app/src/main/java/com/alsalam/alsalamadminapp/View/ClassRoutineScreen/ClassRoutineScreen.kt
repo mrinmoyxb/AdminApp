@@ -54,7 +54,6 @@ fun ClassRoutineScreen(){
     Scaffold(
         topBar = { CustomTopBar(text = "Class Routine") }
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
 
         LazyColumn(
             modifier = Modifier
@@ -65,7 +64,7 @@ fun ClassRoutineScreen(){
 
             item {
                 // pdf picker
-                Spacer(modifier = Modifier.height(70.dp))
+                Spacer(modifier = Modifier.height(85.dp))
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()

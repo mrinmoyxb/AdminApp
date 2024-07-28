@@ -75,13 +75,13 @@ fun FloatingButton(navController: NavHostController, route: String){
 
 // Class Grades
 @Composable
-fun GradeCard(heading: String = "Class", grade: String, fontSize: Int = 23, onClick: () -> Unit){
+fun GradeCard(heading: String = "Class", grade: String, fontSize: Int = 20, onClick: () -> Unit){
 
     val context = LocalContext.current
 
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(120.dp)
+        .height(80.dp)
         .background(Color.Transparent)
         .clickable {
             onClick()
@@ -156,8 +156,8 @@ fun SaveUploadButton(title: String, onClick: () -> Unit){
 
 // custom cards
 @Composable
-fun CustomCard(image: Painter, heading: String, height: Int = 150, width: Int = 150, imageHeight: Int = 55,
-               imageWidth: Int = 55, textHeight: Int = 18, onClick: () -> Unit)
+fun CustomCard(image: Painter, heading: String, height: Int = 120, width: Int = 120, imageHeight: Int = 42,
+               imageWidth: Int = 42, textHeight: Int = 15, onClick: () -> Unit)
 {
     Card(modifier = Modifier
         .height(height.dp)
@@ -214,7 +214,7 @@ fun CustomTopBar(text: String) {
 fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: String,  onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(180.dp)
+        .height(160.dp)
         .clickable {
             onClick()
         },
@@ -226,14 +226,14 @@ fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: Strin
         Row(modifier = Modifier
             .fillMaxSize()
             .padding(12.dp)){
-            Column(modifier = Modifier.width(270.dp), verticalArrangement = Arrangement.Top){
+            Column(modifier = Modifier.width(260.dp), verticalArrangement = Arrangement.Top){
                 Spacer(modifier = Modifier.height(30.dp))
-                Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
+                Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
 
                 Spacer(modifier = Modifier.height(12.dp))
-                Text("Student ID: $studentId", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
-                Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
-                Text("DOB: $dob", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                Text("Student ID: $studentId", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
+                Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
+                Text("DOB: $dob", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
             }
             Column(
                 modifier = Modifier.fillMaxHeight(),

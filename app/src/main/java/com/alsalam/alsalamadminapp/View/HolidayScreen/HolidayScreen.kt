@@ -54,7 +54,7 @@ fun HolidayScreen(){
     Scaffold(
         topBar = { CustomTopBar(text = "Holiday")}
     ) {
-        Spacer(modifier = Modifier.height(30.dp))
+
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
@@ -64,7 +64,7 @@ fun HolidayScreen(){
 
             item {
                 // pdf picker
-                Spacer(modifier = Modifier.height(70.dp))
+                Spacer(modifier = Modifier.height(85.dp))
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()

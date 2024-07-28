@@ -71,20 +71,18 @@ fun TodayAdmission() {
 fun TodayCollectionCard(name: String, amount: String, grade: String){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(160.dp),
+        .height(140.dp),
         shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
     )
     {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(all = 10.dp)){
-            Spacer(modifier = Modifier.height(50.dp))
-            Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
+        Column(modifier = Modifier.fillMaxSize().padding(all = 10.dp)){
+            Spacer(modifier = Modifier.height(30.dp))
+            Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
             Spacer(modifier = Modifier.height(10.dp))
-            Text("Class: $grade", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 20.sp)
-            Text("Amount: ₹ $amount", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 20.sp)
+            Text("Class: $grade", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 18.sp)
+            Text("Amount: ₹ $amount", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 18.sp)
 
         }
 

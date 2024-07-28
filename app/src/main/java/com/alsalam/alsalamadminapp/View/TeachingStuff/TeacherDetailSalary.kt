@@ -91,7 +91,7 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
                 Spacer(modifier = Modifier.height(30.dp))
 
                 // Salary
-                GradeCard(grade = "Salary", onClick = {})
+                GradeSelectedButton(grade = "Salary Paid", onClick = {})
                 Spacer(modifier = Modifier.height(10.dp))
 
                 // Months
@@ -112,7 +112,7 @@ fun MonthCard(month: String, amount: String){
 
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(120.dp)
+        .height(100.dp)
         .background(Color.Transparent),
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(10.dp),
@@ -122,8 +122,8 @@ fun MonthCard(month: String, amount: String){
             .fillMaxSize()
             .padding(10.dp),
             verticalArrangement = Arrangement.Center){
-            Text(month.toString(), fontSize = 25.sp, color = Color.White, fontWeight = FontWeight.Bold)
-            Text("₹ ${amount.toString()}", fontSize = 25.sp, color = Color.White, fontWeight = FontWeight.Medium)
+            Text(month.toString(), fontSize = 20.sp, color = Color.White, fontWeight = FontWeight.Bold)
+            Text("₹ ${amount.toString()}", fontSize = 18.sp, color = Color.White, fontWeight = FontWeight.Medium)
         }
     }
 }

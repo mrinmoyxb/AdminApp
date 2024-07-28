@@ -66,7 +66,7 @@ fun ResultScreen(){
 
             item {
                 // pdf picker
-                Spacer(modifier = Modifier.height(70.dp))
+                Spacer(modifier = Modifier.height(85.dp))
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
