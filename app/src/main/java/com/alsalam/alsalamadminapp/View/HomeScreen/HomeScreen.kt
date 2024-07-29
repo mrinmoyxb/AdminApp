@@ -43,7 +43,7 @@ fun HomeScreen(navController: NavHostController){
             Row(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.padding(horizontal = 10.dp)){
                     CustomText(heading = "Welcome", fontSize = 50, fontWeight = FontWeight.Medium)
-                    CustomText(heading = "school admin made easy", fontSize = 20,
+                    CustomText(heading = "School Admin Made Easy", fontSize = 20,
                         fontWeight = FontWeight.Light, modifier = Modifier.offset(y = (-5).dp))
                 }
             }
@@ -106,7 +106,8 @@ fun HomeScreen(navController: NavHostController){
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
-                CustomCard(image = painterResource(id = R.drawable.festival), heading = "Festival", onClick = {})
+                CustomCard(image = painterResource(id = R.drawable.festival), heading = "Festival", onClick = {
+                    navController.navigate("festivalScreen")})
                 CustomCard(image = painterResource(id = R.drawable.notice), heading = "Notice") {
                     navController.navigate(
                         "noticeScreen"

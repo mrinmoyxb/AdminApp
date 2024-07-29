@@ -28,6 +28,7 @@ import com.alsalam.alsalamadminapp.View.FeeScreen.FeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen.AdmissionFeeDisplayScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen.HostelFeeScreen
 import com.alsalam.alsalamadminapp.View.FeeScreen.MonthlyFeeScreen.TuitionFeeScreen
+import com.alsalam.alsalamadminapp.View.FestivalScreen.FestivalScreen
 import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
@@ -101,6 +102,10 @@ fun MainScreen(){
 
         composable(route = "noticeScreen"){
             NoticeScreen()
+        }
+
+        composable(route = "festivalScreen"){
+            FestivalScreen()
         }
 
         composable(route = "addStudent"){

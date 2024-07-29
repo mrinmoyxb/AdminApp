@@ -61,7 +61,6 @@ fun ExpenditureScreen(balanceViewModel: BalanceViewModel){
                 onValueChange = { viewModel.category.value = it },
                 label = { Text("Enter Category", fontSize = 15.sp) },
                 modifier = Modifier.fillMaxWidth(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)
