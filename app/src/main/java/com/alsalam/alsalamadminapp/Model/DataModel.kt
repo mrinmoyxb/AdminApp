@@ -6,9 +6,24 @@ data class StudentInfo(
     val studentId: String,
     val rollNo: String,
     val dateOfBirth: String,
-    var imageUrl: String? = null
+    var imageUrl: String? = null,
+
+    // additional
+    var fatherName: String,
+    var motherName: String,
+    var village: String,
+    var postOffice: String,
+    var policeStation: String,
+    var district: String,
+    var pin: String,
+    var grade: String,
+    var mobileNo: String,
+    var admissionDate: String,
+    var admissionFees: String,
+    var monthlyFees: String
+
 ){
-    constructor() : this("", "", "","", "")
+    constructor() : this("", "", "","", "", "", "", "", "", "", "", "", "", "", "", "", "")
 }
 
 
