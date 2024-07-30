@@ -24,6 +24,18 @@ class AddStudentViewModel: ViewModel() {
     var className: MutableStateFlow<String> = MutableStateFlow<String>("")
     var studentId: MutableStateFlow<String> = MutableStateFlow<String>("") // <name_roll_grade>
 
+    var motherName: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var fathersName: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var village: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var postOffice: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var policeStation: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var district : MutableStateFlow<String> = MutableStateFlow<String>("")
+    var pin: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var mobileNo: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var admissionDate: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var admissionFees: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var monthlyFees: MutableStateFlow<String> = MutableStateFlow<String>("")
+
     // section 2 -> image section
     var studentImage: MutableLiveData<Uri?> = MutableLiveData()
     var uploadProgress: MutableLiveData<Int> = MutableLiveData(0)
@@ -45,7 +57,10 @@ class AddStudentViewModel: ViewModel() {
     // ADD STUDENT INFO:
     // Primary Key = Student id
     fun addStudentByStudentID() {
-        val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value)
+        val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value,
+            fathersName.value, motherName.value, village.value, postOffice.value, policeStation.value, district.value, gradeSelected.value,
+            pin.value, mobileNo.value, admissionDate.value, admissionFees.value, monthlyFees.value)
+
         val classRef = FirebaseDatabaseManager.classRef.child(className.value)
         val studentRef = classRef.child(studentId.value)
 
@@ -66,7 +81,10 @@ class AddStudentViewModel: ViewModel() {
     }
 
     fun addAllStudent() {
-        val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value)
+        val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value,
+            fathersName.value, motherName.value, village.value, postOffice.value, policeStation.value, district.value, gradeSelected.value,
+            pin.value, mobileNo.value, admissionDate.value, admissionFees.value, monthlyFees.value)
+
         val studentRef = FirebaseDatabaseManager.allStudentRef.child(studentId.value)
         studentRef.setValue(student)
             .addOnSuccessListener {
@@ -86,7 +104,10 @@ class AddStudentViewModel: ViewModel() {
 
     fun addStudentFireStore() {
         viewModelScope.launch {
-            val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value)
+            val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value,
+                fathersName.value, motherName.value, village.value, postOffice.value, policeStation.value, district.value, gradeSelected.value,
+                pin.value, mobileNo.value, admissionDate.value, admissionFees.value, monthlyFees.value)
+
             FirebaseDatabaseManager.firestoreRef
                 .collection("StudentsAdmin")
                 .document("Students")
@@ -159,6 +180,17 @@ class AddStudentViewModel: ViewModel() {
         studentDateOfBirth.value = ""
         className.value = ""
         studentId.value = ""
+        fathersName.value = ""
+        motherName.value = ""
+        village.value = ""
+        postOffice.value = ""
+        policeStation.value = ""
+        district.value = ""
+        pin.value = ""
+        mobileNo.value = ""
+        admissionDate.value = ""
+        admissionFees.value = ""
+        monthlyFees.value = ""
     }
 }
 

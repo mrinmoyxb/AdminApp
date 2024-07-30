@@ -51,6 +51,8 @@ fun AddStudentScreen(){
     val className by addStudentViewModel.className.collectAsState("")
     val studentId by addStudentViewModel.studentId.collectAsState("")
 
+    //val fatherName by addStudentViewModel.fatherName.collectAsState("")
+
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         addStudentViewModel.handleImageUri(uri)
     }
@@ -114,6 +116,139 @@ fun AddStudentScreen(){
             onValueChange = {addStudentViewModel.studentId.value= it},
             label = { Text("Enter student id", fontSize = 15.sp) },
             placeholder = { Text("name_rollno_grade") },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // ADDITIONAL
+        // father name
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter father's name", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // mother name
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter mother's name", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // village
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter village", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // post office
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter Post Office", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // police station
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter Police Station", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // district
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter District", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // pin
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter PIN", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // mobile no:
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter mobile number", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // admission date
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter Admission Date", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // admission fees
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter Admission Fees", fontSize = 15.sp) },
+            modifier = Modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.secondary_gray1)
+            )
+        )
+
+        // monthly fees
+        Spacer(modifier = Modifier.height(8.dp))
+        OutlinedTextField(value = studentId,
+            onValueChange = {addStudentViewModel.studentId.value= it},
+            label = { Text("Enter Monthly Fees", fontSize = 15.sp) },
             modifier = Modifier.fillMaxWidth(),
             shape = RoundedCornerShape(10.dp),
             colors = TextFieldDefaults.textFieldColors(
