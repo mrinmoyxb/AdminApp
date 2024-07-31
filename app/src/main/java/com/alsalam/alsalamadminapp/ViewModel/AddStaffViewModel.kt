@@ -7,10 +7,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
+import com.alsalam.alsalamadminapp.Model.Designation
 import com.alsalam.alsalamadminapp.Model.StudentInfo
 import com.alsalam.alsalamadminapp.Model.Subjects
 import com.alsalam.alsalamadminapp.Model.Teacher
 import com.alsalam.alsalamadminapp.Model.randomStringGenerator
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -21,6 +23,7 @@ class AddStaffViewModel: ViewModel(){
     // section 1 -> basic details
     var teacherName: MutableStateFlow<String> = MutableStateFlow<String>("")
     var subject: MutableStateFlow<Subjects> = MutableStateFlow<Subjects>(Subjects.NULL)
+    val designation: MutableStateFlow<Designation> = MutableStateFlow<Designation>(Designation.NULL)
     var salary: MutableStateFlow<String> = MutableStateFlow<String>("")
     var addressOfTeacher: MutableStateFlow<String> = MutableStateFlow<String>("")
     var dateOfAppointment: MutableStateFlow<String> = MutableStateFlow<String>("")
@@ -41,7 +44,7 @@ class AddStaffViewModel: ViewModel(){
 
 
     fun addTeacherBySubject() {
-        val teacher: Teacher = Teacher(teacherName.value, subject.value, salary.value.toDouble(), addressOfTeacher.value, dateOfAppointment.value, qualification.value, bioData.value)
+        val teacher: Teacher = Teacher(teacherName.value, subject.value, designation.value, salary.value.toDouble(), addressOfTeacher.value, dateOfAppointment.value, qualification.value, bioData.value)
         val teacherRef = FirebaseDatabaseManager.teacherRef.child(subject.value.toString())
         val studentRef = teacherRef.child("${subject.value}_${teacherName.value}")
 
@@ -81,6 +84,7 @@ class AddStaffViewModel: ViewModel(){
     fun reset() {
         teacherName.value = ""
         subject.value = Subjects.NULL
+        designation.value = Designation.NULL
         salary.value = ""
         addressOfTeacher.value = ""
         dateOfAppointment.value = ""

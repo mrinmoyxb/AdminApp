@@ -47,7 +47,9 @@ import androidx.compose.ui.text.input.TextInputService
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.alsalam.alsalamadminapp.Model.Subjects
 import com.alsalam.alsalamadminapp.R
+import com.alsalam.alsalamadminapp.ViewModel.AddStaffViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
@@ -377,6 +379,101 @@ fun CustomDropDownMenuMonth(viewModel: TeacherSalaryViewModel) {
                         DropdownMenuItem(text = {
                             Text(
                                 label,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        }, onClick = {
+                            category = label
+                            isExpanded = false
+                        },
+                            colors = MenuDefaults.itemColors(colorResource(id = R.color.secondary_blue))
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun CustomDropDownMenuTeacherSubject(viewModel: AddStaffViewModel) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val subject: List<Subjects> = listOf(Subjects.GeneralMaths, Subjects.GeneralScience, Subjects.GeneralEnglish, Subjects.SocialScience, Subjects.AdvanceMathematics, Subjects.Arabic, Subjects.Sanskrit, Subjects.MIL,
+        Subjects.GarmentsDesigning, Subjects.LogicAndPhilosophyEducation, Subjects.Economics, Subjects.PoliticalScience, Subjects.Biology, Subjects.Zoology, Subjects.Physics, Subjects.Chemistry, Subjects.EVS, Subjects.SwadeshAdhyayan, Subjects.Hindi, Subjects.ArtEducation, Subjects.PhysicalEducation, Subjects.NULL)
+    var category by remember { mutableStateOf(subject[0]) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val myTextInputService: TextInputService? = null
+
+    when(category){
+        Subjects.GeneralMaths -> viewModel.subject.value = Subjects.GeneralMaths
+        Subjects.GeneralScience -> viewModel.subject.value = Subjects.GeneralScience
+        Subjects.GeneralEnglish -> viewModel.subject.value = Subjects.GeneralEnglish
+        Subjects.SocialScience -> viewModel.subject.value = Subjects.SocialScience
+        Subjects.AdvanceMathematics -> viewModel.subject.value = Subjects.AdvanceMathematics
+        Subjects.Arabic-> viewModel.subject.value = Subjects.Arabic
+        Subjects.Sanskrit-> viewModel.subject.value = Subjects.Sanskrit
+        Subjects.MIL -> viewModel.subject.value = Subjects.MIL
+        Subjects.GarmentsDesigning -> viewModel.subject.value = Subjects.GarmentsDesigning
+        Subjects.LogicAndPhilosophyEducation -> viewModel.subject.value = Subjects.LogicAndPhilosophyEducation
+        Subjects.Economics -> viewModel.subject.value = Subjects.Economics
+        Subjects.PoliticalScience -> viewModel.subject.value = Subjects.PoliticalScience
+        Subjects.Biology -> viewModel.subject.value = Subjects.Biology
+        Subjects.Zoology -> viewModel.subject.value = Subjects.Zoology
+        Subjects.Physics -> viewModel.subject.value =  Subjects.Physics
+        Subjects.Chemistry -> viewModel.subject.value = Subjects.Chemistry
+        Subjects.EVS-> viewModel.subject.value = Subjects.EVS
+        Subjects.SwadeshAdhyayan-> viewModel.subject.value = Subjects.SwadeshAdhyayan
+        Subjects.Hindi-> viewModel.subject.value = Subjects.Hindi
+        Subjects.ArtEducation-> viewModel.subject.value = Subjects.ArtEducation
+        Subjects.PhysicalEducation-> viewModel.subject.value = Subjects.PhysicalEducation
+        Subjects.NULL-> viewModel.subject.value = Subjects.NULL
+    }
+
+    CompositionLocalProvider(
+        LocalTextInputService provides myTextInputService
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(65.dp)
+                .clickable { keyboardController?.hide() }
+                .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
+        ) {
+            ExposedDropdownMenuBox(expanded = isExpanded,
+                onExpandedChange = { isExpanded = !isExpanded }) {
+                TextField(
+                    value = category.toString(), onValueChange = {},
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxSize(),
+                    textStyle = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium, color = Color.White
+                    ),
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                    readOnly = true,
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_blue),
+                        cursorColor = Color.Black,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.None,
+                    )
+                )
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }) {
+                    subject.forEach { label ->
+                        DropdownMenuItem(text = {
+                            Text(
+                                label.toString(),
                                 fontSize = 15.sp,
                                 fontWeight = FontWeight.Medium,
                                 color = Color.Black

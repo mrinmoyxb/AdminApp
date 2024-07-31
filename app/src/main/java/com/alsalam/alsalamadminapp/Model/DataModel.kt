@@ -80,26 +80,57 @@ data class StudentResult(
 
 
 // TEACHING STUFF-----------------------------------------------------------------------------------//
+enum class Designation{
+    HostelWarden,
+    Librarian,
+    CookMan,
+    Peon,
+    Chowkidar,
+    SecurityGuard,
+    Clerk,
+    Accountant,
+    Assistant,
+    Teacher,
+    VicePrincipal,
+    Principal,
+    NULL
+}
 enum class Subjects{
-    English,
-    Hindi,
-    Mathematics,
-    PhysicalEducation,
-    Science,
+    GeneralMaths,
+    GeneralScience,
+    GeneralEnglish,
     SocialScience,
+    AdvanceMathematics,
+    Arabic,
+    Sanskrit,
+    MIL,
+    GarmentsDesigning,
+    LogicAndPhilosophyEducation,
+    Economics,
+    PoliticalScience,
+    Biology,
+    Zoology,
+    Physics,
+    Chemistry,
+    EVS,
+    SwadeshAdhyayan,
+    Hindi,
+    ArtEducation,
+    PhysicalEducation,
     NULL
 }
 
 data class Teacher(
     val teacherName: String,
     val subject: Subjects,
+    val designation: Designation,
     val salary: Double,
     val addressOfTeacher: String,
     val dateOfAppointment: String,
     val qualification: String,
     val bioData: String
 ){
-    constructor(): this("", Subjects.NULL, 0.0, "", "", "", "")
+    constructor(): this("", Subjects.NULL, Designation.NULL, 0.0, "", "", "", "")
 }
 
 
