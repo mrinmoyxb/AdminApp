@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.TextInputService
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.alsalam.alsalamadminapp.Model.Designation
 import com.alsalam.alsalamadminapp.Model.Subjects
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.ViewModel.AddStaffViewModel
@@ -471,6 +472,93 @@ fun CustomDropDownMenuTeacherSubject(viewModel: AddStaffViewModel) {
                     expanded = isExpanded,
                     onDismissRequest = { isExpanded = false }) {
                     subject.forEach { label ->
+                        DropdownMenuItem(text = {
+                            Text(
+                                label.toString(),
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        }, onClick = {
+                            category = label
+                            isExpanded = false
+                        },
+                            colors = MenuDefaults.itemColors(colorResource(id = R.color.secondary_blue))
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun CustomDropDownMenuDesignation(viewModel: AddStaffViewModel) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val designation: List<Designation> = listOf(Designation.HostelWarden, Designation.Librarian, Designation.CookMan, Designation.Peon, Designation.Chowkidar,
+        Designation.SecurityGuard, Designation.Clerk, Designation.Accountant, Designation.Assistant, Designation.Teacher, Designation.VicePrincipal, Designation.Principal, Designation.NULL)
+    var category by remember { mutableStateOf(designation[0]) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val myTextInputService: TextInputService? = null
+
+    when(category){
+        Designation.HostelWarden -> viewModel.designation.value = Designation.HostelWarden
+        Designation.Librarian -> viewModel.designation.value = Designation.Librarian
+        Designation.CookMan -> viewModel.designation.value = Designation.CookMan
+        Designation.Peon-> viewModel.designation.value = Designation.Peon
+        Designation.Chowkidar -> viewModel.designation.value = Designation.Chowkidar
+        Designation.SecurityGuard -> viewModel.designation.value = Designation.SecurityGuard
+        Designation.Clerk -> viewModel.designation.value = Designation.Clerk
+        Designation.Accountant -> viewModel.designation.value = Designation.Accountant
+        Designation.Assistant -> viewModel.designation.value =  Designation.Assistant
+        Designation.Teacher -> viewModel.designation.value = Designation.Teacher
+        Designation.VicePrincipal-> viewModel.designation.value = Designation.VicePrincipal
+        Designation.Principal-> viewModel.designation.value =  Designation.Principal
+        Designation.NULL -> viewModel.designation.value = Designation.NULL
+    }
+
+    CompositionLocalProvider(
+        LocalTextInputService provides myTextInputService
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(65.dp)
+                .clickable { keyboardController?.hide() }
+                .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
+        ) {
+            ExposedDropdownMenuBox(expanded = isExpanded,
+                onExpandedChange = { isExpanded = !isExpanded }) {
+                TextField(
+                    value = category.toString(), onValueChange = {},
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxSize(),
+                    textStyle = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium, color = Color.White
+                    ),
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                    readOnly = true,
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_blue),
+                        cursorColor = Color.Black,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.None,
+                    )
+                )
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }) {
+                    designation.forEach { label ->
                         DropdownMenuItem(text = {
                             Text(
                                 label.toString(),

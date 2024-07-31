@@ -64,11 +64,9 @@ import kotlinx.coroutines.time.delay
 @Composable
 fun AddStudentScreen(){
 
-    val focusManager = LocalFocusManager.current
-    val keyboardController = LocalSoftwareKeyboardController.current
-    val imeState = remember { mutableStateOf(false) }
-    val bringIntoViewRequester = remember { BringIntoViewRequester() }
     val coroutineScope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
+    val bringIntoViewRequester = BringIntoViewRequester()
 
     val context = LocalContext.current
 
@@ -106,14 +104,6 @@ fun AddStudentScreen(){
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         item {
-
-            LaunchedEffect(imeState.value) {
-                if (imeState.value) {
-                    scrollState.animateScrollTo(Int.MAX_VALUE)
-                } else {
-                    scrollState.animateScrollTo(0)
-                }
-            }
 
             Spacer(modifier = Modifier.height(40.dp))
             // add image
@@ -276,21 +266,7 @@ fun AddStudentScreen(){
                 value = mobileNo,
                 onValueChange = { addStudentViewModel.mobileNo.value = it },
                 label = { Text("Enter mobile number", fontSize = 15.sp) },
-                modifier = Modifier.fillMaxWidth()
-                    .onFocusEvent {
-                        if (it.isFocused) {
-                            coroutineScope.launch {
-                                delay(200)
-                                bringIntoViewRequester.bringIntoView()
-                            }
-                        }
-                    }
-                    .bringIntoViewRequester(bringIntoViewRequester),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus()
-                        keyboardController?.hide()
-                    }
-                ),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)
@@ -303,21 +279,7 @@ fun AddStudentScreen(){
                 value = admissionDate,
                 onValueChange = { addStudentViewModel.admissionDate.value = it },
                 label = { Text("Enter Admission Date", fontSize = 15.sp) },
-                modifier = Modifier.fillMaxWidth()
-                    .onFocusEvent {
-                        if (it.isFocused) {
-                            coroutineScope.launch {
-                                delay(200)
-                                bringIntoViewRequester.bringIntoView()
-                            }
-                        }
-                    }
-                    .bringIntoViewRequester(bringIntoViewRequester),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus()
-                        keyboardController?.hide()
-                    }
-                ),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)
@@ -330,20 +292,7 @@ fun AddStudentScreen(){
                 value = admissionFees,
                 onValueChange = { addStudentViewModel.admissionFees.value = it },
                 label = { Text("Enter Admission Fees", fontSize = 15.sp) },
-                modifier = Modifier.fillMaxWidth().onFocusEvent {
-                    if (it.isFocused) {
-                        coroutineScope.launch {
-                            delay(200)
-                            bringIntoViewRequester.bringIntoView()
-                        }
-                    }
-                }
-                    .bringIntoViewRequester(bringIntoViewRequester),
-                keyboardActions = KeyboardActions(
-                    onDone = { focusManager.clearFocus()
-                        keyboardController?.hide()
-                    }
-                ),
+                modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)
@@ -356,14 +305,14 @@ fun AddStudentScreen(){
                 value = monthlyFees,
                 onValueChange = { addStudentViewModel.monthlyFees.value = it },
                 label = { Text("Enter Monthly Fees", fontSize = 15.sp) },
-                modifier = Modifier.fillMaxWidth().onFocusEvent {
-                    if (it.isFocused) {
+                modifier = Modifier.fillMaxWidth().onFocusEvent { event->
+                    if(event.isFocused){
                         coroutineScope.launch {
-                            delay(200)
                             bringIntoViewRequester.bringIntoView()
                         }
                     }
                 },
+                keyboardActions = KeyboardActions(onDone = {focusManager.clearFocus()}),
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(
                     containerColor = colorResource(id = R.color.secondary_gray1)

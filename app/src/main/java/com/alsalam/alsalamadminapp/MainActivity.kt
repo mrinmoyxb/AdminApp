@@ -5,6 +5,9 @@ import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.alsalam.alsalamadminapp.Navigation.MainScreen
 import com.alsalam.alsalamadminapp.ui.theme.AlSalamAdminAppTheme
 
@@ -17,6 +20,11 @@ class MainActivity : ComponentActivity() {
             AlSalamAdminAppTheme {
                 MainScreen()
             }
+        }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(android.R.id.content)){ view, insets ->
+            val bottom = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+            view.updatePadding(bottom = bottom)
+            insets
         }
     }
 }

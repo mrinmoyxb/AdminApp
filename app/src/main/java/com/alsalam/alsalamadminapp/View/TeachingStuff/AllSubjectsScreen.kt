@@ -24,7 +24,9 @@ import com.alsalam.alsalamadminapp.ViewModel.AddStaffViewModel
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AllSubjectsScreen(navController: NavHostController, viewModel: AddStaffViewModel){
-    val listOfSubjects = listOf(Subjects.English, Subjects.Hindi, Subjects.Mathematics, Subjects.Science, Subjects.SocialScience, Subjects.PhysicalEducation)
+    val listOfSubjects = listOf(Subjects.GeneralMaths, Subjects.GeneralScience, Subjects.GeneralEnglish, Subjects.SocialScience, Subjects.AdvanceMathematics, Subjects.Arabic, Subjects.Sanskrit, Subjects.MIL,
+        Subjects.GarmentsDesigning, Subjects.LogicAndPhilosophyEducation, Subjects.Economics, Subjects.PoliticalScience, Subjects.Biology, Subjects.Zoology, Subjects.Physics, Subjects.Chemistry, Subjects.EVS, Subjects.SwadeshAdhyayan, Subjects.Hindi,
+        Subjects.ArtEducation, Subjects.PhysicalEducation, Subjects.NULL)
 
     Scaffold(
         floatingActionButton = {
@@ -41,12 +43,14 @@ fun AllSubjectsScreen(navController: NavHostController, viewModel: AddStaffViewM
         {
             item {
                 listOfSubjects.forEach { subject ->
-                    Spacer(modifier = Modifier.height(8.dp))
-                    GradeCard(heading = "", grade = subject.toString(), onClick = {
-                        viewModel.subject.value = subject
-                        viewModel.loadTeachers()
-                        navController.navigate("subjectWiseTeacher")
-                    })
+                    if (subject != Subjects.NULL) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        GradeCard(heading = "", grade = subject.toString(), onClick = {
+                            viewModel.subject.value = subject
+                            viewModel.loadTeachers()
+                            navController.navigate("subjectWiseTeacher")
+                        })
+                    }
                 }
                 Spacer(modifier = Modifier.height(5.dp))
             }
