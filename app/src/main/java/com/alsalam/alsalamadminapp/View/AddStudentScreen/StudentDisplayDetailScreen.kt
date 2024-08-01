@@ -84,6 +84,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                         Text("Student ID: ${paymentViewModel.currentStudentId.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
                         Text("Roll.No: ${paymentViewModel.currentActiveRollNo.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
                         Text("DOB: ${paymentViewModel.currentActiveDob.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+
                     }
                     Column(
                         modifier = Modifier.fillMaxHeight(),
@@ -102,7 +103,57 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(10.dp))
+
+            GradeSelectedButton(grade = "Details", onClick = {})
+            Spacer(modifier = Modifier.height(10.dp))
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(280.dp),
+                shape = RoundedCornerShape(15.dp),
+                elevation = CardDefaults.cardElevation(10.dp),
+                colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
+            )
+            {
+                Column(modifier = Modifier.fillMaxSize().padding(10.dp), verticalArrangement = Arrangement.Center) {
+                    Text("Father's Name: ${paymentViewModel.fatherName.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                    Text(
+                        "Mother's Name: ${paymentViewModel.motherName.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                    Text(
+                        "Village: ${paymentViewModel.village.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                    Text(
+                        "Police Station: ${paymentViewModel.policeStation.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                    Text(
+                        "District: ${paymentViewModel.district.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp
+                    )
+                    Text("PIN: ${paymentViewModel.pin.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp
+                    )
+                    Text(
+                        "Mobile No: ${paymentViewModel.mobileNo.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp
+                    )
+                    Text(
+                        "Admission Date: ${paymentViewModel.admissionDate.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp
+                    )
+                    Text(
+                        "Admission Fees: ${paymentViewModel.admissionFees.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp
+                    )
+                    Text(
+                        "Monthly Fees: ${paymentViewModel.monthlyFees.value}", color = Color.White,
+                        fontWeight = FontWeight.Normal, fontSize = 20.sp
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(20.dp))
 
             GradeSelectedButton(grade = "Fees", onClick = {})
             Spacer(modifier = Modifier.height(10.dp))
@@ -160,7 +211,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                     textHeight = 13,
                     onClick = { navHostController.navigate("addOtherFees") })
 
-                Spacer(modifier = Modifier.width(17.dp))
+                Spacer(modifier = Modifier.width(7.dp))
                 // Late Fee
                 CustomCard(
                     image = painterResource(id = R.drawable.late),

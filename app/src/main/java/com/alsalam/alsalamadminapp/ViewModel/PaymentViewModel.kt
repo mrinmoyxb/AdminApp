@@ -23,6 +23,19 @@ class PaymentViewModel: ViewModel() {
     var gradeSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentStudentId: MutableStateFlow<String> = MutableStateFlow<String>("")
 
+    // Extra
+    var fatherName: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var motherName: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var village: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var postOffice: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var policeStation: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var district: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var pin: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var mobileNo: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var admissionDate: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var admissionFees: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var monthlyFees: MutableStateFlow<String> = MutableStateFlow<String>("")
+
     // fetched data
     val studentsPaymentFetched = MutableStateFlow<List<StudentFee>>(emptyList())
 
