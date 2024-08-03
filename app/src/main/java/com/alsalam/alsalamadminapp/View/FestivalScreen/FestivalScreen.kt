@@ -15,11 +15,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,12 +42,14 @@ import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun FestivalScreen(){
     val viewModel: PdfUploadAndRetrieveViewModel = viewModel()
     val context = LocalContext.current
     val fileName by viewModel.fileName.collectAsState(initial = "")
+    val file by viewModel.setFileName.collectAsState(initial = "")
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         viewModel.selectPdf(uri)
     }
@@ -101,9 +107,22 @@ fun FestivalScreen(){
 
                 }
 
+                Spacer(modifier = Modifier.height(5.dp))
+                OutlinedTextField(
+                    value = file,
+                    onValueChange = { viewModel.setFileName.value = it },
+                    label = { Text("Set Notice Name", fontSize = 15.sp) },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_gray1)
+                    )
+                )
+                Spacer(modifier = Modifier.height(5.dp))
+
                 // upload pdf
                 SaveUploadButton(title = "Upload", onClick = {
-                    viewModel.uploadHolidayPdf()
+                    viewModel.uploadFestivalPdf()
                     Toast.makeText(context, "Festival List Uploaded", Toast.LENGTH_SHORT).show()
                 })
             }
