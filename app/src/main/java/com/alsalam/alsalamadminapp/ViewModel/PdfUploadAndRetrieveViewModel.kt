@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
+import com.alsalam.alsalamadminapp.Model.PDFDataModel
 import com.alsalam.alsalamadminapp.Model.StudentResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -27,11 +28,14 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
         val uploadStatus: LiveData<UploadStatus> = _uploadStatus
 
         val fileName = MutableStateFlow<String>("")
+        val setFileName: MutableStateFlow<String> = MutableStateFlow<String>("")
 
         // Result
         private val currentDate = Date()
         @SuppressLint("SimpleDateFormat")
         val formatter = SimpleDateFormat("dd_MM_yyyy")
+        val current: String = formatter.format(currentDate)
+
         private val newDate: String = formatter.format(Date(currentDate.time))
         val gradeSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
         val currentStudentName: MutableStateFlow<String> = MutableStateFlow<String>("")
@@ -45,11 +49,11 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
             fileName.value = File(pdfUri.path!!).nameWithoutExtension
         }
 
+
         // NOTICE
         fun uploadNoticePdf() {
             val pdfUri = _selectedPdfUri.value ?: return
             val file = File(pdfUri.path!!)
-
             viewModelScope.launch {
                 _uploadStatus.value = UploadStatus.UPLOADING
                 val uploadTask = FirebaseDatabaseManager.storageRef.child("Notice/${UUID.randomUUID()}.pdf").putFile(pdfUri)
@@ -57,18 +61,29 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
                     val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
                     _uploadProgress.value = progress
                 }.addOnSuccessListener {
-                    _uploadStatus.value = UploadStatus.SUCCESS
+                    it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        val pdfFile: PDFDataModel = PDFDataModel(setFileName.value, currentDate.time, downloadUrl.toString())
+                        val databaseRef = FirebaseDatabaseManager.pdfRef.child("Notice")
+                        val pdf = databaseRef.child("${current.toString()}_${setFileName.value.toString()}")
+                        pdf.setValue(pdfFile)
+                            .addOnSuccessListener {
+                                _uploadStatus.value = UploadStatus.SUCCESS
+                            }
+                            .addOnFailureListener {
+                                _uploadStatus.value = UploadStatus.FAILURE
+                            }
+                    }
                 }.addOnFailureListener {
                     _uploadStatus.value = UploadStatus.FAILURE
                 }
             }
         }
 
+
         // CLASS ROUTINE
         fun uploadClassRoutinePdf() {
             val pdfUri = _selectedPdfUri.value ?: return
             val file = File(pdfUri.path!!)
-
             viewModelScope.launch {
                 _uploadStatus.value = UploadStatus.UPLOADING
                 val uploadTask = FirebaseDatabaseManager.storageRef.child("ClassRoutine/${UUID.randomUUID()}.pdf").putFile(pdfUri)
@@ -76,18 +91,29 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
                     val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
                     _uploadProgress.value = progress
                 }.addOnSuccessListener {
-                    _uploadStatus.value = UploadStatus.SUCCESS
+                    it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        val pdfFile: PDFDataModel = PDFDataModel(setFileName.value, currentDate.time, downloadUrl.toString())
+                        val databaseRef = FirebaseDatabaseManager.pdfRef.child("ClassRoutine")
+                        val pdf = databaseRef.child("${current.toString()}_${setFileName.value.toString()}")
+                        pdf.setValue(pdfFile)
+                            .addOnSuccessListener {
+                                _uploadStatus.value = UploadStatus.SUCCESS
+                            }
+                            .addOnFailureListener {
+                                _uploadStatus.value = UploadStatus.FAILURE
+                            }
+                    }
                 }.addOnFailureListener {
                     _uploadStatus.value = UploadStatus.FAILURE
                 }
             }
         }
 
+
     // HOLIDAY
     fun uploadHolidayPdf() {
         val pdfUri = _selectedPdfUri.value ?: return
         val file = File(pdfUri.path!!)
-
         viewModelScope.launch {
             _uploadStatus.value = UploadStatus.UPLOADING
             val uploadTask = FirebaseDatabaseManager.storageRef.child("Holiday/${UUID.randomUUID()}.pdf").putFile(pdfUri)
@@ -95,9 +121,52 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
                 val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
                 _uploadProgress.value = progress
             }.addOnSuccessListener {
-                _uploadStatus.value = UploadStatus.SUCCESS
+                it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                    val pdfFile: PDFDataModel = PDFDataModel(setFileName.value, currentDate.time, downloadUrl.toString())
+                    val databaseRef = FirebaseDatabaseManager.pdfRef.child("Holiday")
+                    val pdf = databaseRef.child("${current.toString()}_${setFileName.value.toString()}")
+                    pdf.setValue(pdfFile)
+                        .addOnSuccessListener {
+                            _uploadStatus.value = UploadStatus.SUCCESS
+                        }
+                        .addOnFailureListener {
+                            _uploadStatus.value = UploadStatus.FAILURE
+                        }
+                }
             }.addOnFailureListener {
                 _uploadStatus.value = UploadStatus.FAILURE
+            }
+        }
+    }
+
+
+    // FESTIVAL
+    fun uploadFestivalPdf() {
+        fun uploadHolidayPdf() {
+            val pdfUri = _selectedPdfUri.value ?: return
+            val file = File(pdfUri.path!!)
+            viewModelScope.launch {
+                _uploadStatus.value = UploadStatus.UPLOADING
+                val uploadTask = FirebaseDatabaseManager.storageRef.child("Festival/${UUID.randomUUID()}.pdf").putFile(pdfUri)
+                uploadTask.addOnProgressListener { taskSnapshot ->
+                    val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+                    _uploadProgress.value = progress
+                }.addOnSuccessListener {
+                    it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        val pdfFile: PDFDataModel = PDFDataModel(setFileName.value, currentDate.time, downloadUrl.toString())
+                        val databaseRef = FirebaseDatabaseManager.pdfRef.child("Festival")
+                        val pdf = databaseRef.child("${current.toString()}_${setFileName.value.toString()}")
+                        pdf.setValue(pdfFile)
+                            .addOnSuccessListener {
+                                _uploadStatus.value = UploadStatus.SUCCESS
+                            }
+                            .addOnFailureListener {
+                                _uploadStatus.value = UploadStatus.FAILURE
+                            }
+                    }
+                }.addOnFailureListener {
+                    _uploadStatus.value = UploadStatus.FAILURE
+                }
             }
         }
     }
@@ -157,28 +226,9 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
         }
     }
 
-
-    fun uploadFestivalPdf() {
-        val pdfUri = _selectedPdfUri.value ?: return
-        val file = File(pdfUri.path!!)
-
-        viewModelScope.launch {
-            _uploadStatus.value = UploadStatus.UPLOADING
-            val uploadTask = FirebaseDatabaseManager.storageRef.child("Festival/${UUID.randomUUID()}.pdf").putFile(pdfUri)
-            uploadTask.addOnProgressListener { taskSnapshot ->
-                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-                _uploadProgress.value = progress
-            }.addOnSuccessListener {
-                _uploadStatus.value = UploadStatus.SUCCESS
-            }.addOnFailureListener {
-                _uploadStatus.value = UploadStatus.FAILURE
-            }
-        }
-    }
-
-
     enum class UploadStatus {
             IDLE, UPLOADING, SUCCESS, FAILURE
         }
 
 }
+
