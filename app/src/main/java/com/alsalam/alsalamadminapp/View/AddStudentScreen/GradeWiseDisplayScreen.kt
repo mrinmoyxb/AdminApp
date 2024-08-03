@@ -55,6 +55,7 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                             studentId = student.studentId,
                             roll = student.rollNo,
                             dob = student.dateOfBirth,
+                            imageUrl = student.imageUrl!!,
                             onClick = {
                                 navController.navigate("displayStudentDetail")
 
@@ -74,6 +75,7 @@ fun GradeWiseDisplayScreen(viewModel: AddStudentViewModel, navController: NavHos
                                 paymentViewModel.admissionDate.value = student.admissionDate
                                 paymentViewModel.admissionFees.value = student.admissionFees
                                 paymentViewModel.monthlyFees.value = student.monthlyFees
+                                paymentViewModel.imageUrl.value = student.imageUrl
 
 
                                 // admission

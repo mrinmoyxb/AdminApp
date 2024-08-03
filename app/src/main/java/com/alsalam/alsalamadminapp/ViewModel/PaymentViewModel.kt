@@ -35,6 +35,7 @@ class PaymentViewModel: ViewModel() {
     var admissionDate: MutableStateFlow<String> = MutableStateFlow<String>("")
     var admissionFees: MutableStateFlow<String> = MutableStateFlow<String>("")
     var monthlyFees: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var imageUrl: MutableStateFlow<String?> = MutableStateFlow<String?>(null)
 
     // fetched data
     val studentsPaymentFetched = MutableStateFlow<List<StudentFee>>(emptyList())

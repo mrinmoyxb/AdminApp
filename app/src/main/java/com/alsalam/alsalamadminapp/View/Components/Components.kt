@@ -36,6 +36,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -45,6 +46,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import coil.compose.AsyncImage
 import com.alsalam.alsalamadminapp.Model.Teacher
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
@@ -211,7 +213,7 @@ fun CustomTopBar(text: String) {
 
 // Each student Card
 @Composable
-fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: String,  onClick: () -> Unit){
+fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: String,  imageUrl:String = "", onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(160.dp)
@@ -247,7 +249,16 @@ fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: Strin
                        .background(Color.White),
                    contentAlignment = Alignment.Center
                ){
-                   Text("Pic")
+                   if(imageUrl!="") {
+                       AsyncImage(
+                           model = imageUrl,
+                           contentDescription = "Student Image",
+                           contentScale = ContentScale.Crop, // Adjust as needed
+                           modifier = Modifier.height(85.dp).width(85.dp)
+                       )
+                   } else {
+                       Text("Pic")
+                    }
                }
             }
         }
