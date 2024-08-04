@@ -12,4 +12,5 @@
     <color name="secondary_gray">#FFEEEEEE</color>
     <color name="secondary_gray1">#FFEEEDEB</color>
     <color name="subheadingColor">#FFE3E1D9</color>
+    <color name="colorRed">#FFE72929</color>
 </resources>

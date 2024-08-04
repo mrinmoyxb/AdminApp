@@ -268,7 +268,7 @@ fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: Strin
 
 // select card
 @Composable
-fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15, onClick: () -> Unit){
+fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15, color: Int = R.color.secondary_blue, onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
         .height(height.dp)
@@ -276,7 +276,7 @@ fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15,
             onClick()
         },
         shape = RoundedCornerShape(roundedCornerShape.dp),
-        colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue)),
+        colors = CardDefaults.cardColors(colorResource(id = color)),
         elevation = CardDefaults.cardElevation(10.dp)
     )
     {

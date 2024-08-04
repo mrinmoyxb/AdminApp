@@ -75,7 +75,7 @@ fun TuitionFeeScreen(navController: NavHostController) {
                 // grade selected button
                 Spacer(modifier = Modifier.height(15.dp))
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    GradeSelectedButton(grade = "Grade $gradeSelectedByAdmin", onClick = {})
+                    GradeSelectedButton(grade = "Grade $gradeSelectedByAdmin", width = 120, onClick = {})
                     Spacer(modifier = Modifier.width(7.dp))
                 }
                 Spacer(modifier = Modifier.height(10.dp))
