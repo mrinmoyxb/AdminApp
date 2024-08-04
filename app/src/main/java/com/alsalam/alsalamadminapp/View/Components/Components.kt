@@ -289,10 +289,10 @@ fun SelectCard(heading: String, height: Int = 100, roundedCornerShape: Int = 15,
 }
 
 @Composable
-fun TeacherDisplayCard(name: String, qualification: String, address: String, dateOfAppointment: String, amount: String, onClick: () -> Unit){
+fun TeacherDisplayCard(name: String, qualification: String, address: String, dateOfAppointment: String, amount: String, bioData: String, onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(180.dp)
+        .height(220.dp)
         .clickable{
             onClick()
         },
@@ -308,14 +308,13 @@ fun TeacherDisplayCard(name: String, qualification: String, address: String, dat
         {
         Spacer(modifier = Modifier.height(10.dp))
             Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-            Text(qualification, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 25.sp)
-
+            Text(qualification, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 22.sp)
 
             Spacer(modifier = Modifier.height(10.dp))
             Text("Appointment: $dateOfAppointment", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
-            Text("Address: $address", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp, overflow = TextOverflow.Clip)
+            Text("Address: $address", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp, overflow = TextOverflow.Clip, maxLines = 2)
+            Text("Bio Data: $bioData", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
             Text("Salary: ₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
-
     }
 
     }

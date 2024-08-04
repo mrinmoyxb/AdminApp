@@ -38,10 +38,11 @@ fun SubjectWiseTeacher(navController: NavHostController,viewModel: AddStaffViewM
         )
         {
             item {
-                Spacer(modifier = Modifier.height(85.dp))
+                Spacer(modifier = Modifier.height(90.dp))
                 teachers.forEach { teacher ->
                     TeacherDisplayCard(name = teacher.teacherName, qualification = teacher.qualification, address = teacher.addressOfTeacher,
                         dateOfAppointment = teacher.dateOfAppointment, amount = teacher.salary.toString(),
+                        bioData = teacher.bioData,
                         onClick = {
                             teacherSalaryViewModel.currentTeacherName.value = teacher.teacherName
                             teacherSalaryViewModel.currentTeacherSubject.value = teacher.subject

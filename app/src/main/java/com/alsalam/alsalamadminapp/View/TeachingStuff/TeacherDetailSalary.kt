@@ -68,7 +68,7 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(180.dp),
+                        .height(150.dp),
                     shape = RoundedCornerShape(15.dp),
                     elevation = CardDefaults.cardElevation(10.dp),
                     colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
@@ -82,9 +82,8 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
                         Column(modifier = Modifier.fillMaxWidth()) {
                             Spacer(modifier = Modifier.height(30.dp))
                             Text(teacherSalaryViewModel.currentTeacherName.value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
-                            Spacer(modifier = Modifier.height(12.dp))
-                            Text(teacherSalaryViewModel.currentTeacherQualification.value, color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
-                            Text(teacherSalaryViewModel.currentTeacherSubject.value.toString(), color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
+                            Text(teacherSalaryViewModel.currentTeacherQualification.value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                            Text("Subject: ${teacherSalaryViewModel.currentTeacherSubject.value.toString()}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
                         }
                     }
                 }
