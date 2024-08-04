@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
 import com.alsalam.alsalamadminapp.Model.PDFDataModel
+import com.alsalam.alsalamadminapp.Model.ResultPDFDataModel
 import com.alsalam.alsalamadminapp.Model.StudentResult
+import com.alsalam.alsalamadminapp.Model.randomStringGenerator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.io.File
@@ -29,6 +31,8 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
 
         val fileName = MutableStateFlow<String>("")
         val setFileName: MutableStateFlow<String> = MutableStateFlow<String>("")
+
+        val currentStudentIdPdf: MutableStateFlow<String> = MutableStateFlow<String>("")
 
         // Result
         private val currentDate = Date()
@@ -185,6 +189,19 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
                 val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
                 _uploadProgress.value = progress
             }.addOnSuccessListener {
+                it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
+                    val pdfFile: ResultPDFDataModel = ResultPDFDataModel(currentStudentIdPdf.value.toString(), currentDate.time, downloadUrl.toString())
+                    val databaseRef = FirebaseDatabaseManager.resultRef.child(currentStudentIdPdf.value)
+                    val pdf = databaseRef.child(randomStringGenerator())
+                    pdf.setValue(pdfFile)
+                        .addOnSuccessListener {
+                            reset()
+                            _uploadStatus.value = UploadStatus.SUCCESS
+                        }
+                        .addOnFailureListener {
+                            _uploadStatus.value = UploadStatus.FAILURE
+                        }
+                }
                 _uploadStatus.value = UploadStatus.SUCCESS
             }.addOnFailureListener {
                 _uploadStatus.value = UploadStatus.FAILURE

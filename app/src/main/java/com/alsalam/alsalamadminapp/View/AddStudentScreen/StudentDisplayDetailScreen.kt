@@ -83,21 +83,6 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                         Text("DOB: ${paymentViewModel.currentActiveDob.value}", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp)
 
                     }
-//                    Column(
-//                        modifier = Modifier.fillMaxHeight(),
-//                        verticalArrangement = Arrangement.Center
-//                    ) {
-//                        Box(
-//                            modifier = Modifier
-//                                .height(85.dp)
-//                                .width(85.dp)
-//                                .clip(CircleShape)
-//                                .background(Color.White),
-//                            contentAlignment = Alignment.Center
-//                        ) {
-//                            Text("Pic")
-//                        }
-//                    }
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
@@ -271,9 +256,11 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
 
             Spacer(modifier = Modifier.height(5.dp))
             SaveUploadButton(title = "Upload Result") {
-                uploadResultViewModel.selectPdfAndUpload()
+                uploadResultViewModel.currentStudentIdPdf.value = paymentViewModel.currentStudentId.value
+                uploadResultViewModel.uploadResultPdf()
                 Toast.makeText(context, "Result Uploaded", Toast.LENGTH_SHORT).show()
             }
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 

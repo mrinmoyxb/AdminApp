@@ -28,6 +28,7 @@ object FirebaseDatabaseManager {
 
     //PDF
     val pdfRef = database.getReference("PDF_URL")
+    val resultRef = database.getReference("RESULT_URL")
 
     // firestore reference
     @SuppressLint("StaticFieldLeak")

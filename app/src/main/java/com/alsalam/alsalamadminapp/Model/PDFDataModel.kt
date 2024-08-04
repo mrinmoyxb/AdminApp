@@ -8,3 +8,11 @@ data class PDFDataModel(
 ){
     constructor(): this("", 0)
 }
+
+data class ResultPDFDataModel(
+    val studentId: String,
+    val uploadedDate: Long,
+    val url: String? = null
+){
+    constructor(): this("", 0)
+}
