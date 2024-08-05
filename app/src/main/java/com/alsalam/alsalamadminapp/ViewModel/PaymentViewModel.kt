@@ -40,9 +40,6 @@ class PaymentViewModel: ViewModel() {
     // fetched data
     val studentsPaymentFetched = MutableStateFlow<List<StudentFee>>(emptyList())
 
-    // admission fees
-    val addmissionFees: MutableStateFlow<String> = MutableStateFlow<String>("")
-
     private val currentDate = Date()
 
     @SuppressLint("SimpleDateFormat")
@@ -163,12 +160,12 @@ class PaymentViewModel: ViewModel() {
     fun addAdmissionFees() {
         viewModelScope.launch {
             val hostelFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.AdmissionFees,
-                addmissionFees.value.toDouble(), currentDate.time, currentIsFeePaid.value)
+                currentPaymentAmount.value.toDouble(), currentDate.time, true)
 
             FirebaseDatabaseManager.firestoreRef
                 .collection("Payments")
-                .document("${gradeSelected.value}")
-                .collection("${currentStudentId.value}")
+                .document(gradeSelected.value)
+                .collection(currentStudentId.value)
                 .add(hostelFeeOfStudent)
                 .addOnSuccessListener {
                     currentPaymentAmount.value = ""

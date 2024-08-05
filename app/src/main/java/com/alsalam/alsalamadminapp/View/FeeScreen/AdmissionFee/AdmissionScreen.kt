@@ -21,6 +21,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -37,13 +38,19 @@ import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
+import com.alsalam.alsalamadminapp.View.FeeScreen.FeesPaidStudentCard
+import com.alsalam.alsalamadminapp.View.FeeScreen.Subheading
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
-@SuppressLint("StateFlowValueCalledInComposition", "UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("StateFlowValueCalledInComposition", "UnusedMaterial3ScaffoldPaddingParameter",
+    "SimpleDateFormat"
+)
 @Composable
 fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: DailyCollectionViewModel,
                        balanceViewModel: BalanceViewModel, monthlyPaymentViewModel: MonthlyPaymentViewModel, payment: PaymentViewModel){
@@ -64,6 +71,12 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
     val total by viewModel.totalFee.collectAsState(0.0)
     val context = LocalContext.current
 
+
+    val students by payment.studentsPaymentFetched.collectAsState(emptyList())
+    LaunchedEffect(Unit) {
+        payment.fetchStudentFees()
+    }
+    val formatter = SimpleDateFormat("dd/MM/yyyy")
 
     Scaffold(
         topBar = { CustomTopBar(text = "Admission Fee")}
@@ -142,6 +155,9 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
                     }
                     else{
                         viewModel.addAdmissionFees()
+                        payment.currentPaymentAmount.value = total.toString()
+                        payment.addAdmissionFees()
+
                         dailyExpenseViewModel.amount.value = total
                         dailyExpenseViewModel.paymentTypes.value = PaymentTypes.AdmissionFees
                         dailyExpenseViewModel.storePayment()
@@ -150,14 +166,26 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
                         monthlyPaymentViewModel.currentPaymentAmount.value = total.toString()
                         monthlyPaymentViewModel.currentIsFeePaid.value = true
                         monthlyPaymentViewModel.addMonthlyAdmissionPayment()
-
-                        payment.admissionFees.value = total.toString()
-                        payment.addAdmissionFees()
                         Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                     }
                 })
 
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+                Subheading(grade = "Previous Payments")
+                Spacer(modifier = Modifier.height(10.dp))
+                students.forEach { student ->
+                    if (student.studentPaymentFor == PaymentTypes.AdmissionFees) {
+                        FeesPaidStudentCard(
+                            name = student.studentName,
+                            amount = student.studentPaymentAmount.toString(),
+                            paid = student.studentFeesPaid,
+                            date = formatter.format(Date(student.date))
+                        )
+                        Spacer(modifier = Modifier.height(7.dp))
+                    }
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+
             }
         }
     }
