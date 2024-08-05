@@ -46,6 +46,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextInputService
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.alsalam.alsalamadminapp.Model.Designation
 import com.alsalam.alsalamadminapp.Model.Subjects
@@ -175,18 +176,18 @@ fun GradeSelectedButton(grade: String, width: Int = 90, onClick: () -> Unit){
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("$grade", fontSize = 13.sp)
+            Text(grade, fontSize = 13.sp)
         }
     }
 }
 
 // fess paid card
 @Composable
-fun FeesPaidStudentCard(name: String, roll: String, amount: String, paid: Boolean, date: String) {
+fun FeesPaidStudentCard(name: String, amount: String, paid: Boolean, date: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp),
+            .height(100.dp),
         shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
@@ -194,34 +195,32 @@ fun FeesPaidStudentCard(name: String, roll: String, amount: String, paid: Boolea
         Row(modifier = Modifier.fillMaxSize().padding(all = 10.dp)) {
             Column(
                 modifier = Modifier
-                    .width(250.dp)
+                    .width(270.dp)
                     .fillMaxHeight(),
-                verticalArrangement = Arrangement.Bottom
-            ) {
-                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
-                Text(roll, color = Color.White, fontWeight = FontWeight.Normal, fontSize = 22.sp)
-                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 22.sp)
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(if (paid) "PAID" else "NOT PAID", color = if (paid) Color.Green else Color.Red, fontWeight = FontWeight.Bold, fontSize = 20.sp)
-                Text(if (paid) date else "", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 12.sp)
-            }
-            Column(
-                modifier = Modifier.fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
             ) {
-                Box(
-                    modifier = Modifier
-                        .height(85.dp)
-                        .width(85.dp)
-                        .clip(CircleShape)
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Pic")
-                }
+                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
+                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 22.sp, maxLines = 1)
+                Spacer(modifier = Modifier.height(8.dp))
+
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(if (paid) "PAID" else "NOT PAID", color = if (paid) Color.Green else Color.Red, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(if (paid) date else "", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun demo(){
+    FeesPaidStudentCard(name = "Alex", amount = "500000000000", paid = true, date = "10/02/2024")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -578,3 +577,26 @@ fun CustomDropDownMenuDesignation(viewModel: AddStaffViewModel) {
         }
     }
 }
+
+
+@Composable
+fun Subheading(grade: String, width: Int = 140){
+    Card(
+        modifier = Modifier
+            .width(width.dp)
+            .height(30.dp)
+            .background(Color.Transparent),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(Color(0xFFEEEEEE)),
+        elevation = CardDefaults.cardElevation(10.dp)
+    ){
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(grade, fontSize = 13.sp)
+        }
+    }
+}
+

@@ -9,6 +9,8 @@ import com.alsalam.alsalamadminapp.Model.Subjects
 import com.alsalam.alsalamadminapp.Model.TeacherSalary
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class TeacherSalaryViewModel: ViewModel() {
 
@@ -18,11 +20,12 @@ class TeacherSalaryViewModel: ViewModel() {
     var currentTeacherSalary: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentTeacherQualification: MutableStateFlow<String> = MutableStateFlow<String>("")
 
-   var salaryList: MutableStateFlow<List<TeacherSalary>> = MutableStateFlow<List<TeacherSalary>>(emptyList())
+    var salaryList: MutableStateFlow<List<TeacherSalary>> = MutableStateFlow<List<TeacherSalary>>(emptyList())
+    val currentDate = Date()
 
     fun addTeacherSalary() {
         viewModelScope.launch {
-            val teacherSalary: TeacherSalary = TeacherSalary(currentTeacherName.value, currentTeacherSubject.value, currentTeacherSalary.value.toDouble(), currentTeacherQualification.value, currentMonth.value)
+            val teacherSalary: TeacherSalary = TeacherSalary(currentTeacherName.value, currentTeacherSubject.value, currentTeacherSalary.value.toDouble(), currentTeacherQualification.value, currentMonth.value, currentDate.time)
 
             FirebaseDatabaseManager.firestoreRef
                 .collection("TeachersSalary")

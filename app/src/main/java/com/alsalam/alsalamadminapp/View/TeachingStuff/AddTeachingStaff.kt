@@ -123,7 +123,6 @@ fun AddTeachingStaff(){
                     placeholder = { Text("DD/MM/YYYY", fontSize = 15.sp) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = colorResource(id = R.color.secondary_gray1)
                     )
@@ -196,6 +195,8 @@ fun AddTeachingStaff(){
                     teacherViewModel.addTeacherBySubject()
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
 
             }
         }

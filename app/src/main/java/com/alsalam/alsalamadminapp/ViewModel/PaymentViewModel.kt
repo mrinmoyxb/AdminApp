@@ -40,6 +40,9 @@ class PaymentViewModel: ViewModel() {
     // fetched data
     val studentsPaymentFetched = MutableStateFlow<List<StudentFee>>(emptyList())
 
+    // admission fees
+    val addmissionFees: MutableStateFlow<String> = MutableStateFlow<String>("")
+
     private val currentDate = Date()
 
     @SuppressLint("SimpleDateFormat")
@@ -152,6 +155,27 @@ class PaymentViewModel: ViewModel() {
                 }
                 .addOnFailureListener { e ->
                     Log.w("FireStore ERROR", "Error fetching documents", e)
+                }
+        }
+    }
+
+
+    fun addAdmissionFees() {
+        viewModelScope.launch {
+            val hostelFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.AdmissionFees,
+                addmissionFees.value.toDouble(), currentDate.time, currentIsFeePaid.value)
+
+            FirebaseDatabaseManager.firestoreRef
+                .collection("Payments")
+                .document("${gradeSelected.value}")
+                .collection("${currentStudentId.value}")
+                .add(hostelFeeOfStudent)
+                .addOnSuccessListener {
+                    currentPaymentAmount.value = ""
+                    Log.d("Firebase FireStore Success", "record updated successfully!")
+                }
+                .addOnFailureListener {
+                    Log.d("Firebase FireStore Failed", "record updated successfully!")
                 }
         }
     }

@@ -40,14 +40,20 @@ import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.FloatingButton
 import com.alsalam.alsalamadminapp.View.Components.GradeCard
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
+import com.alsalam.alsalamadminapp.View.FeeScreen.FeesPaidStudentCard
 import com.alsalam.alsalamadminapp.View.FeeScreen.GradeSelectedButton
 import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
+import java.text.SimpleDateFormat
+import java.util.Date
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition",
+    "SimpleDateFormat"
+)
 @Composable
 fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel: TeacherSalaryViewModel){
 
     val salaryList by teacherSalaryViewModel.salaryList.collectAsState(emptyList())
+    val formatter = SimpleDateFormat("dd/MM/yyyy")
 
     Scaffold(floatingActionButton = { FloatingButton(navController = navController, route = "AddSalaryScreen")}) {
 
@@ -95,7 +101,13 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
 
                 // Months
                 salaryList.forEach { s ->
-                    MonthCard(month = s.month, amount = s.salary.toString())
+                    SalaryPaidCard(
+                        month = s.month,
+                        name = s.teacherName,
+                        amount = s.salary.toString(),
+                        paid = true,
+                        date = formatter.format(Date(s.date))
+                    )
                     Spacer(modifier = Modifier.height(5.dp))
                 }
 
@@ -104,25 +116,41 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
     }
 }
 
+
+
 @Composable
-fun MonthCard(month: String, amount: String){
-
-    val context = LocalContext.current
-
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .height(100.dp)
-        .background(Color.Transparent),
-        shape = RoundedCornerShape(20.dp),
+fun SalaryPaidCard(month: String, name: String, amount: String, paid: Boolean, date: String) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp),
+        shape = RoundedCornerShape(15.dp),
         elevation = CardDefaults.cardElevation(10.dp),
-        colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue)))
-    {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-            verticalArrangement = Arrangement.Center){
-            Text(month.toString(), fontSize = 20.sp, color = Color.White, fontWeight = FontWeight.Bold)
-            Text("₹ ${amount.toString()}", fontSize = 18.sp, color = Color.White, fontWeight = FontWeight.Medium)
+        colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
+    ) {
+        Row(modifier = Modifier.fillMaxSize().padding(all = 10.dp)) {
+            Column(
+                modifier = Modifier
+                    .width(270.dp)
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(month, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 18.sp, maxLines = 1)
+                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
+                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 22.sp, maxLines = 1)
+                Spacer(modifier = Modifier.height(8.dp))
+
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(if (paid) "PAID" else "NOT PAID", color = if (paid) Color.Green else Color.Red, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                Text(if (paid) date else "", color = Color.White, fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+            }
         }
     }
 }
+

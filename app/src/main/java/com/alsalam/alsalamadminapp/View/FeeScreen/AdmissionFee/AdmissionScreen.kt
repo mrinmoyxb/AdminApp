@@ -41,11 +41,12 @@ import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
 import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
+import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition", "UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: DailyCollectionViewModel,
-                       balanceViewModel: BalanceViewModel, monthlyPaymentViewModel: MonthlyPaymentViewModel){
+                       balanceViewModel: BalanceViewModel, monthlyPaymentViewModel: MonthlyPaymentViewModel, payment: PaymentViewModel){
 
     val admissionFee by viewModel.admissionFee.collectAsState("")
     val examFee by viewModel.examFee.collectAsState("")
@@ -62,6 +63,7 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
 
     val total by viewModel.totalFee.collectAsState(0.0)
     val context = LocalContext.current
+
 
     Scaffold(
         topBar = { CustomTopBar(text = "Admission Fee")}
@@ -148,6 +150,9 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
                         monthlyPaymentViewModel.currentPaymentAmount.value = total.toString()
                         monthlyPaymentViewModel.currentIsFeePaid.value = true
                         monthlyPaymentViewModel.addMonthlyAdmissionPayment()
+
+                        payment.admissionFees.value = total.toString()
+                        payment.addAdmissionFees()
                         Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                     }
                 })

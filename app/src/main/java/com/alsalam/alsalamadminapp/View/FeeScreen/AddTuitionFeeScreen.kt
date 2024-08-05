@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
+import com.alsalam.alsalamadminapp.View.Components.GradeCard
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
@@ -49,9 +51,15 @@ fun AddTuitionFeeScreen(paymentViewModel: PaymentViewModel, dailyExpenseViewMode
 
     val formatter = SimpleDateFormat("dd/MM/yyyy")
 
+    LaunchedEffect(Unit) {
+        paymentViewModel.fetchStudentFees()
+    }
+
     Scaffold(topBar = { CustomTopBar(text = "Tuition Fees") })
     {
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(10.dp))
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp))
         {
             item {
                 Spacer(modifier = Modifier.height(95.dp))
@@ -73,7 +81,7 @@ fun AddTuitionFeeScreen(paymentViewModel: PaymentViewModel, dailyExpenseViewMode
                 Text("Paid", fontSize = 15.sp, fontWeight = FontWeight.Normal)
                 Spacer(modifier = Modifier.height(5.dp))
                 CustomDropDownMenuFeesPaid(viewModel = paymentViewModel)
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 // save button
                 SaveUploadButton(title = "Save", onClick = {
@@ -95,16 +103,13 @@ fun AddTuitionFeeScreen(paymentViewModel: PaymentViewModel, dailyExpenseViewMode
                 })
 
                 Spacer(modifier = Modifier.height(10.dp))
-                SaveUploadButton(title = "Load Previous Payments") {
-                    paymentViewModel.fetchStudentFees()
-                }
+                Subheading(grade = "Previous Payments")
 
                 Spacer(modifier = Modifier.height(20.dp))
                 students.forEach { student ->
                     if (student.studentPaymentFor == PaymentTypes.TuitionFees) {
                         FeesPaidStudentCard(
                             name = student.studentName,
-                            roll = student.studentRollNo,
                             amount = student.studentPaymentAmount.toString(),
                             paid = student.studentFeesPaid,
                             date = formatter.format(Date(student.date))

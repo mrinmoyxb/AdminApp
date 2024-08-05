@@ -1,5 +1,7 @@
 package com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
@@ -116,25 +118,26 @@ class DeleteCollection: ViewModel() {
     }
 
 
-
     fun deleteEntireCollection() {
-        val scope = CoroutineScope(Dispatchers.Main)
-        val db = FirebaseFirestore.getInstance()
-        val collectionRef = db.collection("Payments")
-        scope.launch(Dispatchers.IO) {
-            try {
-                val querySnapshot = collectionRef.get().await()
-                val batch = db.batch()
-                for (document in querySnapshot.documents) {
-                    batch.delete(document.reference)
+        viewModelScope.launch {
+            val db = FirebaseFirestore.getInstance()
+            val paymentsCollection = db.collection("Payments")
+
+            paymentsCollection.get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        document.reference.delete()
+                            .addOnSuccessListener {
+                                Log.d(TAG, "Document ${document.id} successfully deleted!") }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Error deleting document ${document.id}", e)
+                            }
+                    }
                 }
-                batch.commit().await()
-                println("All documents deleted from collection: Payments")
-            } catch (e: Exception) {
-                println("Error deleting documents: $e")
-            }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                }
         }
     }
 
 }
-

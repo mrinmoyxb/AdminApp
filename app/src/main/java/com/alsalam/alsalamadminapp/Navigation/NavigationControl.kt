@@ -154,7 +154,7 @@ fun MainScreen(){
 
         // add admission fee
         composable(route = "admissionFeeScreen"){
-            AdmissionFeeScreen(admissionViewModel, dailyCollectionViewModel, balanceViewModel, monthlyPaymentViewModel)
+            AdmissionFeeScreen(admissionViewModel, dailyCollectionViewModel, balanceViewModel, monthlyPaymentViewModel, paymentViewModel)
         }
 
 

@@ -139,9 +139,10 @@ data class TeacherSalary(
     val subject: Subjects,
     val salary: Double,
     val qualification: String,
-    val month: String
+    val month: String,
+    val date: Long
 ){
-    constructor(): this("", Subjects.NULL, 0.0, "", "")
+    constructor(): this("", Subjects.NULL, 0.0, "", "", 0)
 }
 
 

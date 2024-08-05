@@ -16,6 +16,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -47,6 +48,9 @@ fun AddLateFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMode
     val students by paymentViewModel.studentsPaymentFetched.collectAsState(emptyList())
 
     val formatter = SimpleDateFormat("dd/MM/yyyy")
+    LaunchedEffect(Unit) {
+        paymentViewModel.fetchStudentFees()
+    }
 
     Scaffold(topBar = { CustomTopBar(text = "Late Fees") })
     {
@@ -74,7 +78,7 @@ fun AddLateFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMode
                 Text("Paid", fontSize = 15.sp, fontWeight = FontWeight.Normal)
                 Spacer(modifier = Modifier.height(5.dp))
                 CustomDropDownMenuFeesPaid(viewModel = paymentViewModel)
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
                 // save button and DAILY EXPENSE
                 SaveUploadButton(title = "Save", onClick = {
@@ -91,16 +95,13 @@ fun AddLateFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMode
                 })
 
                 Spacer(modifier = Modifier.height(10.dp))
-                SaveUploadButton(title = "Load Previous Payments") {
-                    paymentViewModel.fetchStudentFees()
-                }
+                Subheading(grade = "Previous Payments")
 
                 Spacer(modifier = Modifier.height(20.dp))
                 students.forEach { student ->
                     if (student.studentPaymentFor == PaymentTypes.LateFees) {
                         FeesPaidStudentCard(
                             name = student.studentName,
-                            roll = student.studentRollNo,
                             amount = student.studentPaymentAmount.toString(),
                             paid = student.studentFeesPaid,
                             date = formatter.format(Date(student.date))

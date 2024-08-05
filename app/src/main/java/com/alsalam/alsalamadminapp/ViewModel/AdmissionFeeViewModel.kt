@@ -3,9 +3,13 @@ package com.alsalam.alsalamadminapp.ViewModel
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
 import com.alsalam.alsalamadminapp.Model.AdmissionAmount
+import com.alsalam.alsalamadminapp.Model.PaymentTypes
+import com.alsalam.alsalamadminapp.Model.StudentFee
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -83,7 +87,6 @@ class AdmissionFeeViewModel: ViewModel() {
                 Log.w("Firebase", "Error updating payment record: $exception")
             }
     }
-
 
 }
 
