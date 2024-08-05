@@ -39,6 +39,7 @@ class PaymentViewModel: ViewModel() {
 
     // fetched data
     val studentsPaymentFetched = MutableStateFlow<List<StudentFee>>(emptyList())
+    val dateSetByAdmin: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     private val currentDate = Date()
 
@@ -50,7 +51,7 @@ class PaymentViewModel: ViewModel() {
     fun addHostelFees() {
         viewModelScope.launch {
             val hostelFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.HostelFees,
-                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value)
+                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, dateSetByAdmin.value)
 
             FirebaseDatabaseManager.firestoreRef
                 .collection("Payments")
@@ -58,7 +59,7 @@ class PaymentViewModel: ViewModel() {
                 .collection("${currentStudentId.value}")
                 .add(hostelFeeOfStudent)
                 .addOnSuccessListener {
-                    currentPaymentAmount.value = ""
+                    resetPayment()
                     Log.d("Firebase FireStore Success", "record updated successfully!")
                 }
                 .addOnFailureListener {
@@ -71,7 +72,7 @@ class PaymentViewModel: ViewModel() {
     fun addTuitionFees() {
         viewModelScope.launch {
             val tuitionFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.TuitionFees,
-                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value
+                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, dateSetByAdmin.value
             )
 
             FirebaseDatabaseManager.firestoreRef
@@ -80,7 +81,7 @@ class PaymentViewModel: ViewModel() {
                 .collection(currentStudentId.value)
                 .add(tuitionFeeOfStudent)
                 .addOnSuccessListener {
-                    currentPaymentAmount.value = ""
+                    resetPayment()
                     Log.d("Firebase FireStore Success", "record updated successfully!")
                 }
                 .addOnFailureListener {
@@ -93,7 +94,7 @@ class PaymentViewModel: ViewModel() {
     fun addOtherFees() {
         viewModelScope.launch {
             val tuitionFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.OtherFees,
-                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value
+                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, dateSetByAdmin.value
             )
 
             FirebaseDatabaseManager.firestoreRef
@@ -102,7 +103,7 @@ class PaymentViewModel: ViewModel() {
                 .collection(currentStudentId.value)
                 .add(tuitionFeeOfStudent)
                 .addOnSuccessListener {
-                    currentPaymentAmount.value = ""
+                    resetPayment()
                     Log.d("Firebase FireStore Success", "record updated successfully!")
                 }
                 .addOnFailureListener {
@@ -115,7 +116,7 @@ class PaymentViewModel: ViewModel() {
     fun addLateFees() {
         viewModelScope.launch {
             val tuitionFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.LateFees,
-                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value
+                currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, dateSetByAdmin.value
             )
 
             FirebaseDatabaseManager.firestoreRef
@@ -124,7 +125,7 @@ class PaymentViewModel: ViewModel() {
                 .collection(currentStudentId.value)
                 .add(tuitionFeeOfStudent)
                 .addOnSuccessListener {
-                    currentPaymentAmount.value = ""
+                    resetPayment()
                     Log.d("Firebase FireStore Success", "record updated successfully!")
                 }
                 .addOnFailureListener {
@@ -160,7 +161,7 @@ class PaymentViewModel: ViewModel() {
     fun addAdmissionFees() {
         viewModelScope.launch {
             val hostelFeeOfStudent: StudentFee = StudentFee(currentActiveName.value, currentActiveRollNo.value, PaymentTypes.AdmissionFees,
-                currentPaymentAmount.value.toDouble(), currentDate.time, true)
+                currentPaymentAmount.value.toDouble(), currentDate.time, true, dateSetByAdmin.value)
 
             FirebaseDatabaseManager.firestoreRef
                 .collection("Payments")
@@ -169,12 +170,19 @@ class PaymentViewModel: ViewModel() {
                 .add(hostelFeeOfStudent)
                 .addOnSuccessListener {
                     currentPaymentAmount.value = ""
+                    dateSetByAdmin.value = ""
                     Log.d("Firebase FireStore Success", "record updated successfully!")
                 }
                 .addOnFailureListener {
                     Log.d("Firebase FireStore Failed", "record updated successfully!")
                 }
         }
+    }
+
+    fun resetPayment(){
+        currentPaymentAmount.value = ""
+        dateSetByAdmin.value = ""
+        currentIsFeePaid.value = false
     }
 }
 

@@ -106,7 +106,7 @@ fun TeacherDetailSalary(navController: NavHostController, teacherSalaryViewModel
                         name = s.teacherName,
                         amount = s.salary.toString(),
                         paid = true,
-                        date = formatter.format(Date(s.date))
+                        date = s.setDateByAdmin
                     )
                     Spacer(modifier = Modifier.height(5.dp))
                 }
@@ -131,13 +131,13 @@ fun SalaryPaidCard(month: String, name: String, amount: String, paid: Boolean, d
         Row(modifier = Modifier.fillMaxSize().padding(all = 10.dp)) {
             Column(
                 modifier = Modifier
-                    .width(270.dp)
+                    .width(250.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(month, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 18.sp, maxLines = 1)
-                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
-                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 22.sp, maxLines = 1)
+                Text(month, color = Color.White, fontWeight = FontWeight.Medium, fontSize = 15.sp, maxLines = 1)
+                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp, maxLines = 1)
+                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp, maxLines = 1)
                 Spacer(modifier = Modifier.height(8.dp))
 
             }

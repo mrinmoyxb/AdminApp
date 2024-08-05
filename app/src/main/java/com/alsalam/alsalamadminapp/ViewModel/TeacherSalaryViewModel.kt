@@ -19,13 +19,14 @@ class TeacherSalaryViewModel: ViewModel() {
     var currentTeacherSubject: MutableStateFlow<Subjects> = MutableStateFlow<Subjects>(Subjects.NULL)
     var currentTeacherSalary: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentTeacherQualification: MutableStateFlow<String> = MutableStateFlow<String>("")
+    val dateSetByAdmin: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     var salaryList: MutableStateFlow<List<TeacherSalary>> = MutableStateFlow<List<TeacherSalary>>(emptyList())
     val currentDate = Date()
 
     fun addTeacherSalary() {
         viewModelScope.launch {
-            val teacherSalary: TeacherSalary = TeacherSalary(currentTeacherName.value, currentTeacherSubject.value, currentTeacherSalary.value.toDouble(), currentTeacherQualification.value, currentMonth.value, currentDate.time)
+            val teacherSalary: TeacherSalary = TeacherSalary(currentTeacherName.value, currentTeacherSubject.value, currentTeacherSalary.value.toDouble(), currentTeacherQualification.value, currentMonth.value, currentDate.time, dateSetByAdmin.value)
 
             FirebaseDatabaseManager.firestoreRef
                 .collection("TeachersSalary")
@@ -34,6 +35,7 @@ class TeacherSalaryViewModel: ViewModel() {
                 .add(teacherSalary)
                 .addOnSuccessListener {
                     currentTeacherSalary.value = ""
+                    dateSetByAdmin.value = ""
                     Log.d("Firebase FireStore Success", "record updated successfully!")
                 }
                 .addOnFailureListener {

@@ -43,9 +43,10 @@ data class StudentFee(
     val studentPaymentFor: PaymentTypes,
     val studentPaymentAmount: Double,
     val date: Long,
-    val studentFeesPaid: Boolean
+    val studentFeesPaid: Boolean,
+    val dateSetByAdmin: String
 ){
-    constructor(): this("","", PaymentTypes.DefaultFees, 0.0, 0, false)
+    constructor(): this("","", PaymentTypes.DefaultFees, 0.0, 0, false, "")
 }
 
 
@@ -140,9 +141,10 @@ data class TeacherSalary(
     val salary: Double,
     val qualification: String,
     val month: String,
-    val date: Long
+    val date: Long,
+    val setDateByAdmin: String
 ){
-    constructor(): this("", Subjects.NULL, 0.0, "", "", 0)
+    constructor(): this("", Subjects.NULL, 0.0, "", "", 0, "")
 }
 
 

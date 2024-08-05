@@ -54,6 +54,7 @@ fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel, balanceViewM
 
     val context = LocalContext.current
     val amount by teacherSalaryViewModel.currentTeacherSalary.collectAsState("")
+    val dateSet by teacherSalaryViewModel.dateSetByAdmin.collectAsState("")
     val expenditureViewModel: ExpenditureViewModel = viewModel()
 
     Scaffold(topBar = { CustomTopBar(text = "Pay Salary") })
@@ -77,6 +78,21 @@ fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel, balanceViewM
                         containerColor = colorResource(id = R.color.secondary_gray1)
                     )
                 )
+
+                // date
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = dateSet,
+                    onValueChange = { teacherSalaryViewModel.dateSetByAdmin.value = it },
+                    label = { Text("Enter Date", fontSize = 15.sp) },
+                    placeholder = { Text("DD/MM/YYYY", fontSize = 15.sp) },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_gray1)
+                    )
+                )
+
                 Spacer(modifier = Modifier.height(10.dp))
                 CustomDropDownMenuMonth(viewModel = teacherSalaryViewModel)
 

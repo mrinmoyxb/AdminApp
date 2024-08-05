@@ -195,12 +195,12 @@ fun FeesPaidStudentCard(name: String, amount: String, paid: Boolean, date: Strin
         Row(modifier = Modifier.fillMaxSize().padding(all = 10.dp)) {
             Column(
                 modifier = Modifier
-                    .width(270.dp)
+                    .width(250.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
             ) {
-                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
-                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 22.sp, maxLines = 1)
+                Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp, maxLines = 1)
+                Text("₹ $amount", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 20.sp, maxLines = 1)
                 Spacer(modifier = Modifier.height(8.dp))
 
             }

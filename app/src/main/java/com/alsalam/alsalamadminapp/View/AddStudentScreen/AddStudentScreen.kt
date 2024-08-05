@@ -279,6 +279,7 @@ fun AddStudentScreen(){
                 value = admissionDate,
                 onValueChange = { addStudentViewModel.admissionDate.value = it },
                 label = { Text("Enter Admission Date", fontSize = 15.sp) },
+                placeholder = { Text("DD/MM/YYYY", fontSize = 15.sp) },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(10.dp),
                 colors = TextFieldDefaults.textFieldColors(

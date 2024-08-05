@@ -48,6 +48,7 @@ import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("StateFlowValueCalledInComposition", "UnusedMaterial3ScaffoldPaddingParameter",
     "SimpleDateFormat"
 )
@@ -73,6 +74,8 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
 
 
     val students by payment.studentsPaymentFetched.collectAsState(emptyList())
+    val dateSet by payment.dateSetByAdmin.collectAsState("")
+
     LaunchedEffect(Unit) {
         payment.fetchStudentFees()
     }
@@ -125,6 +128,18 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
 
                 CustomTextField(text = "Others", othersFee.toString(), onValueChange = {viewModel.othersFee.value = it})
                 Spacer(modifier = Modifier.height(5.dp))
+
+                OutlinedTextField(
+                    value = dateSet,
+                    onValueChange = { payment.dateSetByAdmin.value = it },
+                    label = { Text("Enter Date", fontSize = 15.sp) },
+                    placeholder = { Text("DD/MM/YYYY", fontSize = 15.sp) },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_gray1)
+                    )
+                )
 
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -179,7 +194,7 @@ fun AdmissionFeeScreen(viewModel: AdmissionFeeViewModel, dailyExpenseViewModel: 
                             name = student.studentName,
                             amount = student.studentPaymentAmount.toString(),
                             paid = student.studentFeesPaid,
-                            date = formatter.format(Date(student.date))
+                            date = student.dateSetByAdmin
                         )
                         Spacer(modifier = Modifier.height(7.dp))
                     }

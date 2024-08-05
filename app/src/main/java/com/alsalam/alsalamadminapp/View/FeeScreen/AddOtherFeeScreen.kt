@@ -47,6 +47,7 @@ fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMod
     val serviceSelected by paymentViewModel.serviceSelected.collectAsState(-1)
     val context = LocalContext.current
     val students by paymentViewModel.studentsPaymentFetched.collectAsState(emptyList())
+    val dateSet by paymentViewModel.dateSetByAdmin.collectAsState("")
 
     val formatter = SimpleDateFormat("dd/MM/yyyy")
     LaunchedEffect(Unit) {
@@ -68,6 +69,20 @@ fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMod
                     label = { Text("Enter Amount", fontSize = 15.sp) },
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_gray1)
+                    )
+                )
+
+                // date
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = dateSet,
+                    onValueChange = { paymentViewModel.dateSetByAdmin.value = it },
+                    label = { Text("Enter Date", fontSize = 15.sp) },
+                    placeholder = { Text("DD/MM/YYYY", fontSize = 15.sp) },
+                    modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = colorResource(id = R.color.secondary_gray1)
@@ -105,7 +120,7 @@ fun AddOtherFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMod
                             name = student.studentName,
                             amount = student.studentPaymentAmount.toString(),
                             paid = student.studentFeesPaid,
-                            date = formatter.format(Date(student.date))
+                            date = student.dateSetByAdmin
                         )
                         Spacer(modifier = Modifier.height(7.dp))
                     }
