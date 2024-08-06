@@ -73,7 +73,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                         .fillMaxSize()
                         .padding(12.dp)
                 ) {
-                    Column(modifier = Modifier.width(250.dp)) {
+                    Column(modifier = Modifier.fillMaxSize()) {
                         Spacer(modifier = Modifier.height(30.dp))
                         Text(paymentViewModel.currentActiveName.value, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
 

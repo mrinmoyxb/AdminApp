@@ -233,9 +233,9 @@ fun StudentDisplayCard(name: String, studentId: String, roll: String, dob: Strin
                 Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
 
                 Spacer(modifier = Modifier.height(12.dp))
-                Text("Student ID: $studentId", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
-                Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
-                Text("DOB: $dob", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 18.sp)
+                Text("SID: $studentId", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp, maxLines = 1)
+                Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp)
+                Text("DOB: $dob", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp)
             }
             Column(
                 modifier = Modifier.fillMaxHeight(),
