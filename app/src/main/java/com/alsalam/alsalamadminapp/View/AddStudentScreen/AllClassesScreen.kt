@@ -46,7 +46,7 @@ fun AllClassesScreen(navController: NavHostController, viewModel: AddStudentView
                         viewModel.loadStudents()
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }

@@ -111,7 +111,7 @@ fun AddSalaryScreen(teacherSalaryViewModel: TeacherSalaryViewModel, balanceViewM
                     }
                 })
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(35.dp))
 
                 }
 

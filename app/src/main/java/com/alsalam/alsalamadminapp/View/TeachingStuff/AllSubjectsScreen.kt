@@ -52,7 +52,7 @@ fun AllSubjectsScreen(navController: NavHostController, viewModel: AddStaffViewM
                         })
                     }
                 }
-                Spacer(modifier = Modifier.height(5.dp))
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
 

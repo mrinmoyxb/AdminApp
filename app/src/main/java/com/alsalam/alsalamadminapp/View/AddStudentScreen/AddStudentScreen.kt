@@ -338,7 +338,7 @@ fun AddStudentScreen(){
             {
                 Text("Add Student")
             }
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

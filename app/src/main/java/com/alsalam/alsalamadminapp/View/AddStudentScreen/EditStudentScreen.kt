@@ -296,7 +296,7 @@ fun EditStudentScreen(addStudentViewModel: EditDetailsViewModel){
                 {
                     Text("Update Details")
                 }
-                Spacer(modifier = Modifier.height(15.dp))
+                Spacer(modifier = Modifier.height(30.dp))
             }
         }
     }

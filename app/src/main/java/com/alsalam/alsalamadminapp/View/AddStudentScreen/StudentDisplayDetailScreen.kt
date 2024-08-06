@@ -271,7 +271,7 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
                 uploadResultViewModel.uploadResultPdf()
                 Toast.makeText(context, "Result Uploaded", Toast.LENGTH_SHORT).show()
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(35.dp))
         }
     }
 

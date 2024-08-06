@@ -196,7 +196,7 @@ fun AddTeachingStaff(){
                     Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
                 }
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
             }
         }
