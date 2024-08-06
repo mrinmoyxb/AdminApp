@@ -32,7 +32,6 @@ import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.alsalam.alsalamadminapp.R
@@ -57,7 +56,6 @@ fun EditStudentScreen(addStudentViewModel: EditDetailsViewModel){
     val studentName by addStudentViewModel.studentName.collectAsState("")
     val studentRollNo by addStudentViewModel.studentRollNo.collectAsState("")
     val studentDateOfBirth by addStudentViewModel.studentDateOfBirth.collectAsState("")
-    val className by addStudentViewModel.currentClassName.collectAsState("")
     val studentId by addStudentViewModel.currentStudentId.collectAsState("")
 
     val father by addStudentViewModel.fathersName.collectAsState("")
@@ -91,6 +89,19 @@ fun EditStudentScreen(addStudentViewModel: EditDetailsViewModel){
                     value = studentName,
                     onValueChange = { addStudentViewModel.studentName.value = it },
                     label = { Text("Enter the name", fontSize = 15.sp) },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_gray1)
+                    )
+                )
+
+                // roll:
+                Spacer(modifier = Modifier.height(8.dp))
+                OutlinedTextField(
+                    value = studentRollNo,
+                    onValueChange = { addStudentViewModel.studentRollNo.value = it },
+                    label = { Text("Enter rollNo", fontSize = 15.sp) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
                     colors = TextFieldDefaults.textFieldColors(
@@ -277,7 +288,7 @@ fun EditStudentScreen(addStudentViewModel: EditDetailsViewModel){
                             Toast.makeText(context, "Enter all the details", Toast.LENGTH_SHORT)
                                 .show()
                         } else {
-
+                            addStudentViewModel.updateStudent()
                             Toast.makeText(context, "Successfully Added", Toast.LENGTH_SHORT).show()
                         }
                     })

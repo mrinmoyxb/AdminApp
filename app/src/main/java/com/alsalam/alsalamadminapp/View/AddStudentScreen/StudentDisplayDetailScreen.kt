@@ -37,12 +37,13 @@ import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomCard
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.View.FeeScreen.GradeSelectedButton
+import com.alsalam.alsalamadminapp.ViewModel.EditDetailsViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostController: NavHostController, uploadResultViewModel: PdfUploadAndRetrieveViewModel){
+fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostController: NavHostController, uploadResultViewModel: PdfUploadAndRetrieveViewModel, editViewModel: EditDetailsViewModel){
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         uploadResultViewModel.selectPdf(uri)
@@ -140,7 +141,10 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
             // EDIT STUDENT
             GradeSelectedButton(grade = "Edit", onClick = {})
             Spacer(modifier = Modifier.height(10.dp))
-            SaveUploadButton(title = "Edit Student Details") {navHostController.navigate("editStudent")}
+            SaveUploadButton(title = "Edit Student Details") {navHostController.navigate("editStudent")
+                editViewModel.currentStudentId.value = paymentViewModel.currentStudentId.value
+                editViewModel.currentClassName.value = paymentViewModel.gradeSelected.value
+            }
             Spacer(modifier = Modifier.height(15.dp))
 
             // FEES

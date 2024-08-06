@@ -3,6 +3,7 @@ package com.alsalam.alsalamadminapp.ViewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.alsalam.alsalamadminapp.Firebase.FirebaseDatabaseManager
+import com.alsalam.alsalamadminapp.Model.EditStudentInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class EditDetailsViewModel: ViewModel() {
@@ -10,7 +11,6 @@ class EditDetailsViewModel: ViewModel() {
     // IMMUTABLE
     var currentClassName: MutableStateFlow<String> = MutableStateFlow<String>("")
     var currentStudentId: MutableStateFlow<String> = MutableStateFlow<String>("")
-    var currentgradeSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
 
     // MUTABLE
     var studentName: MutableStateFlow<String> = MutableStateFlow<String>("")
@@ -32,7 +32,7 @@ class EditDetailsViewModel: ViewModel() {
     fun updateStudent() {
         val studentRef = FirebaseDatabaseManager.classRef.child(currentClassName.value).child(currentStudentId.value)
         val updatedStudent = EditStudentInfo(studentName.value, studentRollNo.value, studentDateOfBirth.value,
-            fathersName.value, motherName.value, village.value, postOffice.value, policeStation.value, district.value, currentgradeSelected.value,
+            fathersName.value, motherName.value, village.value, postOffice.value, policeStation.value, district.value, currentClassName.value,
             pin.value, mobileNo.value, admissionDate.value, admissionFees.value, monthlyFees.value)
 
         studentRef.updateChildren(updatedStudent.toMap())
@@ -45,47 +45,3 @@ class EditDetailsViewModel: ViewModel() {
     }
 }
 
-
-
-
-
-// STUDENT----------------------------------------------------------------------------------------//
-data class EditStudentInfo(
-    val studentName: String,
-    val rollNo: String,
-    val dateOfBirth: String,
-    var fatherName: String,
-    var motherName: String,
-    var village: String,
-    var postOffice: String,
-    var policeStation: String,
-    var district: String,
-    var grade: String,
-    var pin: String,
-    var mobileNo: String,
-    var admissionDate: String,
-    var admissionFees: String,
-    var monthlyFees: String,
-
-    ){
-    constructor() : this("", "","", "", "", "", "", "", "", "", "", "", "", "", "")
-    fun toMap(): Map<String, Any> {
-        return mapOf(
-            "studentName" to studentName,
-            "rollNo" to rollNo,
-            "dateOfBirth" to dateOfBirth,
-            "fatherName" to fatherName,
-            "motherName" to motherName,
-            "village" to village,
-            "postOffice" to postOffice,
-            "policeStation" to policeStation,
-            "district" to district,
-            "grade" to grade,
-            "pin" to pin,
-            "mobileNo" to mobileNo,
-            "admissionDate" to admissionDate,
-            "admissionFees" to admissionFees,
-            "monthlyFees" to monthlyFees
-        )
-    }
-}

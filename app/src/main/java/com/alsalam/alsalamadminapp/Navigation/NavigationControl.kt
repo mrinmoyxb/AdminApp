@@ -89,7 +89,7 @@ fun MainScreen(){
         }
 
         composable(route = "displayStudentDetail"){
-            StudentDisplayDetailScreen(paymentViewModel, navController, pdfViewModel)
+            StudentDisplayDetailScreen(paymentViewModel, navController, pdfViewModel, editViewModel = editStudentDetails)
         }
 
         composable(route = "classRoutineScreen"){

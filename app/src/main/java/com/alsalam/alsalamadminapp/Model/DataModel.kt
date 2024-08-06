@@ -26,6 +26,47 @@ data class StudentInfo(
 }
 
 
+// EDIT STUDENT----------------------------------------------------------------------------------------//
+data class EditStudentInfo(
+    val studentName: String,
+    val rollNo: String,
+    val dateOfBirth: String,
+    var fatherName: String,
+    var motherName: String,
+    var village: String,
+    var postOffice: String,
+    var policeStation: String,
+    var district: String,
+    var grade: String,
+    var pin: String,
+    var mobileNo: String,
+    var admissionDate: String,
+    var admissionFees: String,
+    var monthlyFees: String,
+
+    ){
+    constructor() : this("", "","", "", "", "", "", "", "", "", "", "", "", "", "")
+    fun toMap(): Map<String, Any> {
+        return mapOf(
+            "studentName" to studentName,
+            "rollNo" to rollNo,
+            "dateOfBirth" to dateOfBirth,
+            "fatherName" to fatherName,
+            "motherName" to motherName,
+            "village" to village,
+            "postOffice" to postOffice,
+            "policeStation" to policeStation,
+            "district" to district,
+            "grade" to grade,
+            "pin" to pin,
+            "mobileNo" to mobileNo,
+            "admissionDate" to admissionDate,
+            "admissionFees" to admissionFees,
+            "monthlyFees" to monthlyFees
+        )
+    }
+}
+
 
 // PAYMENTS ----------------------------------------------------------------------------------------//
 enum class PaymentTypes{
