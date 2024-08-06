@@ -331,7 +331,6 @@ fun AddStudentScreen(){
                         Toast.makeText(context, "Enter all the details", Toast.LENGTH_SHORT).show()
                     } else {
                         addStudentViewModel.addStudentByStudentID()
-                        addStudentViewModel.addStudentFireStore()
                         addStudentViewModel.addAllStudent()
                         Toast.makeText(context, "Successfully Added", Toast.LENGTH_SHORT).show()
                     }

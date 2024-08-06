@@ -289,6 +289,7 @@ fun EditStudentScreen(addStudentViewModel: EditDetailsViewModel){
                                 .show()
                         } else {
                             addStudentViewModel.updateStudent()
+                            addStudentViewModel.addAllStudent()
                             Toast.makeText(context, "Successfully Added", Toast.LENGTH_SHORT).show()
                         }
                     })

@@ -102,27 +102,6 @@ class AddStudentViewModel: ViewModel() {
             }
     }
 
-    fun addStudentFireStore() {
-        viewModelScope.launch {
-            val student: StudentInfo = StudentInfo(studentName.value, studentId.value, studentRollNo.value, studentDateOfBirth.value,
-                fathersName.value, motherName.value, village.value, postOffice.value, policeStation.value, district.value, gradeSelected.value,
-                pin.value, mobileNo.value, admissionDate.value, admissionFees.value, monthlyFees.value)
-
-            FirebaseDatabaseManager.firestoreRef
-                .collection("StudentsAdmin")
-                .document("Students")
-                .collection(studentId.value)
-                .add(student)
-                .addOnSuccessListener {
-                    reset()
-                    Log.d("Firebase FireStore Success", "record updated successfully!")
-                }
-                .addOnFailureListener {
-                    Log.d("Firebase FireStore Failed", "record updated successfully!")
-                }
-        }
-    }
-
 
     // image
     fun handleImageUri(uri: Uri?) {
