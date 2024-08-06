@@ -37,11 +37,30 @@ class EditDetailsViewModel: ViewModel() {
 
         studentRef.updateChildren(updatedStudent.toMap())
             .addOnSuccessListener {
-                Log.d("StudentAdd", "Student added successfully with roll number: $studentRollNo")
+                reset()
+                Log.d("StudentAdd", "Student added successfully with roll number")
             }
             .addOnFailureListener {
                 Log.d("Failed", "Error")
             }
+    }
+
+
+    fun reset() {
+        studentName.value = ""
+        studentRollNo.value = ""
+        studentDateOfBirth.value = ""
+        fathersName.value = ""
+        motherName.value = ""
+        village.value = ""
+        postOffice.value = ""
+        policeStation.value = ""
+        district.value = ""
+        pin.value = ""
+        mobileNo.value = ""
+        admissionDate.value = ""
+        admissionFees.value = ""
+        monthlyFees.value = ""
     }
 }
 
