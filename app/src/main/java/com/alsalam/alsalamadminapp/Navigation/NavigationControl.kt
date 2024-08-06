@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.alsalam.alsalamadminapp.View.AddStudentScreen.AddStudentScreen
 import com.alsalam.alsalamadminapp.View.AddStudentScreen.AllClassesScreen
+import com.alsalam.alsalamadminapp.View.AddStudentScreen.EditStudentScreen
 import com.alsalam.alsalamadminapp.View.AddStudentScreen.GradeWiseDisplayScreen
 import com.alsalam.alsalamadminapp.View.AddStudentScreen.StudentDisplayDetailScreen
 import com.alsalam.alsalamadminapp.View.ClassRoutineScreen.ClassRoutineScreen
@@ -43,6 +44,7 @@ import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
+import com.alsalam.alsalamadminapp.ViewModel.EditDetailsViewModel
 import com.alsalam.alsalamadminapp.ViewModel.MonthlyPaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
@@ -68,6 +70,8 @@ fun MainScreen(){
     val teacherSalaryViewModel: TeacherSalaryViewModel = viewModel()
 
     val monthlyPaymentViewModel: MonthlyPaymentViewModel = viewModel()
+
+    val editStudentDetails: EditDetailsViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = "homeScreen"){
 
@@ -135,7 +139,12 @@ fun MainScreen(){
         composable(route = "addLateFees"){
             AddLateFeeScreen(paymentViewModel, dailyCollectionViewModel, balanceViewModel)
         }
-        
+
+        // edit
+        composable(route = "editStudent"){
+            EditStudentScreen(editStudentDetails)
+        }
+
         composable(route="hostelFees"){
             HostelFeeScreen(navController = navController)
         }

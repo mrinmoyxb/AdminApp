@@ -111,7 +111,7 @@ class AddStudentViewModel: ViewModel() {
             FirebaseDatabaseManager.firestoreRef
                 .collection("StudentsAdmin")
                 .document("Students")
-                .collection("${studentId.value}")
+                .collection(studentId.value)
                 .add(student)
                 .addOnSuccessListener {
                     reset()
@@ -194,3 +194,41 @@ class AddStudentViewModel: ViewModel() {
     }
 }
 
+/*
+* fun editStudentByStudentID(studentId: String) {
+    val studentRef = FirebaseDatabaseManager.classRef.child(className.value).child(studentId)
+
+    studentRef.get().addOnSuccessListener { dataSnapshot ->
+        if (dataSnapshot.exists()) {
+            val student = dataSnapshot.getValue(StudentInfo::class.java)!!
+            // Populate UI fields with student data
+            studentName.value = student.studentName
+            // ... populate other fields
+        } else {
+            // Handle case where student not found
+        }
+    }.addOnFailureListener {
+        // Handle error
+    }
+}
+
+fun updateStudent(studentId: String) {
+    val studentRef = FirebaseDatabaseManager.classRef.child(className.value).child(studentId)
+
+    val updatedStudent = StudentInfo(
+        studentName.value,
+        studentId, // Keep student ID unchanged
+        // ... other fields
+    )
+
+    studentRef.updateChildren(updatedStudent.toMap())
+        .addOnSuccessListener {
+            // Student updated successfully
+        }
+        .addOnFailureListener {
+            // Handle error
+        }
+}
+
+*
+* */

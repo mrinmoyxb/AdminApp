@@ -137,6 +137,13 @@ fun StudentDisplayDetailScreen(paymentViewModel: PaymentViewModel, navHostContro
             }
             Spacer(modifier = Modifier.height(20.dp))
 
+            // EDIT STUDENT
+            GradeSelectedButton(grade = "Edit", onClick = {})
+            Spacer(modifier = Modifier.height(10.dp))
+            SaveUploadButton(title = "Edit Student Details") {navHostController.navigate("editStudent")}
+            Spacer(modifier = Modifier.height(15.dp))
+
+            // FEES
             GradeSelectedButton(grade = "Fees", onClick = {})
             Spacer(modifier = Modifier.height(10.dp))
 
