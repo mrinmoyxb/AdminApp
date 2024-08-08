@@ -83,7 +83,6 @@ fun TodayCollectionCard(name: String, amount: String, grade: String){
             Spacer(modifier = Modifier.height(10.dp))
             Text("Class: $grade", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 18.sp)
             Text("Amount: ₹ $amount", color = Color.White, fontWeight = FontWeight.Medium, fontSize = 18.sp)
-
         }
 
     }

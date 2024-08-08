@@ -13,6 +13,7 @@ import com.alsalam.alsalamadminapp.View.AddStudentScreen.GradeWiseDisplayScreen
 import com.alsalam.alsalamadminapp.View.AddStudentScreen.StudentDisplayDetailScreen
 import com.alsalam.alsalamadminapp.View.ClassRoutineScreen.ClassRoutineScreen
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.DailyTrackingScreen
+import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.PreviousPaymentScreen
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayAdmission
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayExpenditure
 import com.alsalam.alsalamadminapp.View.DailyTrackingScreen.TodayHostelFees
@@ -211,6 +212,9 @@ fun MainScreen(){
         }
         composable(route = "todayLateFeeCollected"){
             TodayLateFee()
+        }
+        composable(route = "previousPayments"){
+            PreviousPaymentScreen()
         }
 
     }

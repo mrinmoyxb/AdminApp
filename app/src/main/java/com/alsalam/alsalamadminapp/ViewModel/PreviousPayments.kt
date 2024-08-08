@@ -17,10 +17,22 @@ class PreviousPayments: ViewModel() {
     val paymentList: MutableStateFlow<List<DailyExpense>> = MutableStateFlow<List<DailyExpense>>(emptyList())
 
 
+    @SuppressLint("SimpleDateFormat")
+    fun convertDateFormat() {
+        for(i in dateByAdmin.value){
+            if(i=='/'){
+                selectedDate.value += "_"
+            }
+            else{
+                selectedDate.value += i
+            }
+        }
+    }
+
     fun loadStudents() {
-        convertDateFormat()
         viewModelScope.launch {
-            val classRef = FirebaseDatabaseManager.dailyCollection.child("Date_${selectedDate}")
+            convertDateFormat()
+            val classRef = FirebaseDatabaseManager.dailyCollection.child("Date_${selectedDate.value}")
             classRef.get().addOnSuccessListener { dataSnapshot ->
                 val studentsList = mutableListOf<DailyExpense>()
                 dataSnapshot.children.forEach { child ->
@@ -28,6 +40,8 @@ class PreviousPayments: ViewModel() {
                     student?.let { studentsList.add(it) }
                 }
                 paymentList.value = studentsList
+                dateByAdmin.value = ""
+                selectedDate.value = ""
             }.addOnFailureListener { exception ->
                 Log.e("LoadStudentsError", "Failed to load students: ${exception.message}")
             }
@@ -35,15 +49,6 @@ class PreviousPayments: ViewModel() {
     }
 
 
-    @SuppressLint("SimpleDateFormat")
-    fun convertDateFormat() {
-        val inputFormat = SimpleDateFormat("dd/MM/yyyy")
-        val outputFormat = SimpleDateFormat("dd_MM_yyyy")
 
-        val date = inputFormat.parse(dateByAdmin.value)
-        if (date != null) {
-            selectedDate.value = date.toString()
-        }
-    }
 
 }

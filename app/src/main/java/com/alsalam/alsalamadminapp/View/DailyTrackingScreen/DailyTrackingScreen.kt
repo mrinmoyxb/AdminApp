@@ -200,9 +200,20 @@ fun DailyTrackingScreen(navController: NavHostController, balanceViewModel: Bala
                     grade = "Expenditures",
                     fontSize = 20,
                     onClick = { navController.navigate("todayExpenditure") })
+                Spacer(modifier = Modifier.height(20.dp))
+
+
+                // Previous Collection
+                GradeSelectedButton(grade = "Previous Collections", width = 150, onClick = {})
+                Spacer(modifier = Modifier.height(15.dp))
+                GradeCard(
+                    heading = "",
+                    grade = "Payments",
+                    fontSize = 20,
+                    onClick = { navController.navigate("previousPayments") })
                 Spacer(modifier = Modifier.height(5.dp))
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(20.dp))
             }
         }
     }
