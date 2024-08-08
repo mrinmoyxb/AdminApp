@@ -136,3 +136,5 @@ fun AddHostelFeeScreen(paymentViewModel: PaymentViewModel, dailyCollectionViewMo
         }
     }
 }
+
+
