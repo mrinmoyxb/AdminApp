@@ -213,7 +213,7 @@ fun DailyTrackingScreen(navController: NavHostController, balanceViewModel: Bala
                     onClick = { navController.navigate("previousPayments") })
                 Spacer(modifier = Modifier.height(5.dp))
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(40.dp))
             }
         }
     }

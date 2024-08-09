@@ -22,6 +22,9 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -43,7 +46,8 @@ fun PreviousPaymentScreen(){
 
     val viewModel: PreviousPayments = viewModel()
     val dateSetByAdmin by viewModel.dateByAdmin.collectAsState("")
-    val previousPayments by viewModel.paymentList.collectAsState()
+    val previousPayments by viewModel.paymentListCollection.collectAsState()
+    val totalCollection by viewModel.totalCollection.collectAsState()
 
     Scaffold(topBar = { CustomTopBar(text = "Previous Payments") })
     {
@@ -70,7 +74,8 @@ fun PreviousPaymentScreen(){
                 
                 Spacer(modifier = Modifier.height(8.dp))
                 SaveUploadButton(title = "Search") {
-                    viewModel.loadStudents()
+                    viewModel.loadCollection()
+                    viewModel.loadExpenditure()
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -78,6 +83,9 @@ fun PreviousPaymentScreen(){
                 GradeSelectedButton(grade = "Payments", width = 100) {}
                 Spacer(modifier = Modifier.height(10.dp))
 
+                Text("SUM ${totalCollection}")
+
+                Spacer(modifier = Modifier.height(5.dp))
                 if(previousPayments.isEmpty()){
                     Row(modifier =Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
                         Text("Not Available ")
@@ -91,6 +99,7 @@ fun PreviousPaymentScreen(){
                     }
                 }
 
+                Spacer(modifier = Modifier.height(15.dp))
             }
 
         }
