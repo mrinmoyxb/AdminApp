@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,9 +21,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -39,9 +35,11 @@ import com.alsalam.alsalamadminapp.View.Components.GradeCard
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.View.FeeScreen.GradeSelectedButton
 import com.alsalam.alsalamadminapp.ViewModel.PreviousPayments
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @Composable
 fun PreviousPaymentScreen(){
 
@@ -78,9 +76,10 @@ fun PreviousPaymentScreen(){
                 
                 Spacer(modifier = Modifier.height(8.dp))
                 SaveUploadButton(title = "Search") {
-                    viewModel.loadExpenditure();
                     viewModel.loadCollection()
+                    viewModel.loadExpenditure()
                 }
+
 
                 Spacer(modifier = Modifier.height(12.dp))
 
@@ -89,13 +88,13 @@ fun PreviousPaymentScreen(){
 
                 GradeCard(
                     heading = "",
-                    grade = "Total Collection: ₹ ${totalCollection}",
+                    grade = "Total Collection: ₹ ${viewModel.totalCollection.value}",
                     fontSize = 20,
                     onClick = { })
                 Spacer(modifier = Modifier.height(5.dp))
                 GradeCard(
                     heading = "",
-                    grade = "Total Expense: ₹ ${totalExpense}",
+                    grade = "Total Expense: ₹ ${viewModel.totalExpense.value}",
                     fontSize = 20,
                     onClick = {  })
 

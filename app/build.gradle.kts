@@ -95,6 +95,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.coil)
     implementation(libs.coil.compose.v270)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx.v261)
+
 
 }
 

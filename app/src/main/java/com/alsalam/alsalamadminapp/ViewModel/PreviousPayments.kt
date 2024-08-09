@@ -48,9 +48,8 @@ class PreviousPayments: ViewModel() {
                     val student = child.getValue(DailyExpense::class.java)
                     student?.let { studentsList.add(it) }
                 }
+                loadExpenditure()
                 paymentListCollection.value = studentsList
-                dateByAdmin.value = ""
-                selectedDate.value = ""
             }.addOnFailureListener { exception ->
                 Log.e("LoadStudentsError", "Failed to load students: ${exception.message}")
             }
@@ -61,7 +60,6 @@ class PreviousPayments: ViewModel() {
     fun loadExpenditure() {
         viewModelScope.launch {
             totalExpense.value = 0.0
-            convertDateFormat()
             val classRef = FirebaseDatabaseManager.dailyExpenditure.child("Date_${selectedDate.value}")
             classRef.get().addOnSuccessListener { dataSnapshot ->
                 val studentsList = mutableListOf<Expenditure>()
@@ -73,6 +71,8 @@ class PreviousPayments: ViewModel() {
                     student?.let { studentsList.add(it) }
                 }
                 paymentListExpense.value = studentsList
+                dateByAdmin.value = ""
+                selectedDate.value = ""
             }.addOnFailureListener { exception ->
                 Log.e("LoadStudentsError", "Failed to load students: ${exception.message}")
             }
@@ -80,6 +80,3 @@ class PreviousPayments: ViewModel() {
     }
 
 }
-
-
-
