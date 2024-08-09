@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alsalam.alsalamadminapp.Model.PaymentTypes
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
+import com.alsalam.alsalamadminapp.View.Components.GradeCard
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
 import com.alsalam.alsalamadminapp.View.FeeScreen.GradeSelectedButton
 import com.alsalam.alsalamadminapp.ViewModel.PreviousPayments
@@ -46,8 +47,11 @@ fun PreviousPaymentScreen(){
 
     val viewModel: PreviousPayments = viewModel()
     val dateSetByAdmin by viewModel.dateByAdmin.collectAsState("")
-    val previousPayments by viewModel.paymentListCollection.collectAsState()
+    val previousPaymentsCollection by viewModel.paymentListCollection.collectAsState()
+    val previousExpense by viewModel.paymentListExpense.collectAsState()
+
     val totalCollection by viewModel.totalCollection.collectAsState()
+    val totalExpense by viewModel.totalExpense.collectAsState()
 
     Scaffold(topBar = { CustomTopBar(text = "Previous Payments") })
     {
@@ -74,8 +78,8 @@ fun PreviousPaymentScreen(){
                 
                 Spacer(modifier = Modifier.height(8.dp))
                 SaveUploadButton(title = "Search") {
+                    viewModel.loadExpenditure();
                     viewModel.loadCollection()
-                    viewModel.loadExpenditure()
                 }
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -83,23 +87,52 @@ fun PreviousPaymentScreen(){
                 GradeSelectedButton(grade = "Payments", width = 100) {}
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Text("SUM ${totalCollection}")
-
+                GradeCard(
+                    heading = "",
+                    grade = "Total Collection: ₹ ${totalCollection}",
+                    fontSize = 20,
+                    onClick = { })
                 Spacer(modifier = Modifier.height(5.dp))
-                if(previousPayments.isEmpty()){
+                GradeCard(
+                    heading = "",
+                    grade = "Total Expense: ₹ ${totalExpense}",
+                    fontSize = 20,
+                    onClick = {  })
+
+                Spacer(modifier = Modifier.height(10.dp))
+                GradeSelectedButton(grade = "Collections", width = 100) {}
+                Spacer(modifier = Modifier.height(10.dp))
+
+                if(previousPaymentsCollection.isEmpty()){
                     Row(modifier =Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
                         Text("Not Available ")
                     }
                 }
                 else{
-                    previousPayments.forEach { payment ->
+                    previousPaymentsCollection.forEach { payment ->
                         PaymentFetchedCard(name = payment.studentName, amount = payment.amount.toString(),
                             grade = payment.grade.toString(), type = payment.paymentTypes)
                         Spacer(modifier = Modifier.height(5.dp))
                     }
                 }
 
+                Spacer(modifier = Modifier.height(10.dp))
+                GradeSelectedButton(grade = "Expenses", width = 100) {}
+                Spacer(modifier = Modifier.height(10.dp))
+
                 Spacer(modifier = Modifier.height(15.dp))
+                if(previousExpense.isEmpty()){
+                    Row(modifier =Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center){
+                        Text("Not Available ")
+                    }
+                }
+                else{
+                    previousExpense.forEach { payment ->
+                        TodayExpenseCard(name = payment.category, amount = payment.amount.toString())
+                        Spacer(modifier = Modifier.height(5.dp))
+                    }
+                }
+                Spacer(modifier = Modifier.height(30.dp))
             }
 
         }
@@ -132,4 +165,6 @@ fun PaymentFetchedCard(name: String, amount: String, grade: String, type: Paymen
 
     }
 }
+
+
 

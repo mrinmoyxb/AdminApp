@@ -2,6 +2,7 @@ package com.alsalam.alsalamadminapp.View.DailyTrackingScreen
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -79,8 +80,9 @@ fun TodayExpenseCard(name: String, amount: String){
     {
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(all = 10.dp)){
-            Spacer(modifier = Modifier.height(50.dp))
+            .padding(all = 10.dp),
+            verticalArrangement = Arrangement.Center){
+            Spacer(modifier = Modifier.height(30.dp))
             Text(name.uppercase(), color = Color.White, fontWeight = FontWeight.Bold, fontSize = 25.sp)
             Text("Amount: ₹ $amount", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp)
 

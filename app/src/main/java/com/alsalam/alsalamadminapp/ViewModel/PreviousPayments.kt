@@ -15,10 +15,12 @@ class PreviousPayments: ViewModel() {
 
     val dateByAdmin: MutableStateFlow<String> = MutableStateFlow<String>("")
     val selectedDate: MutableStateFlow<String> = MutableStateFlow<String>("")
+
     val paymentListCollection: MutableStateFlow<List<DailyExpense>> = MutableStateFlow<List<DailyExpense>>(emptyList())
     val paymentListExpense: MutableStateFlow<List<Expenditure>> = MutableStateFlow<List<Expenditure>>(emptyList())
 
     val totalCollection: MutableStateFlow<Double> = MutableStateFlow<Double>(0.0)
+    val totalExpense: MutableStateFlow<Double> = MutableStateFlow<Double>(0.0)
 
     @SuppressLint("SimpleDateFormat")
     fun convertDateFormat() {
@@ -35,6 +37,7 @@ class PreviousPayments: ViewModel() {
     fun loadCollection() {
         viewModelScope.launch {
             convertDateFormat()
+            totalCollection.value = 0.0
             val classRef = FirebaseDatabaseManager.dailyCollection.child("Date_${selectedDate.value}")
             classRef.get().addOnSuccessListener { dataSnapshot ->
                 val studentsList = mutableListOf<DailyExpense>()
@@ -57,10 +60,14 @@ class PreviousPayments: ViewModel() {
 
     fun loadExpenditure() {
         viewModelScope.launch {
+            totalExpense.value = 0.0
             convertDateFormat()
             val classRef = FirebaseDatabaseManager.dailyExpenditure.child("Date_${selectedDate.value}")
             classRef.get().addOnSuccessListener { dataSnapshot ->
                 val studentsList = mutableListOf<Expenditure>()
+                totalExpense.value = dataSnapshot.children.sumOf { child ->
+                    child.getValue(Expenditure::class.java)?.amount ?: 0.0
+                }
                 dataSnapshot.children.forEach { child ->
                     val student = child.getValue(Expenditure::class.java)
                     student?.let { studentsList.add(it) }
