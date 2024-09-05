@@ -41,10 +41,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.View.Components.CustomTopBar
 import com.alsalam.alsalamadminapp.View.Components.SaveUploadButton
+import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuGrade
+import com.alsalam.alsalamadminapp.View.FeeScreen.CustomDropDownMenuGradePDF
 import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "StateFlowValueCalledInComposition")
 @Preview
 @Composable
 fun ClassRoutineScreen(){
@@ -110,11 +112,15 @@ fun ClassRoutineScreen(){
 
                 }
 
+                // drop down menu
+                Spacer(modifier = Modifier.height(8.dp))
+                CustomDropDownMenuGradePDF(viewModel = uploadNoticesViewModel)
+
                 Spacer(modifier = Modifier.height(5.dp))
                 OutlinedTextField(
                     value = file,
                     onValueChange = { uploadNoticesViewModel.setFileName.value = it },
-                    label = { Text("Set Notice Name", fontSize = 15.sp) },
+                    label = { Text("Set Class Routine Name", fontSize = 15.sp) },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(10.dp),
                     colors = TextFieldDefaults.textFieldColors(

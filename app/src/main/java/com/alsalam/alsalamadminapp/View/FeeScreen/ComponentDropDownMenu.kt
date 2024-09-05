@@ -54,6 +54,7 @@ import com.alsalam.alsalamadminapp.R
 import com.alsalam.alsalamadminapp.ViewModel.AddStaffViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.PaymentViewModel
+import com.alsalam.alsalamadminapp.ViewModel.PdfUploadAndRetrieveViewModel
 import com.alsalam.alsalamadminapp.ViewModel.TeacherSalaryViewModel
 
 // drop down menu
@@ -600,3 +601,92 @@ fun Subheading(grade: String, width: Int = 140){
     }
 }
 
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@SuppressLint("StateFlowValueCalledInComposition")
+@Composable
+fun CustomDropDownMenuGradePDF(viewModel: PdfUploadAndRetrieveViewModel) {
+    var isExpanded by remember { mutableStateOf(false) }
+    val options: List<String> = listOf("Ankur", "PP", "Class I", "Class II", "Class III", "Class IV", "Class V", "Class VI", "Class VII", "Class VIII",
+        "Class IX", "Class X", "Class XI(Arts)", "Class XI(Science)", "Class XII(Arts)", "Class XII(Science)")
+    var category by remember { mutableStateOf(options[0]) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val myTextInputService: TextInputService? = null
+
+    when(category){
+        "Ankur" -> viewModel.gradeSelected.value = "Ankur"
+        "PP" -> viewModel.gradeSelected.value = "PP"
+        "Class I" -> viewModel.gradeSelected.value = "I"
+        "Class II" -> viewModel.gradeSelected.value = "II"
+        "Class III" -> viewModel.gradeSelected.value = "III"
+        "Class IV" -> viewModel.gradeSelected.value = "IV"
+        "Class V" -> viewModel.gradeSelected.value = "V"
+        "Class VI" -> viewModel.gradeSelected.value = "VI"
+        "Class VII" ->viewModel.gradeSelected.value = "VII"
+        "Class VIII" -> viewModel.gradeSelected.value = "VIII"
+        "Class IX" -> viewModel.gradeSelected.value = "IX"
+        "Class X" -> viewModel.gradeSelected.value = "X"
+        "Class XI(Arts)" -> viewModel.gradeSelected.value = "XI(Arts)"
+        "Class XI(Science)" -> viewModel.gradeSelected.value = "XI(Science)"
+        "Class XII(Arts)" -> viewModel.gradeSelected.value = "XII(Arts)"
+        "Class XII(Science)" -> viewModel.gradeSelected.value = "XII(Science)"
+    }
+
+    CompositionLocalProvider(
+        LocalTextInputService provides myTextInputService
+    ) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(10.dp))
+                .fillMaxWidth()
+                .height(65.dp)
+                .clickable { keyboardController?.hide() }
+                .background(color = Color.Transparent, shape = RoundedCornerShape(10.dp))
+        ) {
+            ExposedDropdownMenuBox(expanded = isExpanded,
+                onExpandedChange = { isExpanded = !isExpanded }) {
+                TextField(
+                    value = category, onValueChange = {},
+                    modifier = Modifier
+                        .menuAnchor()
+                        .fillMaxSize(),
+                    textStyle = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Medium, color = Color.White
+                    ),
+                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = isExpanded) },
+                    readOnly = true,
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = colorResource(id = R.color.secondary_blue),
+                        cursorColor = Color.Black,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    ),
+                    keyboardOptions = KeyboardOptions(
+                        imeAction = ImeAction.None,
+                    )
+                )
+                ExposedDropdownMenu(
+                    expanded = isExpanded,
+                    onDismissRequest = { isExpanded = false }) {
+                    options.forEach { label ->
+                        DropdownMenuItem(text = {
+                            Text(
+                                label,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.Black
+                            )
+                        }, onClick = {
+                            category = label
+                            isExpanded = false
+                        },
+                            colors = MenuDefaults.itemColors(colorResource(id = R.color.secondary_blue))
+                        )
+                    }
+                }
+            }
+        }
+    }
+}

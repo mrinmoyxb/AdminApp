@@ -98,11 +98,11 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
                 }.addOnSuccessListener {
                     it.storage.downloadUrl.addOnSuccessListener { downloadUrl ->
                         val pdfFile: PDFDataModel = PDFDataModel(setFileName.value, currentDate.time, downloadUrl.toString())
-                        val databaseRef = FirebaseDatabaseManager.pdfRef.child("ClassRoutine")
+                        val databaseRef = FirebaseDatabaseManager.pdfRef.child("ClassRoutine/${gradeSelected.value}")
                         val pdf = databaseRef.child("${current.toString()}_${setFileName.value.toString()}")
                         pdf.setValue(pdfFile)
                             .addOnSuccessListener {
-                                reset()
+                                pdfReset()
                                 _uploadStatus.value = UploadStatus.SUCCESS
                             }
                             .addOnFailureListener {
@@ -251,6 +251,11 @@ class PdfUploadAndRetrieveViewModel: ViewModel() {
 
     fun reset(){
         setFileName.value = ""
+    }
+
+    fun pdfReset(){
+        setFileName.value = ""
+        gradeSelected.value = ""
     }
 
 }
