@@ -46,6 +46,9 @@ fun FeeScreen(navController: NavHostController){
         Spacer(modifier = Modifier.height(10.dp))
 
         SelectCard(heading = "Hostel Fees", onClick = {navController.navigate("hostelFees")})
+        Spacer(modifier = Modifier.height(10.dp))
+
+        SelectCard(heading = "Student Payments", onClick = {navController.navigate("studentPayments")})
         Spacer(modifier = Modifier.height(30.dp))
 
         SelectCard(heading = "Delete Payments", color = R.color.colorRed, onClick = {

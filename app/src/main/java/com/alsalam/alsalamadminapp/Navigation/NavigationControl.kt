@@ -35,6 +35,7 @@ import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
 import com.alsalam.alsalamadminapp.View.ResultScreen.ResultScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.StudentPaymentScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddSalaryScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddTeachingStaff
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AllSubjectsScreen
@@ -119,6 +120,10 @@ fun MainScreen(){
 
         composable(route="feesScreen"){
             FeeScreen(navController)
+        }
+
+        composable(route="studentPayments"){
+            StudentPaymentScreen(navController)
         }
 
         // add hostel fee
