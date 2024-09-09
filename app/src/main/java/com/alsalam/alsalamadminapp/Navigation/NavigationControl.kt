@@ -35,6 +35,8 @@ import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
 import com.alsalam.alsalamadminapp.View.ResultScreen.ResultScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.AllPaymentScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.HostelPaymentScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.StudentPaymentScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddSalaryScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddTeachingStaff
@@ -43,6 +45,7 @@ import com.alsalam.alsalamadminapp.View.TeachingStuff.SubjectWiseTeacher
 import com.alsalam.alsalamadminapp.View.TeachingStuff.TeacherDetailSalary
 import com.alsalam.alsalamadminapp.ViewModel.AddStaffViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AddStudentViewModel
+import com.alsalam.alsalamadminapp.ViewModel.AdminApprovePaymentViewModel
 import com.alsalam.alsalamadminapp.ViewModel.AdmissionFeeViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.BalanceViewModel
 import com.alsalam.alsalamadminapp.ViewModel.DailyTrackingViewModel.DailyCollectionViewModel
@@ -74,6 +77,8 @@ fun MainScreen(){
     val monthlyPaymentViewModel: MonthlyPaymentViewModel = viewModel()
 
     val editStudentDetails: EditDetailsViewModel = viewModel()
+
+    val adminApprovePaymentViewModel: AdminApprovePaymentViewModel = viewModel()
 
     NavHost(navController = navController, startDestination = "homeScreen"){
 
@@ -122,9 +127,24 @@ fun MainScreen(){
             FeeScreen(navController)
         }
 
+
+        // student payment - approve by admin
         composable(route="studentPayments"){
             StudentPaymentScreen(navController)
         }
+
+        composable(route = "hostelPaymentScreen"){
+            HostelPaymentScreen(navController, adminApprovePaymentViewModel)
+        }
+
+        composable(route = "allPaymentsToApprove"){
+            AllPaymentScreen(adminApprovePaymentViewModel)
+        }
+
+
+
+
+
 
         // add hostel fee
         composable(route = "addHostelFees"){

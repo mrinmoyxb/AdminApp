@@ -37,7 +37,7 @@ fun StudentPaymentScreen(navController: NavController) {
                 SelectCard(heading = "Admission Payments", onClick = {navController.navigate("")})
                 Spacer(modifier = Modifier.height(10.dp))
 
-                SelectCard(heading = "Hostel Payments", onClick = {navController.navigate("")})
+                SelectCard(heading = "Hostel Payments", onClick = {navController.navigate("hostelPaymentScreen")})
                 Spacer(modifier = Modifier.height(10.dp))
 
                 SelectCard(heading = "Tuition Payments", onClick = {navController.navigate("")})
