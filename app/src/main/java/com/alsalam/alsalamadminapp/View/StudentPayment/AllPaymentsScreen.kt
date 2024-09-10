@@ -1,6 +1,7 @@
 package com.alsalam.alsalamadminapp.View.StudentPayment
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +16,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import com.alsalam.alsalamadminapp.R
@@ -28,12 +30,14 @@ fun AllPaymentScreen(viewModel: AdminApprovePaymentViewModel){
 
     val students by viewModel.students.observeAsState(emptyList())
     val monthSelected by viewModel.monthSelected.collectAsState("")
+    val context = LocalContext.current
 
     Scaffold(
         topBar = { CustomTopBar(text = monthSelected) }
     ) {
         LazyColumn(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .background(colorResource(id = R.color.secondary_gray))
                 .padding(all = 10.dp)
         )
@@ -44,11 +48,16 @@ fun AllPaymentScreen(viewModel: AdminApprovePaymentViewModel){
                 students.forEach { student ->
                     StudentCardForAdminPayment(
                         name = student.studentName,
+                        studentId = student.studentId,
                         grade = student.studentGrade,
                         roll = student.studentRollNo,
                         feesPaid = student.studentFeesPaid,
                         approvedByAdmin = student.approveByAdmin,
-                        onClick = {})
+                        onClick = {
+                            viewModel.studentIdSelected.value = student.studentId
+                            viewModel.updateMonthlyHostelPayment()
+                            Toast.makeText(context, "Approved", Toast.LENGTH_SHORT).show()
+                        })
                     Spacer(modifier = Modifier.height(8.dp))
                 }
 

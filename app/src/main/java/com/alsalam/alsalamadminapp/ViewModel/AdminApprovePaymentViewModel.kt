@@ -12,6 +12,8 @@ import kotlinx.coroutines.launch
 class AdminApprovePaymentViewModel: ViewModel() {
 
     var monthSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
+    var studentIdSelected: MutableStateFlow<String> = MutableStateFlow<String>("")
+
     var students: MutableLiveData<List<MonthlyPayment>> = MutableLiveData<List<MonthlyPayment>>()
 
 
@@ -32,23 +34,18 @@ class AdminApprovePaymentViewModel: ViewModel() {
         }
     }
 
-    /* fun updateMonthlyHostelPayment() {
-        val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthYear)
-        val studentRef = dataRef.child(studentId.value)
+     /*fun updateMonthlyHostelPayments() {
+        val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthSelected.value)
+        val studentRef = dataRef.child(studentIdSelected.value)
 
-        // Retrieve the existing student data
         studentRef.get().addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot.exists()) {
-                val existingStudent = documentSnapshot.toObject(MonthlyPayment::class.java)
-
-                // Create a new MonthlyPayment object with the updated field
+                val existingStudent = documentSnapshot.toObject()
                 val updatedStudent = existingStudent?.copy(
-                    // Add the new field here (e.g., "paymentStatus")
-                    paymentStatus = "Pending" // Replace with your desired value
+                    approveByAdmin = "Yes"
                 )
 
-                // Update the document with the updated data
-                studentRef.set(updatedStudent!!)
+                studentRef.setValue(updatedStudent!!)
                     .addOnSuccessListener {
                         Log.d("StudentUpdate", "Student updated successfully")
                     }
@@ -59,5 +56,23 @@ class AdminApprovePaymentViewModel: ViewModel() {
                 Log.e("StudentUpdateError", "Student not found")
             }
         }
-    } */
+    }*/
+
+    fun updateMonthlyHostelPayment() {
+        val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthSelected.value)
+        val studentRef = dataRef.child(studentIdSelected.value)
+
+        val updates = mapOf<String, Boolean>(
+            "approveByAdmin" to true
+        )
+
+        studentRef.updateChildren(updates)
+            .addOnSuccessListener {
+                Log.d("StudentUpdate", "Student document updated successfully")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StudentUpdateError", "Error updating student document: $exception")
+            }
+    }
+
 }

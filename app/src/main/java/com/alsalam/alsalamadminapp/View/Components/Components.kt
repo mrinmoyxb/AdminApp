@@ -323,10 +323,10 @@ fun TeacherDisplayCard(name: String, qualification: String, address: String, dat
 
 
 @Composable
-fun StudentCardForAdminPayment(name: String, grade: String, roll: String, feesPaid: Boolean, approvedByAdmin: Boolean, onClick: () -> Unit){
+fun StudentCardForAdminPayment(name: String, studentId: String, grade: String, roll: String, feesPaid: Boolean, approvedByAdmin: Boolean, onClick: () -> Unit){
     Card(modifier = Modifier
         .fillMaxWidth()
-        .height(160.dp)
+        .height(180.dp)
         .clickable {
             onClick()
         },
@@ -342,7 +342,8 @@ fun StudentCardForAdminPayment(name: String, grade: String, roll: String, feesPa
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(5.dp))
+                Text("Student id: $studentId", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp)
                 Text("Grade: $grade", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp, maxLines = 1)
                 Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp)
                 Text("Fees Paid: ${if (feesPaid) "Yes" else "No"}", color = if (feesPaid) Color.Green else Color.Red, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
