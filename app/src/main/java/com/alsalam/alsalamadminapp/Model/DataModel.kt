@@ -219,8 +219,11 @@ data class MonthlyPayment(
     val studentPaymentFor: PaymentTypes,
     val studentPaymentAmount: Double,
     val date: Long,
-    val studentFeesPaid: Boolean
-    //val approveByAdmin: Boolean = false
+    val studentFeesPaid: Boolean,
+
+    // additional
+    val approveByAdmin: Boolean = false,
+    val studentId: String = "NA"
 ){
     constructor(): this("","", "", PaymentTypes.DefaultFees,
         0.0, 0, false)

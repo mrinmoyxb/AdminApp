@@ -32,7 +32,7 @@ class MonthlyPaymentViewModel: ViewModel() {
 
     fun addMonthlyHostelPayment() {
         val student: MonthlyPayment = MonthlyPayment(currentActiveName.value, gradeSelected.value, currentActiveRollNo.value,
-            PaymentTypes.HostelFees, currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value)
+            PaymentTypes.HostelFees, currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, studentId = studentId.value)
         val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthYear)
         val studentRef = dataRef.child(studentId.value)
 
@@ -47,7 +47,7 @@ class MonthlyPaymentViewModel: ViewModel() {
 
     fun addMonthlyAdmissionPayment() {
         val student: MonthlyPayment = MonthlyPayment(currentActiveName.value, gradeSelected.value, currentActiveRollNo.value,
-            PaymentTypes.AdmissionFees, currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value)
+            PaymentTypes.AdmissionFees, currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, studentId = studentId.value)
         val dataRef = FirebaseDatabaseManager.monthlyAdmissionPayment.child(monthYear)
         val studentRef = dataRef.child(studentId.value)
 
@@ -62,7 +62,7 @@ class MonthlyPaymentViewModel: ViewModel() {
 
     fun addMonthlyTuitionPayment() {
         val student: MonthlyPayment = MonthlyPayment(currentActiveName.value, gradeSelected.value, currentActiveRollNo.value,
-            PaymentTypes.TuitionFees, currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value)
+            PaymentTypes.TuitionFees, currentPaymentAmount.value.toDouble(), currentDate.time, currentIsFeePaid.value, studentId = studentId.value)
         val dataRef = FirebaseDatabaseManager.monthlyTuitionPayment.child(monthYear)
         val studentRef = dataRef.child(studentId.value)
 

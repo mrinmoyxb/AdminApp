@@ -31,4 +31,33 @@ class AdminApprovePaymentViewModel: ViewModel() {
             }
         }
     }
+
+    /* fun updateMonthlyHostelPayment() {
+        val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthYear)
+        val studentRef = dataRef.child(studentId.value)
+
+        // Retrieve the existing student data
+        studentRef.get().addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot.exists()) {
+                val existingStudent = documentSnapshot.toObject(MonthlyPayment::class.java)
+
+                // Create a new MonthlyPayment object with the updated field
+                val updatedStudent = existingStudent?.copy(
+                    // Add the new field here (e.g., "paymentStatus")
+                    paymentStatus = "Pending" // Replace with your desired value
+                )
+
+                // Update the document with the updated data
+                studentRef.set(updatedStudent!!)
+                    .addOnSuccessListener {
+                        Log.d("StudentUpdate", "Student updated successfully")
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e("StudentUpdateError", "Error updating student: $exception")
+                    }
+            } else {
+                Log.e("StudentUpdateError", "Student not found")
+            }
+        }
+    } */
 }

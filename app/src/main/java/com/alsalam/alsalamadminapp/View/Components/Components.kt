@@ -320,3 +320,54 @@ fun TeacherDisplayCard(name: String, qualification: String, address: String, dat
     }
 }
 
+
+
+@Composable
+fun StudentCardForAdminPayment(name: String, grade: String, roll: String, feesPaid: Boolean, approvedByAdmin: Boolean, onClick: () -> Unit){
+    Card(modifier = Modifier
+        .fillMaxWidth()
+        .height(160.dp)
+        .clickable {
+            onClick()
+        },
+        shape = RoundedCornerShape(15.dp),
+        elevation = CardDefaults.cardElevation(10.dp),
+        colors = CardDefaults.cardColors(colorResource(id = R.color.secondary_blue))
+    )
+    {
+        Row(modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp)){
+            Column(modifier = Modifier.width(260.dp), verticalArrangement = Arrangement.Top){
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(name, color = Color.White, fontWeight = FontWeight.Bold, fontSize = 22.sp, maxLines = 1)
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text("Grade: $grade", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp, maxLines = 1)
+                Text("Roll.No: $roll", color = Color.White, fontWeight = FontWeight.Normal, fontSize = 17.sp)
+                Text("Fees Paid: ${if (feesPaid) "Yes" else "No"}", color = if (feesPaid) Color.Green else Color.Red, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+                Text("Approved: ${if (approvedByAdmin) "Yes" else "No"}", color = if (approvedByAdmin) Color.Green else Color.Red, fontWeight = FontWeight.SemiBold, fontSize = 17.sp)
+            }
+
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.Center
+            ){
+                Box(
+                    modifier = Modifier
+                        .height(85.dp)
+                        .width(85.dp)
+                        .clip(CircleShape)
+                        .background(Color.Black)
+                        .clickable{
+                            onClick()
+                        },
+                    contentAlignment = Alignment.Center
+                ){
+                    Text("Approve", color = Color.Green, fontWeight = FontWeight.SemiBold, fontSize = 12.sp)
+                }
+            }
+        }
+
+    }
+}
