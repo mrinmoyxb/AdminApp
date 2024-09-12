@@ -35,9 +35,11 @@ import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
 import com.alsalam.alsalamadminapp.View.ResultScreen.ResultScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.AdmissionPaymentScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.AllPaymentScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.HostelPaymentScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.StudentPaymentScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.TuitionPaymentScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddSalaryScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddTeachingStaff
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AllSubjectsScreen
@@ -135,6 +137,14 @@ fun MainScreen(){
 
         composable(route = "hostelPaymentScreen"){
             HostelPaymentScreen(navController, adminApprovePaymentViewModel)
+        }
+
+        composable(route = "admissionPaymentScreen"){
+            AdmissionPaymentScreen(navController, adminApprovePaymentViewModel)
+        }
+
+        composable(route = "tuitionPaymentScreen"){
+            TuitionPaymentScreen(navController, adminApprovePaymentViewModel)
         }
 
         composable(route = "allPaymentsToApprove"){

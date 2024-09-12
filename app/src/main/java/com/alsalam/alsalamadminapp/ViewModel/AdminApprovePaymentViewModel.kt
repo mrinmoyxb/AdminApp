@@ -34,29 +34,38 @@ class AdminApprovePaymentViewModel: ViewModel() {
         }
     }
 
-     /*fun updateMonthlyHostelPayments() {
-        val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthSelected.value)
-        val studentRef = dataRef.child(studentIdSelected.value)
-
-        studentRef.get().addOnSuccessListener { documentSnapshot ->
-            if (documentSnapshot.exists()) {
-                val existingStudent = documentSnapshot.toObject()
-                val updatedStudent = existingStudent?.copy(
-                    approveByAdmin = "Yes"
-                )
-
-                studentRef.setValue(updatedStudent!!)
-                    .addOnSuccessListener {
-                        Log.d("StudentUpdate", "Student updated successfully")
-                    }
-                    .addOnFailureListener { exception ->
-                        Log.e("StudentUpdateError", "Error updating student: $exception")
-                    }
-            } else {
-                Log.e("StudentUpdateError", "Student not found")
+    fun loadAdmissionPayment() {
+        viewModelScope.launch {
+            val classRef = FirebaseDatabaseManager.monthlyAdmissionPayment.child(monthSelected.value)
+            classRef.get().addOnSuccessListener { dataSnapshot ->
+                val studentsList = mutableListOf<MonthlyPayment>()
+                dataSnapshot.children.forEach { child ->
+                    val student = child.getValue(MonthlyPayment::class.java)
+                    student?.let { studentsList.add(it) }
+                }
+                students.value = studentsList
+            }.addOnFailureListener { exception ->
+                Log.e("LoadStudentsError", "Failed to load students: ${exception.message}")
             }
         }
-    }*/
+    }
+
+    fun loadTuitionPayment() {
+        viewModelScope.launch {
+            val classRef = FirebaseDatabaseManager.monthlyTuitionPayment.child(monthSelected.value)
+            classRef.get().addOnSuccessListener { dataSnapshot ->
+                val studentsList = mutableListOf<MonthlyPayment>()
+                dataSnapshot.children.forEach { child ->
+                    val student = child.getValue(MonthlyPayment::class.java)
+                    student?.let { studentsList.add(it) }
+                }
+                students.value = studentsList
+            }.addOnFailureListener { exception ->
+                Log.e("LoadStudentsError", "Failed to load students: ${exception.message}")
+            }
+        }
+    }
+
 
     fun updateMonthlyHostelPayment() {
         val dataRef = FirebaseDatabaseManager.monthlyHostelPayment.child(monthSelected.value)

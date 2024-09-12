@@ -24,15 +24,10 @@ import java.util.Date
 @Composable
 fun HostelPaymentScreen(navController: NavController, adminApprovePaymentViewModel: AdminApprovePaymentViewModel){
 
-    val monthList: List<String> = listOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-    val temp: List<String> = listOf("08_2024", "09_2024")
-
-    val currentDate = Date()
-    val formatter = SimpleDateFormat("yyyy")
-    val newDate: String = formatter.format(Date(currentDate.time))
+    val temp: List<String> = listOf("01_2024", "02_2024", "03_20204", "04_2024", "05_2024", "06_2024", "07_20204", "08_2024", "09_2024", "10_20204", "11_2024", "12_2024")
 
     Scaffold(
-        topBar = { CustomTopBar(text = "Student Payments")}
+        topBar = { CustomTopBar(text = "Hostel Payments")}
     ){
         LazyColumn(modifier = Modifier.fillMaxSize()
             .background(colorResource(id = R.color.secondary_gray))
@@ -41,7 +36,7 @@ fun HostelPaymentScreen(navController: NavController, adminApprovePaymentViewMod
             item{
                 Spacer(modifier = Modifier.height(85.dp))
                 temp.forEach{ month ->
-                    SelectCard(heading = "$month $newDate", onClick = {
+                    SelectCard(heading = month, onClick = {
                         navController.navigate("allPaymentsToApprove")
                         adminApprovePaymentViewModel.monthSelected.value = month
                         adminApprovePaymentViewModel.loadMonthlyHostelPayment()

@@ -34,13 +34,13 @@ fun StudentPaymentScreen(navController: NavController) {
             item {
 
                 Spacer(modifier = Modifier.height(85.dp))
-                SelectCard(heading = "Admission Payments", onClick = {navController.navigate("")})
+                SelectCard(heading = "Admission Payments", onClick = {navController.navigate("admissionPaymentScreen")})
                 Spacer(modifier = Modifier.height(10.dp))
 
                 SelectCard(heading = "Hostel Payments", onClick = {navController.navigate("hostelPaymentScreen")})
                 Spacer(modifier = Modifier.height(10.dp))
 
-                SelectCard(heading = "Tuition Payments", onClick = {navController.navigate("")})
+                SelectCard(heading = "Tuition Payments", onClick = {navController.navigate("tuitionPaymentScreen")})
                 Spacer(modifier = Modifier.height(10.dp))
             }
         }
