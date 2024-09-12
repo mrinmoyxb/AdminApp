@@ -35,7 +35,7 @@ fun AdmissionPaymentScreen(navController: NavController, adminApprovePaymentView
                 Spacer(modifier = Modifier.height(85.dp))
                 temp.forEach{ month ->
                     SelectCard(heading = month, onClick = {
-                        navController.navigate("allPaymentsToApprove")
+                        navController.navigate("admissionAdminApprove")
                         adminApprovePaymentViewModel.monthSelected.value = month
                         adminApprovePaymentViewModel.loadAdmissionPayment()
                     })

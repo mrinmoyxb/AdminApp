@@ -37,7 +37,7 @@ fun HostelPaymentScreen(navController: NavController, adminApprovePaymentViewMod
                 Spacer(modifier = Modifier.height(85.dp))
                 temp.forEach{ month ->
                     SelectCard(heading = month, onClick = {
-                        navController.navigate("allPaymentsToApprove")
+                        navController.navigate("hostelAdminApprove")
                         adminApprovePaymentViewModel.monthSelected.value = month
                         adminApprovePaymentViewModel.loadMonthlyHostelPayment()
                     })

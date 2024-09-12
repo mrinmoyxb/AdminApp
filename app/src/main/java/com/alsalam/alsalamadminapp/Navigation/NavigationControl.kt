@@ -35,10 +35,12 @@ import com.alsalam.alsalamadminapp.View.HolidayScreen.HolidayScreen
 import com.alsalam.alsalamadminapp.View.HomeScreen.HomeScreen
 import com.alsalam.alsalamadminapp.View.NoticeScreen.NoticeScreen
 import com.alsalam.alsalamadminapp.View.ResultScreen.ResultScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.AdmissionAdminScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.AdmissionPaymentScreen
-import com.alsalam.alsalamadminapp.View.StudentPayment.AllPaymentScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.HostelAdminScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.HostelPaymentScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.StudentPaymentScreen
+import com.alsalam.alsalamadminapp.View.StudentPayment.TuitionAdminScreen
 import com.alsalam.alsalamadminapp.View.StudentPayment.TuitionPaymentScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddSalaryScreen
 import com.alsalam.alsalamadminapp.View.TeachingStuff.AddTeachingStaff
@@ -147,8 +149,16 @@ fun MainScreen(){
             TuitionPaymentScreen(navController, adminApprovePaymentViewModel)
         }
 
-        composable(route = "allPaymentsToApprove"){
-            AllPaymentScreen(adminApprovePaymentViewModel)
+        composable(route = "hostelAdminApprove"){
+            HostelAdminScreen(adminApprovePaymentViewModel)
+        }
+
+        composable(route = "tuitionAdminApprove"){
+            TuitionAdminScreen(adminApprovePaymentViewModel)
+        }
+
+        composable(route = "admissionAdminApprove"){
+            AdmissionAdminScreen(adminApprovePaymentViewModel)
         }
 
 

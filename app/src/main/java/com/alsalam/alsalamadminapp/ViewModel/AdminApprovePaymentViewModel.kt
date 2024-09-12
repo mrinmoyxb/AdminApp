@@ -84,4 +84,39 @@ class AdminApprovePaymentViewModel: ViewModel() {
             }
     }
 
+
+    fun updateAdmissionPayment() {
+        val dataRef = FirebaseDatabaseManager.monthlyAdmissionPayment.child(monthSelected.value)
+        val studentRef = dataRef.child(studentIdSelected.value)
+
+        val updates = mapOf<String, Boolean>(
+            "approveByAdmin" to true
+        )
+
+        studentRef.updateChildren(updates)
+            .addOnSuccessListener {
+                Log.d("StudentUpdate", "Student document updated successfully")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StudentUpdateError", "Error updating student document: $exception")
+            }
+    }
+
+    fun updateTuitionPayment() {
+        val dataRef = FirebaseDatabaseManager.monthlyTuitionPayment.child(monthSelected.value)
+        val studentRef = dataRef.child(studentIdSelected.value)
+
+        val updates = mapOf<String, Boolean>(
+            "approveByAdmin" to true
+        )
+
+        studentRef.updateChildren(updates)
+            .addOnSuccessListener {
+                Log.d("StudentUpdate", "Student document updated successfully")
+            }
+            .addOnFailureListener { exception ->
+                Log.e("StudentUpdateError", "Error updating student document: $exception")
+            }
+    }
+
 }
